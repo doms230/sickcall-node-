@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-router.get('/create', function (req, res) {
+router.post('/create', function (req, res) {
 
   var merchantInfo = req.body;
   res.send(merchantInfo)
