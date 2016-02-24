@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
     res.send('respond with a resource');
 });
 
-router.post('/', function (req, res) {
+router.post('/testthis', function (req, res) {
    var yo = req.body.testthis;
 
     res.send(yo);
