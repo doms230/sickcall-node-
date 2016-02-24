@@ -8,10 +8,10 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-router.post('/create', function (req, res) {
+router.all('/create', function (req, res) {
 
   var merchantInfo = req.body;
-  res.send(merchantInfo)
+  res.send(merchantInfo);
 
    /*stripe.accounts.create(
       {
