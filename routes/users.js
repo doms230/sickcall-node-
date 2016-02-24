@@ -9,9 +9,13 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/create', function (req, res) {
-   stripe.accounts.create(
+
+  var merchantInfo = req.body;
+  res.send(merchantInfo)
+
+   /*stripe.accounts.create(
       {
-        business_name: "sgi",
+        email: "",
         country: "US",
         managed: true,
 
@@ -22,7 +26,7 @@ router.get('/create', function (req, res) {
           res.send(account);
         }
       }
-  );
+  );*/
 
   //res.send(response)
 
