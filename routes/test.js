@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/testthis', function (req, res) {
-   var yo = req.body.testthis;
+   var yo = req.body;
 
     res.send(yo);
 
