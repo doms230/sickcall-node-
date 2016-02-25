@@ -3,6 +3,9 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var stripe = require("stripe")(
+    "sk_test_HSpPMwMkr1Z6Eypr5MMldJ46"
+);
 
 var routes = require('./routes/index');
 var test = require('./routes/test');

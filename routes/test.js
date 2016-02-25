@@ -4,6 +4,9 @@
 
 var express = require('express');
 var router = express.Router();
+var stripe = require("stripe")(
+    "sk_test_HSpPMwMkr1Z6Eypr5MMldJ46"
+);
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -11,9 +14,20 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/testthis', function (req, res) {
-   var yo = req.body;
 
-    res.send(yo);
+   stripe.accounts.create({
+        managed: true,
+        country: 'US',
+        email: req.body.email
+
+    }, function(err, account) {
+        // asynchronously called
+        if (err != nil){
+
+        } else {
+            res.send(account);
+        }
+    });
 
 });
 
