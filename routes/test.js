@@ -22,7 +22,7 @@ router.post('/testthis', function (req, res) {
 
     }, function(err, account) {
         // asynchronously called
-        if (err != nil){
+        if (err != null){
 
         } else {
             res.send(account);
