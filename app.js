@@ -9,6 +9,7 @@ var stripe = require("stripe")(
 
 var routes = require('./routes/index');
 var test = require('./routes/test');
+var merchants = require('./routes/merchants');
 
 var app = express();
 
@@ -25,6 +26,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/test', test);
+app.use('/merchants', merchants);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
