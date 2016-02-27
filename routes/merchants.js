@@ -25,7 +25,7 @@ router.post('/createMerchant', function (req, res) {
         last_name: req.body.last_name,
         type: req.body.type,
 
-        external_accounts: {
+       /* external_accounts: {
 
             data: [
                 {
@@ -42,7 +42,7 @@ router.post('/createMerchant', function (req, res) {
             line2: null,
             postal_code: req.body.postal_code,
             state: req.body.state
-        }
+        }*/
 
     }, function(err, account) {
         // asynchronously called
