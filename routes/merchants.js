@@ -17,13 +17,13 @@ router.post('/createMerchant', function (req, res) {
     stripe.accounts.create({
         managed: true,
         country: 'US',
-        business_name: req.body.business_name,
+      //  business_name: req.body.business_name,
         email: req.body.email,
         //account: req.body.account,
-        account_holder_name: req.body.account_holder_name,
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        type: req.body.type,
+       // account_holder_name: req.body.account_holder_name,
+       // first_name: req.body.first_name,
+        //last_name: req.body.last_name,
+        //type: req.body.type,
 
        /* external_accounts: {
 
