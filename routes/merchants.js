@@ -21,25 +21,28 @@ router.post('/createMerchant', function (req, res) {
         email: req.body.email,
         //account: req.body.account,
         account_holder_name: req.body.account_holder_name,
-        routing_number: req.body.routing_number,
-        city: req.body.city,
-        line1: req.body.line1,
-        postal_code: req.body.postal_code,
-        state: req.body.state,
         first_name: req.body.first_name,
         last_name: req.body.last_name,
         type: req.body.type,
 
-        /*external_accounts: {
+        external_accounts: {
 
             data: [
                 {
-
-
+                    routing_number: req.body.routing_number
 
                 }
             ]
-        }*/
+        },
+
+        address: {
+            city: req.body.city,
+            country: "US",
+            line1: req.body.line1,
+            line2: null,
+            postal_code: req.body.postal_code,
+            state: req.body.state
+        }
 
     }, function(err, account) {
         // asynchronously called
