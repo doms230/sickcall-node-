@@ -60,8 +60,9 @@ router.post('/createMerchant', function (req, res) {
 
         } else {
             console.log("merchant created.")
-            createBankToken(account.id, res, req.body.country, req.body.country, req.body.account_holder_name,
-            req.body.type, req.body.routing_number, req.body.account_number);
+            res.send(account);
+            /*createBankToken(account.id, res, req.body.country, req.body.country, req.body.account_holder_name,
+            req.body.type, req.body.routing_number, req.body.account_number);*/
         }
     });
 
