@@ -46,8 +46,8 @@
       <file leaf-file-name="merchants.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/merchants.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.0746269">
-              <caret line="63" column="25" selection-start-line="63" selection-start-column="25" selection-end-line="63" selection-end-column="25" />
+            <state vertical-scroll-proportion="-0.46875">
+              <caret line="14" column="11" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
               <folding>
                 <element signature="e#0#41#0" expanded="false" />
               </folding>
@@ -99,8 +99,9 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
+    <option name="y" value="306" />
     <option name="width" value="1024" />
-    <option name="height" value="768" />
+    <option name="height" value="408" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -249,7 +250,6 @@
     <property name="js-tslint-nodeInterpreter" value="/usr/local/bin/node" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
-    <property name="FullScreen" value="true" />
   </component>
   <component name="RunManager" selected="Node.js.bin/www">
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
@@ -318,7 +318,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1024" height="768" extended-state="0" />
+    <frame x="0" y="306" width="1024" height="408" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24925224" sideWeight="0.49426934" order="0" side_tool="false" content_ui="combo" />
@@ -428,8 +428,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/merchants.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.0746269">
-          <caret line="63" column="25" selection-start-line="63" selection-start-column="25" selection-end-line="63" selection-end-column="25" />
+        <state vertical-scroll-proportion="-0.46875">
+          <caret line="14" column="11" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
           <folding>
             <element signature="e#0#41#0" expanded="false" />
           </folding>
