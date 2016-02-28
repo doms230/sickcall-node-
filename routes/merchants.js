@@ -35,11 +35,11 @@ router.post('/createMerchant', function (req, res) {
                 postal_code: req.body.postal_code,
                 state: req.body.state
             },
-            dob:{
+            /*dob:{
                 day:req.body.day,
                 month:req.body.month,
                 year:req.body.year
-            },
+            },*/
             business_tax_id: req.body.business_tax_id,
             business_name: req.body.business_name,
             first_name:req.body.first_name,
