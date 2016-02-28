@@ -39,7 +39,7 @@ router.post('/createMerchant', function (req, res) {
                 day:req.body.day,
                 month:req.body.month,
                 year:req.body.year
-            },
+            }
            /* business_tax_id: req.body.business_tax_id,
             business_name: req.body.business_name,
             first_name:req.body.first_name,
@@ -50,8 +50,8 @@ router.post('/createMerchant', function (req, res) {
 
        /* tos_acceptance: {
             date: Math.floor(Date.now() / 1000),
-            ip: "108.198.43.126" // Assumes you're not using a proxy
-        }*/
+            ip: "108.198.43.126" // Assumes you're not using a proxy*/
+        }
 
     }, function(err, account) {
         // asynchronously called
