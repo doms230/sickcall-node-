@@ -44,7 +44,7 @@ router.post('/createMerchant', function (req, res) {
             business_name: req.body.business_name,
             first_name:req.body.first_name,
             last_name:req.body.last_name,
-            ssn_last_4: req.body.ssn_last_4,
+          //  ssn_last_4: req.body.ssn_last_4,
             "type": req.body.type
         },
 
