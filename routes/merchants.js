@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
     res.send('respond with a resource');
 });
 
-router.get('/createMerchant', function (req, res) {
+router.post('/createMerchant', function (req, res) {
 
     stripe.accounts.create({
         managed: true,
