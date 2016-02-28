@@ -35,23 +35,23 @@ router.post('/createMerchant', function (req, res) {
                 postal_code: req.body.postal_code,
                 state: req.body.state
             },
-            /*dob:{
+            dob:{
                 day:req.body.day,
                 month:req.body.month,
                 year:req.body.year
-            },*/
+            }
            /* business_tax_id: req.body.business_tax_id,
             business_name: req.body.business_name,
             first_name:req.body.first_name,
             last_name:req.body.last_name,
             ssn_last_4: req.body.ssn_last_4,
             "type": req.body.type*/
-        }
+        },
 
-        /*tos_acceptance: {
+        tos_acceptance: {
             date: Math.floor(Date.now() / 1000),
             ip: "108.198.43.126" // Assumes you're not using a proxy
-        }*/
+        }
 
     }, function(err, account) {
         // asynchronously called
