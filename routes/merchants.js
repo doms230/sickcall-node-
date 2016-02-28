@@ -40,13 +40,13 @@ router.post('/createMerchant', function (req, res) {
                 month:req.body.month,
                 year:req.body.year
             },
-            business_tax_id: req.body.business_tax_id,
+           /* business_tax_id: req.body.business_tax_id,
             business_name: req.body.business_name,
             first_name:req.body.first_name,
             last_name:req.body.last_name,
           //  ssn_last_4: req.body.ssn_last_4,
             "type": req.body.type
-        },
+        },*/
 
        /* tos_acceptance: {
             date: Math.floor(Date.now() / 1000),
@@ -61,8 +61,8 @@ router.post('/createMerchant', function (req, res) {
         } else {
             console.log("merchant created.")
             res.send(account);
-           /* createBankToken(account.id, res, req.body.country, req.body.country, req.body.account_holder_name,
-            req.body.type, req.body.routing_number, req.body.account_number);*/
+            createBankToken(account.id, res, req.body.country, req.body.country, req.body.account_holder_name,
+            req.body.type, req.body.routing_number, req.body.account_number);
         }
     });
 
