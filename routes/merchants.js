@@ -48,10 +48,10 @@ router.post('/createMerchant', function (req, res) {
             "type": req.body.type
         },
 
-        tos_acceptance: {
+       /* tos_acceptance: {
             date: Math.floor(Date.now() / 1000),
             ip: "108.198.43.126" // Assumes you're not using a proxy
-        }
+        }*/
 
     }, function(err, account) {
         // asynchronously called
