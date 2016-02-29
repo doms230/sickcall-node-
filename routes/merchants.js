@@ -49,11 +49,10 @@ router.post('/createMerchant', function (req, res) {
             //  ssn_last_4: req.body.ssn_last_4,
             "type": req.body.type,
 
-
-            tos_acceptance: {
+            /*tos_acceptance: {
                 date: Math.floor(Date.now() / 1000),
                 ip: req.connection.remoteAddress // Assumes you're not using a proxy
-            }
+            }*/
         }
 
     }, function(err, account) {
