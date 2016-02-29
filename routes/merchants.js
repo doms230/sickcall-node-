@@ -109,6 +109,31 @@ function createExternalAccount(token, res, id){
     );
 }
 
+router.post('/createExternalAccount', function (req, res) {
+    stripe.tokens.create({
+        bank_account: {
+            country: req.body.country,
+            currency: req.body.currency,
+            account_holder_name: req.body.account_holder_name,
+            account_holder_type: req.body.account_holder_type,
+            routing_number: req.body.routing_number,
+            account_number: req.body.account_number
+        }
+    }, function(err, token) {
+        // asynchronously called
+
+        if (err != null){
+            res.send(err);
+        } else {
+            console.log("bank token created");
+            //createExternalAccount(token, res, id)
+            res.send(token)
+        }
+    });
+
+
+});
+
 router.post('/updateMerchant', function (req, res) {
     stripe.accounts.update(
 
