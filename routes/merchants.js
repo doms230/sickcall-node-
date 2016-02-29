@@ -34,10 +34,10 @@ router.post('/createMerchant', function (req, res) {
                 line2: req.body.line2,
                 postal_code: req.body.postal_code,
                 state: req.body.state
-            },
+            }
 
             //business_name: req.body.business_name,
-            business_tax_id: req.body.business_tax_id,
+           /* business_tax_id: req.body.business_tax_id,
             dob: {
                 day: req.body.day,
                 month: req.body.month,
@@ -47,7 +47,7 @@ router.post('/createMerchant', function (req, res) {
             first_name:req.body.first_name,
             last_name:req.body.last_name,
             //  ssn_last_4: req.body.ssn_last_4,
-            "type": req.body.type
+            "type": req.body.type*/
 
 
             /*tos_acceptance: {
