@@ -140,12 +140,12 @@ router.post('/updateMerchant', function (req, res) {
             last_name:req.body.last_name,
             ssn_last_4: req.body.ssn_last_4,
             "type":req.body.type
-        }
+        },
 
-        /*tos_acceptance: {
+        tos_acceptance: {
             date: Math.floor(Date.now() / 1000),
-                ip: "000.000.00.000" // Assumes you're not using a proxy
-        }*/
+                ip: req.connection.remoteAddress // Assumes you're not using a proxy
+        }
 
     }, function (err, account) {
         if (err != null){
