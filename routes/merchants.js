@@ -62,13 +62,11 @@ router.post('/createMerchant', function (req, res) {
 
         } else {
             console.log("merchant created.")
-            res.send(account);
            // res.send(account);
-            //createBankToken(account.id, res, req.body.country, req.body.country, req.body.account_holder_name,
-            //req.body.type, req.body.routing_number, req.body.account_number);
+            createBankToken(account.id, res, req.body.country, req.body.country, req.body.account_holder_name,
+            req.body.type, req.body.routing_number, req.body.account_number);
         }
     });
-
 });
 
 function createBankToken(id, res, country, currency, account_holder_name,
@@ -131,8 +129,6 @@ router.post('/createExternalAccount', function (req, res) {
            // res.send(token)
         }
     });
-
-
 });
 
 router.post('/updateMerchant', function (req, res) {
