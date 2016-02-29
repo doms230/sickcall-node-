@@ -114,7 +114,7 @@ router.post('/createExternalAccount', function (req, res) {
     stripe.tokens.create({
         bank_account: {
             country: req.body.country,
-            currency: req.body.currency,
+            currency: "usd",
             account_holder_name: req.body.account_holder_name,
             account_holder_type: req.body.account_holder_type,
             routing_number: req.body.routing_number,
@@ -127,8 +127,8 @@ router.post('/createExternalAccount', function (req, res) {
             res.send(err);
         } else {
             console.log("bank token created");
-            //createExternalAccount(token, res, id)
-            res.send(token)
+            createExternalAccount(token, res, "acct_17jtYKH7o5Cy7Cq9")
+           // res.send(token)
         }
     });
 
