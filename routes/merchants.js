@@ -24,9 +24,9 @@ router.post('/createMerchant', function (req, res) {
         decline_charge_on:{
             avs_failure:true,
             cvc_failure:true
-        },
+        }
 
-        legal_entity: {
+        /*legal_entity: {
             address: {
                 city: req.body.city,
                 country: req.body.country,
@@ -34,9 +34,9 @@ router.post('/createMerchant', function (req, res) {
                 line2: req.body.line2,
                 postal_code: req.body.postal_code,
                 state: req.body.state
-            },
+            }
 
-            business_name: req.body.business_name,
+            /*business_name: req.body.business_name,
             business_tax_id: req.body.business_tax_id,
             dob: {
                 day: req.body.day,
@@ -44,16 +44,16 @@ router.post('/createMerchant', function (req, res) {
                 year: req.body.year
             },
 
-            first_name:req.body.first_name,
-            last_name:req.body.last_name,
+            //first_name:req.body.first_name,
+            //last_name:req.body.last_name,
             //  ssn_last_4: req.body.ssn_last_4,
-            "type": req.body.type,
+            //"type": req.body.type,
 
             /*tos_acceptance: {
                 date: Math.floor(Date.now() / 1000),
                 ip: req.connection.remoteAddress // Assumes you're not using a proxy
-            }*/
-        }
+            }
+        }*/
 
     }, function(err, account) {
         // asynchronously called
