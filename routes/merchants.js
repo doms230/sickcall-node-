@@ -36,13 +36,13 @@ router.post('/createMerchant', function (req, res) {
                 state: req.body.state
             },
 
-            business_name: req.body.business_name,
+            //business_name: req.body.business_name,
             business_tax_id: req.body.business_tax_id,
-            /*dob: {
+            dob: {
                 day: req.body.day,
                 month: req.body.month,
                 year: req.body.year
-            },*/
+            },
 
             first_name:req.body.first_name,
             last_name:req.body.last_name,
