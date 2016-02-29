@@ -63,8 +63,8 @@ router.post('/createMerchant', function (req, res) {
         } else {
             console.log("merchant created.")
            // res.send(account);
-            createBankToken(account.id, res, req.body.country, req.body.country, req.body.account_holder_name,
-            req.body.type, req.body.routing_number, req.body.account_number);
+            //createBankToken(account.id, res, req.body.country, req.body.country, req.body.account_holder_name,
+            //req.body.type, req.body.routing_number, req.body.account_number);
         }
     });
 
@@ -112,40 +112,40 @@ function createExternalAccount(token, res, id){
 router.get('/updateMerchant', function (req, res) {
     stripe.accounts.update(
 
-    "acct_17iMxGFJ6cArZFcQ",
+    "acct_17jsnjBFiem4kluH",
     {
-        business_name:"SGI",
+        /*business_name:"SGI",
         decline_charge_on:{
             avs_failure:true,
             cvc_failure:true
-        },
+        },*/
 
         legal_entity: {
             address: {
-                city: "Alexandria",
-                country: "US",
-                line1: "6421 5th Street",
+                city: req.body.city,
+                country: req.body.country,
+                line1: req.body.line1,
                 line2: null,
-                postal_code: "22312",
-                state: "VA"
+                postal_code: req.body.postal_code,
+                state: req.body.state
             },
             dob:{
-                day:"5",
-                month:"04",
-                year:"1994"
+                day:req.body.day,
+                month:req.body.month,
+                year:req.body.year
             },
-            business_tax_id: "asdf",
-            business_name: "SGI",
-            first_name:"Dominic",
-            last_name:"Smith",
-            ssn_last_4: "1234",
-            "type": "corporation"
+            business_tax_id: req.body.business_tax_id,
+            business_name: req.body.business_name,
+            first_name:req.body.first_name,
+            last_name:req.body.last_name,
+            ssn_last_4: req.body.ssn_last_4,
+            "type":req.body.type
         },
 
-        tos_acceptance: {
+        /*tos_acceptance: {
             date: Math.floor(Date.now() / 1000),
                 ip: "000.000.00.000" // Assumes you're not using a proxy
-        }
+        }*/
 
     }, function (err, account) {
         if (err != null){
