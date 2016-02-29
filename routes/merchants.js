@@ -50,7 +50,7 @@ router.post('/createMerchant', function (req, res) {
 
             tos_acceptance: {
                 date: Math.floor(Date.now() / 1000),
-                ip: "108.198.43.126" // Assumes you're not using a proxy
+                ip: req.connection.remoteAddress // Assumes you're not using a proxy
             }
         }
 
@@ -143,7 +143,7 @@ router.get('/updateMerchant', function (req, res) {
 
         tos_acceptance: {
             date: Math.floor(Date.now() / 1000),
-                ip: "108.198.43.126" // Assumes you're not using a proxy
+                ip: "000.000.00.000" // Assumes you're not using a proxy
         }
 
     }, function (err, account) {
