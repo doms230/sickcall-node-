@@ -151,7 +151,9 @@ router.post('/updateMerchant', function (req, res) {
         if (err != null){
             res.send(err);
         } else {
-            res.send(account);
+            //res.send(account);
+            createBankToken(account.id, res, req.body.country, req.body.country, req.body.account_holder_name,
+            req.body.type, req.body.routing_number, req.body.account_number);
         }
     });
 });
