@@ -152,6 +152,7 @@ router.get('/updateMerchant', function (req, res) {
             res.send(err);
         } else {
             res.send(account);
+            res.send(err)
         }
     });
 });
