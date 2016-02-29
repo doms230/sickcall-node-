@@ -109,7 +109,7 @@ function createExternalAccount(token, res, id){
     );
 }
 
-router.get('/updateMerchant', function (req, res) {
+router.post('/updateMerchant', function (req, res) {
     stripe.accounts.update(
 
     "acct_17jsnjBFiem4kluH",
@@ -138,7 +138,7 @@ router.get('/updateMerchant', function (req, res) {
             business_name: req.body.business_name,
             first_name:req.body.first_name,
             last_name:req.body.last_name,
-            //ssn_last_4: req.body.ssn_last_4,
+            ssn_last_4: req.body.ssn_last_4,
             "type":req.body.type
         }
 
@@ -152,7 +152,6 @@ router.get('/updateMerchant', function (req, res) {
             res.send(err);
         } else {
             res.send(account);
-            res.send(err)
         }
     });
 });
