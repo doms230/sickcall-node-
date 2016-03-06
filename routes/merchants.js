@@ -12,6 +12,21 @@ router.get('/', function(req, res, next) {
     res.send('respond with a resource');
 });
 
+router.get('/merchantInfo', function(req, res){
+    stripe.accounts.retrieve(
+        req.body.id,
+        function(err, account) {
+            if (err != null){
+                res.send(err);
+            } else {
+                res.send(account);
+            }
+        }
+    );
+});
+
+/* POST jaunts  */
+
 router.post('/createMerchant', function (req, res) {
 
     stripe.accounts.create({
@@ -69,68 +84,6 @@ router.post('/createMerchant', function (req, res) {
     });
 });
 
-function createBankToken(id, res, country, currency, account_holder_name,
-                         account_holder_type, routing_number, account_number){
-    stripe.tokens.create({
-        bank_account: {
-            country: country,
-            currency: currency,
-            account_holder_name: account_holder_name,
-            account_holder_type: account_holder_type,
-            routing_number: routing_number,
-            account_number: account_number
-        }
-    }, function(err, token) {
-        // asynchronously called
-
-        if (err != null){
-            res.send(err);
-        } else {
-            console.log("bank token created");
-            createExternalAccount(token, res, id)
-        }
-    });
-}
-
-function createExternalAccount(token, res, id){
-    stripe.accounts.createExternalAccount(
-        id,
-        {external_account: token.id},
-        function(err, bank_account) {
-            // asynchronously called
-            if (err != null){
-                res.send(err);
-            } else {
-                console.log("external account created");
-                res.send(bank_account);
-            }
-        }
-    );
-}
-
-router.post('/createExternalAccount', function (req, res) {
-    stripe.tokens.create({
-        bank_account: {
-            country: req.body.country,
-            currency: "usd",
-            account_holder_name: req.body.account_holder_name,
-            account_holder_type: req.body.account_holder_type,
-            routing_number: req.body.routing_number,
-            account_number: req.body.account_number
-        }
-    }, function(err, token) {
-        // asynchronously called
-
-        if (err != null){
-            res.send(err);
-        } else {
-            console.log("bank token created");
-            createExternalAccount(token, res, "acct_17jtYKH7o5Cy7Cq9")
-           // res.send(token)
-        }
-    });
-});
-
 router.post('/updateMerchant', function (req, res) {
     stripe.accounts.update(
 
@@ -180,4 +133,46 @@ router.post('/updateMerchant', function (req, res) {
     });
 });
 
+/*functions */
+
+function createBankToken(id, res, country, currency, account_holder_name,
+                         account_holder_type, routing_number, account_number){
+    stripe.tokens.create({
+        bank_account: {
+            country: country,
+            currency: currency,
+            account_holder_name: account_holder_name,
+            account_holder_type: account_holder_type,
+            routing_number: routing_number,
+            account_number: account_number
+        }
+    }, function(err, token) {
+        // asynchronously called
+
+        if (err != null){
+            res.send(err);
+        } else {
+            console.log("bank token created");
+            createExternalAccount(token, res, id)
+        }
+    });
+}
+
+function createExternalAccount(token, res, id){
+    stripe.accounts.createExternalAccount(
+        id,
+        {external_account: token.id},
+        function(err, bank_account) {
+            // asynchronously called
+            if (err != null){
+                res.send(err);
+            } else {
+                console.log("external account created");
+                res.send(bank_account);
+            }
+        }
+    );
+}
+
+//
 module.exports = router;
