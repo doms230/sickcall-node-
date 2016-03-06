@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/merchantInfo', function(req, res){
 
-    res.send(req.body.id);
+    res.send("yo");
     /*stripe.accounts.retrieve(
         req.body.id,
         function(err, account) {
