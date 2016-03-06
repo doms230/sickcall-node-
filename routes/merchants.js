@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
     res.send('respond with a resource');
 });
 
-router.get('/merchantInfo', function(req, res){
+router.post('/merchantInfo', function(req, res){
 
     res.send(req.body.id);
     /*stripe.accounts.retrieve(
