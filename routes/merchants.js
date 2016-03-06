@@ -14,8 +14,8 @@ router.get('/', function(req, res, next) {
 
 router.get('/merchantInfo', function(req, res){
 
-    res.send("yo");
-    /*stripe.accounts.retrieve(
+    //res.send("yo");
+    stripe.accounts.retrieve(
         req.body.id,
         function(err, account) {
             if (err != null){
@@ -24,7 +24,7 @@ router.get('/merchantInfo', function(req, res){
                 res.send(account);
             }
         }
-    );*/
+    );
 });
 
 /* POST jaunts  */
