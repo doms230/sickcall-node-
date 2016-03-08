@@ -16,7 +16,8 @@ router.get('/merchantInfo', function(req, res){
 
     //res.send("yo");
     stripe.accounts.retrieve(
-        req.params("account"),
+        req.params.account,
+       // req.param("account"),
         function(err, account) {
             if (err != null){
                 res.send(err);
