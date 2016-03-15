@@ -53,8 +53,6 @@ router.post('/createMerchant', function (req, res) {
                 date: Math.floor(Date.now() / 1000),
                 ip: req.connection.remoteAddress // Assumes you're not using a proxy
             }
-
-
     }, function(err, account) {
         // asynchronously called
         if (err != null){
