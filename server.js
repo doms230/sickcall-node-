@@ -4,7 +4,7 @@ var bodyParser = require("body-parser");
 var mongodb = require("mongodb");
 var ObjectID = mongodb.ObjectID;
 
-var USERS_COLLECTION = "_users";
+var TCONTACTS_COLLECTION = "testContacts";
 
 var app = express();
 app.use(express.static(__dirname + "/public"));
@@ -43,10 +43,10 @@ function handleError(res, reason, message, code) {
  *    POST: creates a new contact
  */
 
-app.get("/_users", function(req, res) {
+app.get("/contacts", function(req, res) {
 });
 
-app.post("/_users", function(req, res) {
+app.post("/contacts", function(req, res) {
 
     var newUser = req.body;
     newUser.createDate = new Date();
@@ -55,7 +55,7 @@ app.post("/_users", function(req, res) {
         handleError(res, "Invalid user input", "Must provide first or last name.", 400);
     }
 
-    db.collection(USERS_COLLECTION).insertOne(newUser, function(err, doc){
+    db.collection(TCONTACTS_COLLECTION).insertOne(newUser, function(err, doc){
         if (err){
             handleError(res, err.message, "Failed to create new user.");
         } else {
@@ -70,11 +70,11 @@ app.post("/_users", function(req, res) {
  *    DELETE: deletes contact by id
  */
 
-app.get("/_users/:id", function(req, res) {
+app.get("/contacts/:id", function(req, res) {
 });
 
-app.put("/_users/:id", function(req, res) {
+app.put("/contacts/:id", function(req, res) {
 });
 
-app.delete("/_users/:id", function(req, res) {
+app.delete("/contacts/:id", function(req, res) {
 });
