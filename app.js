@@ -4,6 +4,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongodb = require("mongodb");
+var ParseServer = require('parse-server').ParseServer;
 var stripe = require("stripe")(
     "sk_test_HSpPMwMkr1Z6Eypr5MMldJ46"
 );
@@ -15,6 +16,13 @@ var merchants = require('./routes/merchants');
 
 var app = express();
 
+var api = new ParseServer({
+  databaseURI: 'mongodb://heroku_8b6h0nrz:89j3qh02svfu720n4nkl81df54@ds015849.mlab.com:15849/heroku_8b6h0nrz', // Provide an absolute path
+  appId: 'myAppId',
+  masterKey: 'myMasterKey', // Keep this key secret!
+  fileKey: 'optionalFileKey',
+  serverURL: 'https://hiikey.herokuapp.com' // Don't forget to change to https if needed
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -31,7 +39,7 @@ app.use('/', routes);
 app.use('/test', test);
 app.use('/merchants', merchants);
 
-
+app.use('/parse', api);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

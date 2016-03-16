@@ -6,6 +6,9 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "parse-server": "2.1.6",
+    "mongodb-runner": "3.1.15",
+    "kerberos": "0.0.19",
     "mongoose": "~4.4.7",
     "mongodb": "~2.1.7",
     "body-parser": "^1.15.0",
