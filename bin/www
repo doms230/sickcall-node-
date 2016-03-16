@@ -7,6 +7,12 @@
 var app = require('../app');
 var debug = require('debug')('hiikeynode:server');
 var http = require('http');
+var mongodb = require("mongodb");
+
+/**
+ * Database jaunts
+ *connect to mongoClient
+ */
 
 /**
  * Get port from environment and store in Express.

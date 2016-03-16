@@ -7,12 +7,14 @@ var mongodb = require("mongodb");
 var stripe = require("stripe")(
     "sk_test_HSpPMwMkr1Z6Eypr5MMldJ46"
 );
+var mongoose = require('mongoose');
 
 var routes = require('./routes/index');
 var test = require('./routes/test');
 var merchants = require('./routes/merchants');
 
 var app = express();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -28,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/test', test);
 app.use('/merchants', merchants);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -48,7 +51,6 @@ if (app.get('env') === 'development') {
     });
   });
 }
-
 
 // production error handler
 // no stacktraces leaked to user

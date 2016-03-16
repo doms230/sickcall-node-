@@ -4,32 +4,90 @@
 
 var express = require('express');
 var router = express.Router();
-var stripe = require("stripe")(
-    "sk_test_HSpPMwMkr1Z6Eypr5MMldJ46"
-);
+var mongodb = require("mongodb");
+var ObjectID = mongodb.ObjectID;
+
+var CONTACTS_COLLECTION = "contacts";
+
+
+
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
     res.send('respond with a resource');
-});
 
-router.post('/testthis', function (req, res) {
-
-   stripe.accounts.create({
-        managed: true,
-        country: 'US',
-        email: req.body.email
-
-    }, function(err, account) {
-        // asynchronously called
-        if (err != null){
-            res.send(err)
-
-        } else {
-            res.send(account);
-        }
+   /* var newUser = Test({
+        name: 'Peter Quill',
+        username: 'starlord55',
+        password: 'password',
+        admin: true
     });
 
+// save the user
+    newUser.save(function(err) {
+        if (err) throw err;
+
+        console.log('User created!');
+    });*/
 });
+
+mongodb.MongoClient.connect('mongodb://hiikey:ihatemlab1!@ds015849.mlab.com:15849/heroku_8b6h0nrz', function (err, database) {
+    if (err) {
+        console.log(err);
+        process.exit(1);
+    }
+
+    // Save database object from the callback for reuse.
+    db = database;
+    console.log("Database connection ready");
+
+});
+
+function handleError(res, reason, message, code) {
+    console.log("ERROR: " + reason);
+    res.status(code || 500).json({"error": message});
+}
+
+/*  "/contacts"
+ *    GET: finds all contacts
+ *    POST: creates a new contact
+ */
+
+router.get("/contacts", function(req, res) {
+});
+
+router.post("/contacts", function(req, res) {
+    var newContact = req.body;
+    newContact.createDate = new Date();
+
+    if (!(req.body.firstName || req.body.lastName)) {
+        handleError(res, "Invalid user input", "Must provide a first or last name.", 400);
+    }
+
+    db.collection(CONTACTS_COLLECTION).insertOne(newContact, function(err, doc) {
+        if (err) {
+            handleError(res, err.message, "Failed to create new contact.");
+        } else {
+            res.status(201).json(doc.ops[0]);
+        }
+    });
+});
+
+/*  "/contacts/:id"
+ *    GET: find contact by id
+ *    PUT: update contact by id
+ *    DELETE: deletes contact by id
+ */
+
+router.get("/contacts/:id", function(req, res) {
+});
+
+router.put("/contacts/:id", function(req, res) {
+});
+
+router.delete("/contacts/:id", function(req, res) {
+});
+
+
 
 module.exports = router;
