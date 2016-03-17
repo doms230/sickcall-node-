@@ -18,9 +18,9 @@ var app = express();
 
 var api = new ParseServer({
   databaseURI: 'mongodb://heroku_8b6h0nrz:89j3qh02svfu720n4nkl81df54@ds015849.mlab.com:15849/heroku_8b6h0nrz', // Provide an absolute path
-  appId: 'myAppId',
-  masterKey: 'myMasterKey', // Keep this key secret!
-  fileKey: 'optionalFileKey',
+  appId: 'O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF',
+  masterKey: 'lykNp62jc700RfU3EOr0WRe8ZCZJ4kiD4ZI4FRaZ', // Keep this key secret!
+  fileKey: '20137ff7-4160-41ee-bc18-1c2bf416e433',
   serverURL: 'https://hiikey.herokuapp.com' // Don't forget to change to https if needed
 });
 
