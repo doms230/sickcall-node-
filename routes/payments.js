@@ -11,8 +11,9 @@ router.get('/', function(req, res, next) {
     res.send('respond with a resource');
 });
 
-router.post('/buyTickets', function(req, res){
+router.get('/buyTickets', function(req, res){
 
+    //res.send("yo");
     var stripeToken = request.body.stripeToken;
 
     var charge = stripe.charges.create({
@@ -31,3 +32,5 @@ router.post('/buyTickets', function(req, res){
     });
 
 });
+
+module.exports = router;

@@ -13,7 +13,7 @@ var mongoose = require('mongoose');
 var routes = require('./routes/index');
 var test = require('./routes/test');
 var merchants = require('./routes/merchants');
-var payments = require('./routes/merchants');
+var payments = require('./routes/payments');
 var app = express();
 
 var api = new ParseServer({
@@ -39,6 +39,7 @@ app.use('/', routes);
 app.use('/test', test);
 app.use('/merchants', merchants);
 app.use('/payments', payments);
+
 app.use('/parse', api);
 
 // catch 404 and forward to error handler
