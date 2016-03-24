@@ -12,7 +12,7 @@ router.post('/buyTickets', function(req, res){
     var stripeToken = request.body.stripeToken;
 
     var charge = stripe.charges.create({
-        amount: 1000, // amount in cents, again
+        amount: request.body.amount, // amount in cents, again
         currency: "usd",
         source: stripeToken,
         description: "Example charge"
