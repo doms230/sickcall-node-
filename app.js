@@ -8,6 +8,7 @@ var ParseServer = require('parse-server').ParseServer;
 var stripe = require("stripe")(
     "sk_test_HSpPMwMkr1Z6Eypr5MMldJ46"
 );
+stripe.setApiVersion('2016-03-07');
 var mongoose = require('mongoose');
 
 var routes = require('./routes/index');

@@ -14,12 +14,13 @@ router.get('/', function(req, res, next) {
 router.post('/buyTickets', function(req, res){
 
     //res.send("yo");
-    var stripeToken = request.body.stripeToken;
+    //var stripeToken = request.body.stripeToken;
 
     var charge = stripe.charges.create({
         amount: 17025, // amount in cents, again
         currency: "usd",
-        source: stripeToken,
+        //source: "tok_17sg6BHskqJlyyfa8z5b6uNH",
+        source: req.body.stripeToken,
         description: "Example charge"
     }, function(err, charge) {
         if (err && err.type === 'StripeCardError') {
