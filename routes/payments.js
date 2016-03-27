@@ -17,7 +17,7 @@ router.post('/buyTickets', function(req, res){
     //var stripeToken = request.body.stripeToken;
 
     var charge = stripe.charges.create({
-        amount: 17025, // amount in cents, again
+        amount: req.body.amount, // amount in cents, again
         currency: "usd",
         //source: "tok_17sg6BHskqJlyyfa8z5b6uNH",
         source: req.body.stripeToken,
