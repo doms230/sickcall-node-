@@ -22,7 +22,7 @@ router.post('/buyTickets', function(req, res){
         //source: "tok_17sg6BHskqJlyyfa8z5b6uNH",
         source: req.body.stripeToken,
         destination: req.body.account,
-        application_fee: (req.body.ammount * .029) + .30,
+        application_fee: (req.body.amount * .029) + .30,
         description: req.body.description
     }, function(err, charge) {
         if (err && err.type === 'StripeCardError') {
