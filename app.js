@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongodb = require("mongodb");
 var ParseServer = require('parse-server').ParseServer;
+var Parse = require('parse/node');
 var stripe = require("stripe")(
     "sk_test_HSpPMwMkr1Z6Eypr5MMldJ46"
 );
@@ -16,6 +17,8 @@ var test = require('./routes/test');
 var merchants = require('./routes/merchants');
 var payments = require('./routes/payments');
 var app = express();
+
+Parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF");
 
 var api = new ParseServer({
   databaseURI: 'mongodb://heroku_8b6h0nrz:89j3qh02svfu720n4nkl81df54@ds015849.mlab.com:15849/heroku_8b6h0nrz', // Provide an absolute path

@@ -8,7 +8,7 @@ var stripe = require("stripe")(
 );
 
 router.get('/', function(req, res, next) {
-    res.send('respond with a resource');
+    res.send("yoma");
 });
 
 router.post('/buyTickets', function(req, res){
@@ -21,7 +21,9 @@ router.post('/buyTickets', function(req, res){
         currency: "usd",
         //source: "tok_17sg6BHskqJlyyfa8z5b6uNH",
         source: req.body.stripeToken,
-        description: "Example charge"
+        destination: req.body.account,
+        application_fee: (req.body.ammount * .029) + .30,
+        description: req.body.description
     }, function(err, charge) {
         if (err && err.type === 'StripeCardError') {
             // The card has been declined

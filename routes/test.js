@@ -4,28 +4,26 @@
 
 var express = require('express');
 var router = express.Router();
-
-
-
-
+var Parse = require('parse/node');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-    res.send('respond with a resource');
+    //res.send('respond with a resource');
 
-   /* var newUser = Test({
-        name: 'Peter Quill',
-        username: 'starlord55',
-        password: 'password',
-        admin: true
+    var GameScore = Parse.Object.extend("PublicPost");
+    var query = new Parse.Query(GameScore);
+    query.get("imE7v7b9co", {
+        success: function(gameScore) {
+            // The object was retrieved successfully.
+
+            res.send(gameScore.get("Title"))
+        },
+        error: function(object, error) {
+            // The object was not retrieved successfully.
+            // error is a Parse.Error with an error code and message.
+            res.send(error)
+        }
     });
-
-// save the user
-    newUser.save(function(err) {
-        if (err) throw err;
-
-        console.log('User created!');
-    });*/
 });
 
 
