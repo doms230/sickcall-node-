@@ -26,6 +26,7 @@
     "express-session": "~1.13.0",
     "oauth": "~0.9.14",
     "connect": "~3.4.1",
-    "cookie-session": "~1.2.0"
+    "cookie-session": "~1.2.0",
+    "passport-facebook":"~2.1.0"
   }
 }
