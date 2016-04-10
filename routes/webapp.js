@@ -50,7 +50,7 @@ var address;
 passport.use(new FacebookStrategy({
         clientID: "178018185913116",
         clientSecret: "a561ac32e474b6d927d512a8f3ae37df",
-        callbackURL: "http://localhost:3000/webapp/auth/facebook/callback",
+        callbackURL: "https://hiikey.herokuapp.com/webapp/auth/facebook/callback",
         profileFields: ['id', 'name', 'age_range','gender', 'emails', 'picture.type(large)']
     },
     function(accessToken, refreshToken, profile, cb) {

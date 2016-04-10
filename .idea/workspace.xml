@@ -3,10 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b6409295-0300-48bf-8227-44efe9f69b8f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/oauth/package.json" afterPath="$PROJECT_DIR$/node_modules/oauth/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/webapp.js" afterPath="$PROJECT_DIR$/routes/webapp.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/event.ejs" afterPath="$PROJECT_DIR$/views/event.ejs" />
     </list>
     <ignored path="hiikeynode.iws" />
     <ignored path=".idea/workspace.xml" />
