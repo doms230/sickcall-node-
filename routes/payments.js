@@ -11,23 +11,22 @@ router.get('/', function(req, res, next) {
     res.send("yoma");
 });
 
-router.get('/buyTickets', function(req, res){
+router.post('/buyTickets', function(req, res){
 
     //res.send("yo");
-    //var stripeToken = request.body.stripeToken;
 
-    var charge = stripe.charges.create({
-        amount: 1000, // amount in cents, again
+        stripe.charges.create({
+        amount: req.body.amount, // amount in cents, again
         currency: "usd",
-        source: "tok_17sg6BHskqJlyyfa8z5b6uNH",
-       // source: req.body.stripeToken,
-        //destination: req.body.account,
-        //destination: "acct_17mYyiLfvyvRcjvs",
+        //source: "tok_17zVIsHskqJlyyfaEiMdnQLB",
+        source: req.body.stripeToken,
+        //destination: req.body.account
+        destination: req.body.destination,
         //application_fee: (req.body.amount * .029) + .30,
         //application_fee: (1000 * .029) + .30,
-       // description: req.body.description
-        description: "test jaunt"
-    }, {stripe_account: "acct_17mYyiLfvyvRcjvs"},
+        description: "asdf"
+       // description: req.body.stripeToken.description
+    },
     function(err, charge) {
         if (err && err.type === 'StripeCardError') {
             // The card has been declined

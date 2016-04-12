@@ -22,9 +22,8 @@ var routes = require('./routes/index');
 var test = require('./routes/test');
 var merchants = require('./routes/merchants');
 var payments = require('./routes/payments');
-var webapp = require('./routes/webapp');
+var events = require('./routes/events');
 var app = express();
-
 
 /*var api = new ParseServer({
   databaseURI: 'mongodb://heroku_8b6h0nrz:89j3qh02svfu720n4nkl81df54@ds015849.mlab.com:15849/heroku_8b6h0nrz', // Provide an absolute path
@@ -43,7 +42,7 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser());
+app.use(cookieParser("cookei"));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({ secret: "very secret",
   resave: true,
@@ -54,12 +53,14 @@ app.use('/', routes);
 app.use('/test', test);
 app.use('/merchants', merchants);
 app.use('/payments', payments);
-app.use('/webapp', webapp);
+app.use('/events', events);
 //app.use('/parse', api);
 
-/*app.use(cookieSession({
-  keys: ['secret1', 'secret2']
-}));*/
+app.use(cookieSession({
+  name: "cookei",
+  secret: "deez",
+  maxAge: 15724800000
+}));
 
 passport.serializeUser(function(user, done) {
   done(null, user.id);
