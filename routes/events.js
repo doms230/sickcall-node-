@@ -31,7 +31,6 @@ var address;
 var ticketName = [];
 var ticketPrice = [];
 
-
     router.get('/', function (req, res, next) {
         eventId = req.query.id;
         parse.User.enableUnsafeCurrentUser();
@@ -79,7 +78,6 @@ router.get('/auth/facebook/callback',
 
 router.get('/login', function(req, res){
     loginUser(username, password, email, name, gender, photo, req, res);
-
 
 });
 

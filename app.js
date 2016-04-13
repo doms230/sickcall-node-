@@ -18,11 +18,13 @@ var passport = require('passport');
 stripe.setApiVersion('2016-03-07');
 var mongoose = require('mongoose');
 
-var routes = require('./routes/index');
+var routes = require('./routes/home');
 var test = require('./routes/test');
 var merchants = require('./routes/merchants');
 var payments = require('./routes/payments');
 var events = require('./routes/events');
+var profile = require('./routes/profile');
+var login = require('./routes/login');
 var app = express();
 
 /*var api = new ParseServer({
@@ -54,6 +56,8 @@ app.use('/test', test);
 app.use('/merchants', merchants);
 app.use('/payments', payments);
 app.use('/events', events);
+app.use('/profile', profile);
+app.use('/login', login);
 //app.use('/parse', api);
 
 app.use(cookieSession({
@@ -103,8 +107,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
-
-
 
 module.exports = app;

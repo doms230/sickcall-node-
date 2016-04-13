@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang ="en">
+<head>
+    <title> Hiikey </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+    <!--Ajax -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-default ">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <img src="images/logo.jpg" alt="Profile Image" class="img-thumbnail" width="25" height="25">
+            <p class="navbar-text">Welcome Dom!</p>
+            <a href="#" id="loginButton" class="btn btn-default navbar-btn"><span class="fa fa-twitter"></span>Log out</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+
+    <h5> Your ticket for every event.</h5>
+    <img src="http://api.qrserver.com/v1/create-qr-code/?data=HelloWorld!&size=100x100" alt="Failed to load, enter code manually." class="img-thumbnail">
+    <h6>45757819845875</h6>
+    <h5>Attending</h5>
+
+    <ul class="list-unstyled">
+
+        <% for (var i = 0; i <= 5; i++){ %>
+
+        <li> <h6> Event <small>10/21/2016</small> </h6> </li>
+
+        <% } %>
+    </ul>
+
+</div>
+
+<script>
+
+    function userInfo(){
+
+    }
+
+    $('#loginButton').on('click', function() {
+        $.get( "/login/auth/facebook", function( data ) {
+            alert( "Data Loaded: " );
+        });
+    });
+</script>
+
+</body>
+
+</html>

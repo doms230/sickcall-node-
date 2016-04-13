@@ -17,7 +17,6 @@
 
     <!-- Stripe SDK   <script type="text/javascript" src="https://js.stripe.com/v2/"></script>  -->
 
-
     <!-- <script type="text/javascript" src="https://js.stripe.com/v2/"></script> -->
     <script src="https://checkout.stripe.com/checkout.js"></script>
 
@@ -39,13 +38,16 @@
 </nav>
 
 <div class="container-fluid">
-<h1><%= title %></h1>
-    <h2><%= date %></h2>
+
+    <div class="page-header">
+        <h1><%= title %><small><%= date %></small></h1>
+    </div>
 
     <div class="row">
 
         <div class= "col-md-4">
-            <h3>Tickets</h3>
+            <h4>Tickets</h4>
+
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -61,12 +63,10 @@
                     <td><%= ticketName0 %></td>
                     <td><%=ticketPrice0%></td>
                     <td>
-
                         <div class="btn-group btn-group-sm" role="group" aria-label="...">
                             <input type="button" class="btn btn-primary disabled" name="TextBox" id="quan0" value="0" />
                             <input type="Button" class="btn btn-default" id='minusButton0' value="-"/>
                             <input type="Button" class="btn btn-default" id='addButton0' value="+"/>
-
                         </div>
                     </td>
                 </tr>
@@ -94,23 +94,20 @@
                 </tbody>
             </table>
 
-            <h3>Total: <span id="total_price"></span></h3>
+            <h6>Total: <span id="total_price"></span></h6>
 
             <a href="#" id="pay" class="btn btn-default "><span class="fa fa-twitter"></span>Checkout</a>
 
             <script >
 
-                var a;
-                function changeQuantity(quan, addButton, minusButton, hello) {
+                function changeQuantity(quan, addButton, minusButton) {
                     var counter = quan.val();
 
                     addButton.click(function () {
 
                         if (counter != 5) {
                             counter++;
-
-                            quan.val(counter);
-                            hello = counter;
+                            quan.prop('value', counter);
                         }
                     });
 
@@ -118,27 +115,27 @@
 
                         if (counter != 0) {
                             counter -= 1;
-
-                            quan.val(counter);
-                            hello = counter;
+                            // quan.val(counter)
+                            quan.prop('value', counter);
                         }
                     });
                 }
+
                 changeQuantity($('#quan0'),$('#addButton0'),$('#minusButton0'))
-                changeQuantity($('#quan1'),$('#addButton1'),$('#minusButton1'))
-                changeQuantity($('#quan2'),$('#addButton2'),$('#minusButton2'), a)
+                changeQuantity($('#quan1'),$('#addButton1'),$('#minusButton1'));
+                changeQuantity($('#quan2'),$('#addButton2'),$('#minusButton2'));
 
                 // Define handler to be called when Stripe returns a card token
                 function onReceiveToken(token, args) {
-                    // Submit token to server so it can charge the card
-                    $.ajax({
-                        url: '/payments/buyTickets',
-                        type: 'POST',
-                        data: {
-                            stripeToken: token.id,
-                            amount: 5000,
-                            destination: "acct_17zTltCGTxikfyrG"
-                        }
+
+                    var buyTickets = $.post('/payments/buyTickets', {
+                        stripeToken: token.id,
+                        amount: 5000,
+                        destination: "acct_17zTltCGTxikfyrG"
+                    });
+
+                    buyTickets.done(function(data){
+                        alert( "Data Loaded: " + data.id );
                     });
                 }
 
@@ -147,15 +144,16 @@
                     key: 'pk_test_wMPl893ju7D1tv3DUO6CRCBh',
                     token: onReceiveToken,
                     amount: 5000,
-                    name: 'nairteashop.org',
-                    description: "asdf"
-                    //billingAddress: 'true'
+                    name: "" ,
+                    description: "asdf",
+                    zipCode: "true",
+                    allowRememberMe: false,
+                    locale: 'auto'
                 });
 
                 // Open Checkout when the link is clicked
                 $('#pay').on('click', function() {
                     checkout.open();
-
                     return false;
                 });
 
@@ -164,7 +162,7 @@
         </div>
         <div class="col-md-8">
             <%= description %>
-            <img src=<%= image %> class="img-responsive" alt="Responsive image">
+            <img src=<%= image %> class="img-thumbnail" alt="Responsive image">
         </div>
     </div>
 </div>
