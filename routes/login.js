@@ -37,11 +37,15 @@ passport.use(new FacebookStrategy({
 ));
 
 router.get('/', function (req, res, next) {
-    parse.User.enableUnsafeCurrentUser();
-    res.send('yo');
+
+    var currentUser = parse.User.current();
+
+
+   // res.redirect("/auth/facebook");
 });
 
 router.get('/complete', function(req, res){
+    parse.User.enableUnsafeCurrentUser();
     loginUser(username, password, email, name, gender, photo, req, res);
 });
 
@@ -100,9 +104,11 @@ function loginUser(username, password, email, name, gender, photo, req, res){
 
             parse.User.become(parse.Session.current()).then(function (user) {
                 // The current user is now set to user.
-                //res.send(user);
+                console.log("success" + user);
+                res.send(user);
             }, function (error) {
-                //res.send(error);
+                res.send(error);
+                console.log('failed' + error);
             });
         },
         error: function(user, error, res) {

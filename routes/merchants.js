@@ -30,7 +30,7 @@ router.get('/merchantInfo', function(req, res){
 
 /* POST jaunts  */
 
-/*router.post('/createMerchant', function (req, res) {
+router.post('/createMerchant', function (req, res) {
 
     stripe.accounts.create({
         managed: true,
@@ -83,8 +83,8 @@ router.get('/merchantInfo', function(req, res){
             req.body.type, req.body.routing_number, req.body.account_number);
         }
     });
-});*/
-router.get('/createMerchant', function (req, res) {
+});
+router.get('/createMerchantTest', function (req, res) {
 
     stripe.accounts.create({
         managed: true,

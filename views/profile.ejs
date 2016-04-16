@@ -24,7 +24,7 @@
         <div class="navbar-header">
             <img src="images/logo.jpg" alt="Profile Image" class="img-thumbnail" width="25" height="25">
             <p class="navbar-text">Welcome Dom!</p>
-            <a href="#" id="loginButton" class="btn btn-default navbar-btn"><span class="fa fa-twitter"></span>Log out</a>
+            <a href="/login/auth/facebook" id="loginButton" class="btn btn-default navbar-btn"><span class="fa fa-twitter"></span>Log out</a>
         </div>
     </div>
 </nav>
@@ -32,30 +32,35 @@
 <div class="container-fluid">
 
     <h5> Your ticket for every event.</h5>
-    <img src="http://api.qrserver.com/v1/create-qr-code/?data=HelloWorld!&size=100x100" alt="Failed to load, enter code manually." class="img-thumbnail">
-    <h6>45757819845875</h6>
+    <img src="http://api.qrserver.com/v1/create-qr-code/?data=<%=userId%>!&size=100x100" alt="Failed to load, enter code manually." class="img-thumbnail">
+    <h6><%=userId%></h6>
     <h5>Attending</h5>
-
+<script>
+    var eventArray = [];
+    var dateArray = [];
+    var eventNumber;
+</script>
     <ul class="list-unstyled">
+        <% for (var i = 0; i <= 5 ; i++ ){ %>
 
-        <% for (var i = 0; i <= 5; i++){ %>
-
-        <li> <h6> Event <small>10/21/2016</small> </h6> </li>
+        <li> <h6> event <small> date </small> </h6> </li>
 
         <% } %>
     </ul>
-
 </div>
 
 <script>
 
-    function userInfo(){
+    function userInfo(data){
+        alert(data);
+        return false;
 
     }
 
     $('#loginButton').on('click', function() {
-        $.get( "/login/auth/facebook", function( data ) {
-            alert( "Data Loaded: " );
+        $.ajax.get('login/auth/facebook', function(data){
+
+            console.log(data);
         });
     });
 </script>
