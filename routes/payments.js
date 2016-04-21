@@ -27,7 +27,7 @@ router.post('/buyTickets', function(req, res){
         //source: "tok_17zVIsHskqJlyyfaEiMdnQLB",
         source: req.body.stripeToken,
          destination: req.body.destination,
-        //application_fee: (req.body.amount * .029) + .30,
+        application_fee: (req.body.amount * .029) + .30,
         //application_fee: (1000 * .029) + .30,
         description: "asdf"
        // description: req.body.stripeToken.description
