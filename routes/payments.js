@@ -27,9 +27,9 @@ router.post('/buyTickets', function(req, res){
         //source: "tok_17zVIsHskqJlyyfaEiMdnQLB",
         source: req.body.stripeToken,
          destination: req.body.destination,
-        application_fee: (req.body.amount * .029) + .30,
-        //application_fee: (1000 * .029) + .30,
-        description: "asdf"
+        //application_fee: (req.body.amount * .029) + .30,
+        application_fee: (1000 * .029) + .30,
+        description: req.body.description
        // description: req.body.stripeToken.description
     },
     function(err, charge) {
@@ -41,6 +41,31 @@ router.post('/buyTickets', function(req, res){
             res.send(charge);
         }
     });
+});
+
+router.get('/buyTicketsTest', function(req, res){
+
+    var totalPrice = (1000 * .029) + .30;
+
+    //res.send("yo");
+    stripe.charges.create({
+            amount: 1000, // amount in cents, again
+            currency: "usd",
+            source: "tok_182ogxHskqJlyyfa4AZMWpen",
+            destination: "acct_180hDGJLoSMNpJp1",
+            application_fee: totalPrice,
+            description: "asdf"
+            // description: req.body.stripeToken.description
+        },
+        function(err, charge) {
+            if (err && err.type === 'StripeCardError') {
+                // The card has been declined
+
+                res.send(err);
+            } else {
+                res.send(charge);
+            }
+        });
 });
 
 router.post('/refundTickets', function(req, res){
