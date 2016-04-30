@@ -28,7 +28,7 @@ router.post('/buyTickets', function(req, res){
         source: req.body.stripeToken,
          destination: req.body.destination,
         //application_fee: (req.body.amount * .029) + .30,
-       // application_fee: (1000 * .029) + .30,
+        application_fee: req.body.application_fee,
         description: req.body.description
        // description: req.body.stripeToken.description
     },
@@ -45,15 +45,18 @@ router.post('/buyTickets', function(req, res){
 
 router.get('/buyTicketsTest', function(req, res){
 
-    var totalPrice = (1000 * .029) + .30;
+    var totalPrice = 1000 * .029;
+
+    var yoma = totalPrice + .30 ;
+
 
     //res.send("yo");
     stripe.charges.create({
             amount: 1000, // amount in cents, again
             currency: "usd",
-            source: "tok_182ogxHskqJlyyfa4AZMWpen",
+            source: "tok_1861XvHskqJlyyfasLNcJu23",
             destination: "acct_180hDGJLoSMNpJp1",
-            application_fee: totalPrice,
+            application_fee: (1000 * .029) + .30,
             description: "asdf"
             // description: req.body.stripeToken.description
         },
