@@ -4,7 +4,7 @@
 var express = require('express');
 var router = express.Router();
 var stripe = require("stripe")(
-    "sk_test_HSpPMwMkr1Z6Eypr5MMldJ46"
+    "sk_live_wFw3B2lTIGPACNAsoGAH9bPO"
 );
 
         /* GET users listing. */
@@ -29,7 +29,6 @@ router.get('/merchantInfo', function(req, res){
 });
 
 /* POST jaunts  */
-
 router.post('/createMerchant', function (req, res) {
 
     stripe.accounts.create({
@@ -90,7 +89,7 @@ router.get('/createMerchantTest', function (req, res) {
         managed: true,
         country: "US",
         //  business_name: req.body.business_name,
-        email: "doms23@live.com",
+        email: "",
 
         business_name:req.body.business_name,
         decline_charge_on:{
@@ -100,25 +99,25 @@ router.get('/createMerchantTest', function (req, res) {
 
         legal_entity: {
             address: {
-                city: "Alexandria",
+                city: "Arlington",
                 country: "US",
-                line1: "6421 5th street",
+                line1: "",
                 line2: "",
-                postal_code: "22312",
-                state: "VA"
+                postal_code: "",
+                state: "TX"
             },
 
-            business_name: "llamas",
-            business_tax_id: "000000000",
+            business_name: "What You Want",
+            business_tax_id: "",
             dob: {
-                day: "04",
-                month: "05",
-                year: "1994"
+                day: "12",
+                month: "08",
+                year: "1995"
             },
 
-            first_name: "Dominic",
-            last_name: "Smith",
-            ssn_last_4: "0506",
+            first_name: "Sammy",
+            last_name: "Gonzalez",
+            ssn_last_4: "",
             "type": "individual"
         },
         tos_acceptance: {
@@ -133,8 +132,8 @@ router.get('/createMerchantTest', function (req, res) {
         } else {
             console.log("merchant created.");
             // res.send(account);
-            createBankToken(account.id, res, "US", "usd", "Dominic Smith",
-                "individual", "110000000", "000123456789");
+            createBankToken(account.id, res, "US", "usd", "Sammy Gonzalez",
+                "individual", "", "");
         }
     });
 });

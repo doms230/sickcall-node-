@@ -40,8 +40,15 @@ router.get('/', function (req, res, next) {
 
     var currentUser = parse.User.current();
 
+    console.log(req.query.url);
 
-   // res.redirect("/auth/facebook");
+});
+
+router.get('/start',  function (req, res) {
+   
+    reTo = req.query.where;
+    res.redirect('login/auth/facebook');
+    
 });
 
 router.get('/complete', function(req, res){
@@ -105,7 +112,7 @@ function loginUser(username, password, email, name, gender, photo, req, res){
             parse.User.become(parse.Session.current()).then(function (user) {
                 // The current user is now set to user.
                 console.log("success" + user);
-                res.send(user);
+                res.redirect('/events');
             }, function (error) {
                 res.send(error);
                 console.log('failed' + error);

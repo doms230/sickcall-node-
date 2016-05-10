@@ -22,9 +22,9 @@
 <nav class="navbar navbar-default ">
     <div class="container-fluid">
         <div class="navbar-header">
-            <img src="images/logo.jpg" alt="Profile Image" class="img-thumbnail" width="25" height="25">
             <p class="navbar-text">Welcome Dom!</p>
-            <a href="/login/auth/facebook" id="loginButton" class="btn btn-default navbar-btn"><span class="fa fa-twitter"></span>Log out</a>
+            <img src="images/logo.jpg" alt="Profile Image" class="img-thumbnail" width="25" height="25">
+            <a onclick="yoma()"  id="loginButton" class="btn btn-default navbar-btn"><span class="fa fa-twitter"></span>Log in</a>
         </div>
     </div>
 </nav>
@@ -39,6 +39,50 @@
     var eventArray = [];
     var dateArray = [];
     var eventNumber;
+
+    function yoma () {
+
+        //debugger;
+        var request = $.ajax({
+            url: "login/auth/facebook",
+            method: "GET",
+            crossDomain: true,
+            dataType: "json",
+            headers:{"Access-Control-Allow-Origin": "https://www.facebook.com"}
+
+        });
+
+        request.done(function( msg ) {
+
+            alert(msg)
+        });
+
+        request.fail(function( jqXHR, textStatus ) {
+            debugger;
+            alert( "Request failed: " + textStatus );
+        });
+
+        //var userInfo =  ;
+        /*.get("login/auth/facebook", function( data ) {
+            // Do something smarter than
+//debugger;
+            alert(data);
+        });*/
+
+        //userInfo.done();
+
+       /*$.ajax.get('/home', function(data){
+
+            alert(data);
+        });*/
+    }
+
+    /*$('#loginButton').on('click', function() {
+        $.ajax.get('login/auth/facebook', function(data){
+
+            alert(data);
+        });
+    });*/
 </script>
     <ul class="list-unstyled">
         <% for (var i = 0; i <= 5 ; i++ ){ %>
@@ -47,23 +91,8 @@
 
         <% } %>
     </ul>
+
 </div>
-
-<script>
-
-    function userInfo(data){
-        alert(data);
-        return false;
-
-    }
-
-    $('#loginButton').on('click', function() {
-        $.ajax.get('login/auth/facebook', function(data){
-
-            console.log(data);
-        });
-    });
-</script>
 
 </body>
 

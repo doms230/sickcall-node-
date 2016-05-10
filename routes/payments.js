@@ -7,10 +7,16 @@ var stripe = require("stripe")(
     "sk_test_HSpPMwMkr1Z6Eypr5MMldJ46"
 );
 
+var currentUser; 
+
 var parse = require("parse/node").Parse;
 parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF", "bctRQbnLCvxRIHaJTkv3gqhlwSzxjiMesjx8kEwo");
 
 router.get('/', function(req, res, next) {
+
+    parse.User.enableUnsafeCurrentUser();
+    currentUser = parse.User.current();
+    
     res.send("yoma");
 });
 
@@ -43,12 +49,43 @@ router.post('/buyTickets', function(req, res){
     });
 });
 
+router.post('/webBuyTickets', function(req, res){
+
+    /*if (currentUser) {
+        //res.send("yo");
+        stripe.charges.create({
+                amount: req.body.amount, // amount in cents, again
+                currency: "usd",
+                source: req.body.stripeToken,
+                destination: req.body.destination,
+                application_fee: req.body.application_fee,
+                description: req.body.description
+            },
+            function (err, charge) {
+                if (err && err.type === 'StripeCardError') {
+                    // The card has been declined
+
+                    res.send(err);
+                } else {
+                    //
+
+                    res.send(charge);
+                }
+            });
+
+    } else {
+        
+    }*/
+
+    res.json({ id: "Please sign in before purchase." });
+    
+});
+
 router.get('/buyTicketsTest', function(req, res){
 
     var totalPrice = 1000 * .029;
 
     var yoma = totalPrice + .30 ;
-
 
     //res.send("yo");
     stripe.charges.create({
@@ -67,18 +104,37 @@ router.get('/buyTicketsTest', function(req, res){
                 res.send(err);
             } else {
                 res.send(charge);
+
+                //
+                var updateEvent = Parse.Object.extend("PublicPost");
+                var query = new Parse.Query(GameScore);
+                query.equalTo("playerName", "Dan Stemkoski");
+                query.find({
+                    success: function(results) {
+                        alert("Successfully retrieved " + results.length + " scores.");
+                        // Do something with the returned Parse.Object values
+                        for (var i = 0; i < results.length; i++) {
+                            var object = results[i];
+                            alert(object.id + ' - ' + object.get('playerName'));
+                        }
+                    },
+                    error: function(error) {
+                        alert("Error: " + error.code + " " + error.message);
+                    }
+                });
             }
         });
+
+    //
 });
 
 router.post('/refundTickets', function(req, res){
-
     refundticketsAction(res, req.body.eventObjectId);
 });
 
 function refundticketsAction(res, eventObjectId){
 
-    var GameScore = parse.Object.extend('Tickets');
+    var GameScore = parse.Object.extend('Refunds');
     var query = new parse.Query(GameScore);
     query.equalTo("eventId", eventObjectId);
     query.find({
@@ -110,7 +166,6 @@ function refundticketsAction(res, eventObjectId){
             alert("Error: " + error.code + " " + error.message);
         }
     });
-
 }
 
 module.exports = router;

@@ -30,22 +30,55 @@ var eventId;
 var address;
 var ticketName = [];
 var ticketPrice = [];
+var ticketsSold = [];
+var ticketsAvailable = [];
+var eventUser;
+var merchantId;
+var status;
+var currentUser;
+var logUrl;
 
     router.get('/', function (req, res, next) {
-        eventId = req.query.id;
+        if (eventId == null){
+            eventId = req.query.id;
+        }
+        
         parse.User.enableUnsafeCurrentUser();
-        var currentUser = parse.User.current();
+        currentUser = parse.User.current();
+
+        //currentUser = "0IOlbiZ9Tw";
 
         if (currentUser){
-            loadEventInfo(res, true, currentUser.get('username') );
+            logUrl = "/events/logout";
+            status = "Checkout";
+            loadEventInfo(res, true, currentUser);
+            
+           // loadEventInfo(res, true, "doms230@aol.com");
 
         } else{
+            logUrl = "/login/auth/facebook";
+            status = "Login before purchase";
             loadEventInfo(res, false);
         }
     });
 
+    router.get('/logout', function (req, res) {
+        parse.User.logOut();
+        logUrl = "/login/auth/facebook";
+        status = "Login before purchase";
+        loadEventInfo(res, false);
+    }, function(err, account) {
+    // asynchronously called
+    if (err != null){
+        res.send(err)
+
+    } else {
+        res.send(account)
+    }
+});
+
 //twitter login
-passport.use(new FacebookStrategy({
+/*passport.use(new FacebookStrategy({
         clientID: "178018185913116",
         clientSecret: "a561ac32e474b6d927d512a8f3ae37df",
         callbackURL: "http://localhost:3000/events/auth/facebook/callback",
@@ -78,70 +111,117 @@ router.get('/auth/facebook/callback',
 
 router.get('/login', function(req, res){
     loginUser(username, password, email, name, gender, photo, req, res);
-
 });
 
 //Main UI Data Jaunts
 
 function loadUserInfo(res, username){
-
-}
+}*/
 
 function loadEventInfo(res, logged, username){
     var logButton;
     var user;
-
     if (logged){
         logButton = "Sign out";
         user = "Welcome " + username + "!";
 
     } else {
-        logButton = "Sign in";
+        logButton = "Sign in with Facebook";
         user = "Welcome!"
     }
 
-    var GameScore = parse.Object.extend('PublicPost');
-    var query = new parse.Query(GameScore);
+    var eventQuery = parse.Object.extend('PublicPost');
+    var query = new parse.Query(eventQuery);
     query.get(eventId, {
-        success: function (gameScore) {
+        success: function (event) {
             // The object was retrieved successfully.
-            var yoma = gameScore.get('Flyer');
+            var yoma = event.get('Flyer');
             ("flyer_ios")[0].src = yoma.url();
             image =  ("flyer_ios")[0].src;
 
-            description = gameScore.get('Description');
-            title = gameScore.get('Title');
-            date = gameScore.get('Date');
-            ticketName = gameScore.get('ticketName');
-            ticketPrice = gameScore.get('ticketPrice');
+            eventUser = event.get("userId");
+            description = event.get('Description');
+            title = event.get('Title');
+            date = event.get('Date');
 
-            /*for (var i = 0; i <= 3; i++){
-                if (ticketName[i] == null){
-                    ticketName[i] = ""
-                }
+            var month = date.getMonth();
+            var day = date.getDay();
+            var year = date.getFullYear();
+            var hour = date.getHours();
+            var minute = date.getMinutes();
+            var time = date.getTime();
 
-                if (ticketPrice[i] == null){
-                    ticketPrice[i] = ""
+            var formattedDate = month + "/" + day + "/" + year + "," + hour + ":" + minute;
+
+            ticketName = event.get('ticketName');
+            ticketPrice = event.get('ticketPrice');
+            ticketsAvailable = event.get('ticketAvailable');
+            ticketsSold = event.get('ticketSold');
+            address = event.get('Address');
+
+            var user = parse.Object.extend('_User');
+            var query = new parse.Query(user);
+            query.get(eventUser, {
+                success: function (user) {
+                    // The object was retrieved successfully.
+                    merchantId = user.get('merchantId');
+
+                    var data = [];
+
+                    for (var i = 0; i < ticketName.length; i ++ ){
+                        data.push({
+                            name: ticketName[i],
+                            price: ticketPrice[i],
+                            id: i,
+                            minusButton: "minusButton" + i,
+                            addButton: "addButton" + i,
+                            priceId: "price" + i,
+                            nameId: "name" + i
+                        });
+                    }
+
+                    res.render('event', {
+                        title: title,
+                        date: formattedDate,
+                        description: description,
+                        image: ("flyer_ios")[0].src = yoma.url(),
+                        logButton: logButton,
+                        user: name,
+                        data: data, 
+                        status: status,
+                        loginUrl: ""
+                    });
+                },
+                error: function (object, error) {
+                    // The object was not retrieved successfully.
+                    // error is a Parse.Error with an error code and message.
+                    console.log(error);
+                    console.log(object);
                 }
-            }*/
-            address = gameScore.get('Address');
+            });
+
+           /* var data = [];
+
+            for (var i = 0; i < ticketName.length; i ++ ){
+                data.push({
+                    name: ticketName[i],
+                    price: ticketPrice[i],
+                    id: i,
+                    minusButton: "minusButton" + i,
+                    addButton: "addButton" + i,
+                    priceId: "price" + i
+                });
+            }
 
             res.render('event', {
                 title: title,
-                date: '10/12/2018',
+                date: formattedDate,
                 description: description,
                 image: ("flyer_ios")[0].src = yoma.url(),
                 logButton: logButton,
                 user: user,
-                ticketName0: ticketName[0],
-                ticketName1: ticketName[1],
-                ticketName2: ticketName[2],
-
-                ticketPrice0: ticketPrice[0],
-                ticketPrice1: ticketPrice[1],
-                ticketPrice2: ticketPrice[2]
-                //<img src=<%= image %> class="img-responsive" alt="Responsive image">
-            });
+                data: data
+            });*/
         },
         error: function (object, error) {
             // The object was not retrieved successfully.
@@ -152,9 +232,132 @@ function loadEventInfo(res, logged, username){
     });
 }
 
+router.get('/getMerchant', function (req, res, next) {
+    res.send(merchantId);
+});
+
+router.post('/updateTickets', function (req, res) {
+
+    var ticketQuantity = req.body.ticketQuantity;
+    var purchaseId = req.body.purchase;
+
+    // var ticketQuantity = [0,3,0];
+
+    var updateEvent = parse.Object.extend("PublicPost");
+    var eventQuery = new parse.Query(updateEvent);
+    eventQuery.get(eventId, {
+        success: function (ticket) {
+
+            var ticketSold = ticket.get('ticketSold');
+
+            for (var i = 0; i < ticketSold.length; i++) {
+                ticketSold[i] = ticketSold[i] + parseInt(ticketQuantity[i]);
+            }
+
+            ticket.set('ticketSold', ticketSold);
+            ticket.save(null, {
+                success: function (gameScore) {
+                    // Execute any logic that should take place after the object is saved.
+                    //alert('New object created with objectId: ' + gameScore.id);
+
+                    //res.redirect("/profile");
+                },
+                error: function (gameScore, error) {
+                    // Execute any logic that should take place if the save fails.
+                    // error is a Parse.Error with an error code and message.
+                    //  alert('Failed to create new object, with error code: ' + error.message);
+                }
+            });
+        },
+        error: function (object, error) {
+            // The object was not retrieved successfully.
+            // error is a Parse.Error with an error code and message.
+        }
+    });
+
+    //right now this is updating results... do thing that creates new line in collection if it doesn't exist.
+
+    var updateTickets = parse.Object.extend("Tickets");
+    var ticketQuery = new parse.Query(updateTickets);
+    ticketQuery.equalTo("eventId", eventId);
+    ticketQuery.equalTo("ticketHolderId", currentUser.get("ticketHolderId"));
+    ticketQuery.find({
+        success: function (results) {
+
+            if (results.length == 0) {
+                var Ticket = parse.Object.extend("Tickets");
+                var ticket = new Ticket();
+
+                ticket.set("ticketName", ticketName);
+                ticket.set("ticketQuantity", [1]);
+                ticket.set("eventId", eventId);
+                ticket.set("eventName", title);
+                ticket.set("ticketHolderId", currentUser.get("objectId"));
+                ticket.set("isRemoved", false);
+                ticket.set("didRSVP", false);
+                ticket.set("didCheckin", false);
+
+                ticket.save(null, {
+                    success: function (gameScore) {
+                        // Execute any logic that should take place after the object is saved.
+                        //alert('New object created with objectId: ' + gameScore.id);
+
+                        //res.redirect("/profile");
+                    },
+                    error: function (gameScore, error) {
+                        // Execute any logic that should take place if the save fails.
+                        // error is a Parse.Error with an error code and message.
+                        //  alert('Failed to create new object, with error code: ' + error.message);
+                    }
+                });
+            } else {
+
+                for (var i = 0; i < results.length; i++) {
+                    var tickets = results.get('ticketQuantity');
+                }
+
+                for (var o = 0; i < tickets.length; o++) {
+                    tickets[o] = tickets[o] + parseInt(ticketQuantity[o]);
+                }
+
+                results.set('ticketQuantity', tickets);
+                results.save();
+
+                // res.redirect("/profile");
+            }
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+
+    //add purchase Id to refund collection
+
+    if (purchaseId != "free") {
+        var Purchase = parse.Object.extend("Refunds");
+        var purchase = new Purchase();
+
+        purchase.set("eventId", eventId);
+        purchase.set("purchaseId",purchaseId);
+        purchase.set("ticketHolderId", currentUser);
+
+        purchase.save(null, {
+            success: function (gameScore) {
+                // Execute any logic that should take place after the object is saved.
+                //alert('New object created with objectId: ' + gameScore.id);
+            },
+            error: function (gameScore, error) {
+                // Execute any logic that should take place if the save fails.
+                // error is a Parse.Error with an error code and message.
+                //  alert('Failed to create new object, with error code: ' + error.message);
+            }
+        });
+    }
+});
+
 //login jaunts
 
-function createUser(username, password, email, name, gender, photo, req, res){
+/*function createUser(username, password, email, name, gender, photo, req, res){
 
     var user = new parse.User();
     user.set("username", username);
@@ -165,7 +368,7 @@ function createUser(username, password, email, name, gender, photo, req, res){
     user.set("age", "");
 
     /*var file = new parse.File("facebookImage.jpeg", photo);
-    user.set("Profile", file);*/
+    user.set("Profile", file);
 
     user.signUp(null, {
         success: function(user) {
@@ -204,9 +407,8 @@ function loginUser(username, password, email, name, gender, photo, req, res){
             if (error.code == 101){
                 createUser(username, password, email, name, gender, photo);
             }
-
         }
     });
-}
+}*/
 
 module.exports = router;
