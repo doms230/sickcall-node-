@@ -39,6 +39,8 @@ var currentUser;
 var logUrl;
 
     router.get('/', function (req, res, next) {
+
+        
         if (eventId == null){
             eventId = req.query.id;
         }
