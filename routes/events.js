@@ -44,7 +44,7 @@ var userObjectId;
 passport.use('events', new FacebookStrategy({
         clientID: "178018185913116",
         clientSecret: "a561ac32e474b6d927d512a8f3ae37df",
-        callbackURL: "http://localhost:3000/events/auth/facebook/callback",
+        callbackURL: "http://www.hiikey.com/events/auth/facebook/callback",
         profileFields: ['id', 'name', 'age_range','gender', 'emails', 'picture.type(large)']
     },
     function(accessToken, refreshToken, profile, cb) {
@@ -158,6 +158,7 @@ function loadEventInfo(res, logged, username){
 
             var formattedDate = month + "/" + day + "/" + year + "," + hour + ":" + minute;
 
+            console.log(formattedDate);
             ticketName = event.get('ticketName');
             ticketPrice = event.get('ticketPrice');
             ticketsAvailable = event.get('ticketAvailable');
@@ -187,7 +188,7 @@ function loadEventInfo(res, logged, username){
 
                     res.render('event', {
                         title: title,
-                        date: formattedDate,
+                        date: date,
                         description: description,
                         image: ("flyer_ios")[0].src = yoma.url(),
                         logButton: logButton,
