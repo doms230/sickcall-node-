@@ -24,7 +24,7 @@ var name;
 passport.use('profile', new FacebookStrategy({
  clientID: "178018185913116",
  clientSecret: "a561ac32e474b6d927d512a8f3ae37df",
- callbackURL: "http://www.hiikey.com/profile/auth/facebook/callback",
+ callbackURL: "https://www.hiikey.com/profile/auth/facebook/callback",
  profileFields: ['id', 'name', 'age_range','gender', 'emails', 'picture.type(large)']
  },
  function(accessToken, refreshToken, profile, cb) {
