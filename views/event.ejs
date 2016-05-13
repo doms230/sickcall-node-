@@ -135,8 +135,6 @@
 
                         buyTickets.done(function(data){
 
-                            alert(data);
-
                             var updateTickets = $.post('/events/updateTickets', {
                                 ticketQuantity: ticketQuantity,
                                 purchase: data.id
@@ -144,7 +142,8 @@
 
                             updateTickets.done(function(data){
                                 //post jaunt to update database
-                                alert( data);
+                                alert(data);
+
                                 //redirect("/profile");
                             });
 
@@ -196,7 +195,7 @@
 
                         updateTickets.done(function(data){
                             //post jaunt to update database
-                            alert(data);
+                                alert(data);
                         });
 
                     } else {

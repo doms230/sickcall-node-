@@ -44,7 +44,7 @@ var userObjectId;
 passport.use('events', new FacebookStrategy({
         clientID: "178018185913116",
         clientSecret: "a561ac32e474b6d927d512a8f3ae37df",
-        callbackURL: "https://www.hiikey.com/events/auth/facebook/callback",
+        callbackURL: "http://localhost:3000/events/auth/facebook/callback",
         profileFields: ['id', 'name', 'age_range','gender', 'emails', 'picture.type(large)']
     },
     function(accessToken, refreshToken, profile, cb) {
@@ -245,6 +245,7 @@ router.post('/updateTickets', function (req, res) {
     var ticketQuantity = req.body.ticketQuantity;
     var purchaseId = req.body.purchase;
 
+    var resultJaunt;
     // var ticketQuantity = [0,3,0];
 
     var updateEvent = parse.Object.extend("PublicPost");
@@ -306,8 +307,8 @@ router.post('/updateTickets', function (req, res) {
     ticketQuery.equalTo("ticketHolderId",userObjectId);
     ticketQuery.find({
         success: function (results) {
-            console.log(results.length);
             if (results.length == 0) {
+                resultJaunt = "Tickets acquired";
                 var Ticket = parse.Object.extend("Tickets");
                 var ticket = new Ticket();
 
@@ -325,7 +326,6 @@ router.post('/updateTickets', function (req, res) {
                         // Execute any logic that should take place after the object is saved.
                         //alert('New object created with objectId: ' + gameScore.id);
                          //res.send("yoma");
-                        res.redirect("/profile/");
                     },
                     error: function (gameScore, error) {
                         // Execute any logic that should take place if the save fails.
@@ -333,9 +333,8 @@ router.post('/updateTickets', function (req, res) {
                         //  alert('Failed to create new object, with error code: ' + error.message);
                     }
                 });
-            } else {
-                
-                res.send("asdf");
+            } else  {
+                resultJaunt = "Only one ticket per Hiikey user can be acquired at this time.";
 
                 /*for (var i = 0; i < results.length; i++) {
                     var object = results[i];
@@ -367,10 +366,13 @@ router.post('/updateTickets', function (req, res) {
 
                 // res.redirect("/profile");
             }
+
+            res.send(resultJaunt);
         },
         error: function (error) {
         }
     });
+
 
     //add purchase Id to refund collection
 
