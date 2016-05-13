@@ -67,15 +67,17 @@ passport.use('events', new FacebookStrategy({
             eventId = req.query.id;
         }*/
 
-        parse.User.enableUnsafeCurrentUser();
-        currentUser = parse.User.current();
+        //console.log(parse.user);
+
+       // parse.User.enableUnsafeCurrentUser();
+        //currentUser = parse.User.current();
 
         //currentUser = "0IOlbiZ9Tw";
 
-        if (currentUser){
+        if (req.session.user != null){
            // logUrl = "/events/logout";
             status = "Checkout";
-            loadEventInfo(res, true, currentUser);
+            loadEventInfo(res, true, "");
             
            // loadEventInfo(res, true, "doms230@aol.com");
 
@@ -132,7 +134,7 @@ function loadEventInfo(res, logged, username){
     var user;
     if (logged){
         logButton = "Sign out";
-        user = "Welcome " + username + "!";
+       // user = "Welcome " + username + "!";
 
     } else {
         logButton = "Sign in with Facebook";
@@ -424,7 +426,10 @@ function loginUser(username, password, email, name, gender, photo, req, res){
         success: function(user) {
             //change button to log out and stripe buy tickets jaunt
 
-            parse.User.become(parse.Session.current()).then(function (user) {
+            req.session.user=user;
+            res.redirect('/events?id=' + eventId);
+
+            /*parse.User.become(parse.Session.current()).then(function (user) {
                 userObjectId = user.id;
                 // The current user is now set to user.
                 res.redirect('/events?id=' + eventId );
@@ -432,7 +437,7 @@ function loginUser(username, password, email, name, gender, photo, req, res){
             }, function (error) {
                 res.redirect('/events?id=' + eventId );
                 //console.log("error");
-            });
+            });*/
         },
         error: function(user, error, res) {
             //createUser(username, password, email, name, gender, photo);
