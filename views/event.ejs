@@ -30,12 +30,19 @@
     <div class="container-fluid">
         <div class="navbar-header">
             <p class="navbar-text"><%=user%></p>
-            <a  id="log" href="/login/auth/facebook" class="btn btn-primary navbar-btn"><span class="fa fa-twitter"></span><%=logButton%></a>
+            <a  id="log" href="/events/auth/facebook" class="btn btn-primary navbar-btn"><span class="fa fa-twitter"></span><%=logButton%></a>
         </div>
     </div>
+
+    <div class="navbar-header">
+        <a href="https://itunes.apple.com/us/app/hiikey/id1013280340?ls=1&mt=8">
+            <img href="" src="images/appstoreButton.png" class="img-responsive" alt="Available on The App Store" width="126" height="88">
+        </a>
+    </div>
+
 </nav>
 
-<div class="page-header" >
+<div class="page-header">
     <h1><%= title %><small> <%= date %></small></h1>
     <h6><%= description %></h6>
 </div>
@@ -88,7 +95,7 @@
                     var counter = quan.val();
 
                     addButton.click(function () {
-                        if (counter < 5) {
+                        if (counter < 1) {
                             counter++;
                             quan.prop('value', counter);
                         }
@@ -111,7 +118,6 @@
                 // Define handler to be called when Stripe returns a card token
                 function onReceiveToken(token, args) {
 
-
                     var getMerchant = $.get('/events/getMerchant', {
                     });
 
@@ -128,6 +134,9 @@
                         });
 
                         buyTickets.done(function(data){
+
+                            alert(data);
+
                             var updateTickets = $.post('/events/updateTickets', {
                                 ticketQuantity: ticketQuantity,
                                 purchase: data.id
@@ -135,8 +144,8 @@
 
                             updateTickets.done(function(data){
                                 //post jaunt to update database
-                                //alert( data);
-                                redirect("/profile");
+                                alert( data);
+                                //redirect("/profile");
                             });
 
                            // alert( "Data Loaded: " + data.id );
@@ -179,7 +188,7 @@
 
                     } else if(totalPrice == 0){
 
-                        alert( "Good luck! If you won, we will contact you Thursday May 12th by email from hiikeyteam@gmail.com.");
+                        //alert( "Good luck! If you won, we will contact you Thursday May 12th by email from hiikeyteam@gmail.com.");
                         var updateTickets = $.post('/events/updateTickets', {
                             ticketQuantity: ticketQuantity,
                             purchase: "free"
@@ -187,7 +196,7 @@
 
                         updateTickets.done(function(data){
                             //post jaunt to update database
-
+                            alert(data);
                         });
 
                     } else {

@@ -18,7 +18,7 @@ var gender;
 var photo;
 var email;
 
-passport.use(new FacebookStrategy({
+/*passport.use(new FacebookStrategy({
         clientID: "178018185913116",
         clientSecret: "a561ac32e474b6d927d512a8f3ae37df",
         callbackURL: "http://localhost:3000/login/auth/facebook/callback",
@@ -34,7 +34,7 @@ passport.use(new FacebookStrategy({
         name = profile.name.givenName + "" + profile.name.familyName;
         cb(null, profile);
     }
-));
+));*/
 
 router.get('/', function (req, res, next) {
 
@@ -46,9 +46,18 @@ router.get('/', function (req, res, next) {
 
 router.get('/start',  function (req, res) {
    
-    reTo = req.query.where;
-    res.redirect('login/auth/facebook');
+    //reTo = req.query.where;
+    res.redirect('/auth/facebook');
     
+}, function(err, account) {
+    // asynchronously called
+    if (err != null) {
+        console.log(err);
+
+    } else {
+        console.log(account);
+    }
+
 });
 
 router.get('/complete', function(req, res){
@@ -56,7 +65,7 @@ router.get('/complete', function(req, res){
     loginUser(username, password, email, name, gender, photo, req, res);
 });
 
-router.get('/auth/facebook',
+/*router.get('/auth/facebook',
     passport.authenticate('facebook', { scope: ['public_profile', 'email'] }));
 
 router.get('/auth/facebook/callback',
@@ -66,7 +75,7 @@ router.get('/auth/facebook/callback',
 
         res.redirect('/login/complete');
         //res.send("all good");
-    });
+    });*/
 
 //login jaunts
 

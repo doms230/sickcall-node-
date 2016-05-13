@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang ="en">
 <head>
-    <title> Hiikey </title>
+    <title> <%=user%> | Hiikey </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -22,72 +22,41 @@
 <nav class="navbar navbar-default ">
     <div class="container-fluid">
         <div class="navbar-header">
-            <p class="navbar-text">Welcome Dom!</p>
-            <img src="images/logo.jpg" alt="Profile Image" class="img-thumbnail" width="25" height="25">
-            <a onclick="yoma()"  id="loginButton" class="btn btn-default navbar-btn"><span class="fa fa-twitter"></span>Log in</a>
+            <p class="navbar-text"><%=user%></p>
+            <!--<img src="images/logo.jpg" alt="Profile Image" class="img-thumbnail" width="25" height="25"> -->
+            <a href="profile/auth/facebook"  id="loginButton" class="btn btn-primary navbar-btn"><span class="fa fa-twitter"></span><%=logButton%></a>
         </div>
     </div>
+
+    <div class="navbar-header">
+        <a href="https://itunes.apple.com/us/app/hiikey/id1013280340?ls=1&mt=8">
+            <img href="" src="images/appstoreButton.png" class="img-responsive" alt="Available on The App Store" width="126" height="88">
+        </a>
+    </div>
+
 </nav>
 
 <div class="container-fluid">
 
-    <h5> Your ticket for every event.</h5>
-    <img src="http://api.qrserver.com/v1/create-qr-code/?data=<%=userId%>!&size=100x100" alt="Failed to load, enter code manually." class="img-thumbnail">
-    <h6><%=userId%></h6>
-    <h5>Attending</h5>
+    <h1> Your ticket for every event.</h1>
+    <img src="http://api.qrserver.com/v1/create-qr-code/?data=<%=userId%>!&size=1024x1024" alt="Failed to load, enter code manually." class="img-thumbnail">
+    <h3><%=userId%></h3>
+    <h2>Attending</h2>
 <script>
     var eventArray = [];
     var dateArray = [];
     var eventNumber;
 
-    function yoma () {
-
-        //debugger;
-        var request = $.ajax({
-            url: "login/auth/facebook",
-            method: "GET",
-            crossDomain: true,
-            dataType: "json",
-            headers:{"Access-Control-Allow-Origin": "https://www.facebook.com"}
-
-        });
-
-        request.done(function( msg ) {
-
-            alert(msg)
-        });
-
-        request.fail(function( jqXHR, textStatus ) {
-            debugger;
-            alert( "Request failed: " + textStatus );
-        });
-
-        //var userInfo =  ;
-        /*.get("login/auth/facebook", function( data ) {
-            // Do something smarter than
-//debugger;
-            alert(data);
-        });*/
-
-        //userInfo.done();
-
-       /*$.ajax.get('/home', function(data){
-
-            alert(data);
-        });*/
+    if ($('#loginButton').text() == "Sign out") {
+        //alert('yo');
+        $('#loginButton').attr("href", "/profile/logout");
     }
 
-    /*$('#loginButton').on('click', function() {
-        $.ajax.get('login/auth/facebook', function(data){
-
-            alert(data);
-        });
-    });*/
 </script>
     <ul class="list-unstyled">
-        <% for (var i = 0; i <= 5 ; i++ ){ %>
+        <% for (var i = 0; i < data.length ; i++ ){ %>
 
-        <li> <h6> event <small> date </small> </h6> </li>
+        <li> <h3> <%=data[i].title%> <small> <%=data[i].date%> </small> </h3> </li>
 
         <% } %>
     </ul>

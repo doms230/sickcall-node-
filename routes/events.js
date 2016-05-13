@@ -38,49 +38,10 @@ var status;
 var currentUser;
 var logUrl;
 
-    router.get('/', function (req, res, next) {
-
-        
-        if (eventId == null){
-            eventId = req.query.id;
-        }
-        
-        parse.User.enableUnsafeCurrentUser();
-        currentUser = parse.User.current();
-
-        //currentUser = "0IOlbiZ9Tw";
-
-        if (currentUser){
-            logUrl = "/events/logout";
-            status = "Checkout";
-            loadEventInfo(res, true, currentUser);
-            
-           // loadEventInfo(res, true, "doms230@aol.com");
-
-        } else{
-            logUrl = "/login/auth/facebook";
-            status = "Login before purchase";
-            loadEventInfo(res, false);
-        }
-    });
-
-    router.get('/logout', function (req, res) {
-        parse.User.logOut();
-        logUrl = "/login/auth/facebook";
-        status = "Login before purchase";
-        loadEventInfo(res, false);
-    }, function(err, account) {
-    // asynchronously called
-    if (err != null){
-        res.send(err)
-
-    } else {
-        res.send(account)
-    }
-});
+var userObjectId;
 
 //twitter login
-/*passport.use(new FacebookStrategy({
+passport.use('events', new FacebookStrategy({
         clientID: "178018185913116",
         clientSecret: "a561ac32e474b6d927d512a8f3ae37df",
         callbackURL: "http://localhost:3000/events/auth/facebook/callback",
@@ -93,17 +54,59 @@ var logUrl;
         gender = profile.gender;
         photo = profile.photos[0].value;
         email = username;
-        name = profile.name.givenName + "" + profile.name.familyName;
+        name = profile.name.givenName + " " + profile.name.familyName;
 
         cb(null, profile);
     }
-));
+    ));
+
+    router.get('/', function (req, res, next) {
+        eventId = req.query.id;
+        
+       /* if (eventId == null){
+            eventId = req.query.id;
+        }*/
+
+        parse.User.enableUnsafeCurrentUser();
+        currentUser = parse.User.current();
+
+        //currentUser = "0IOlbiZ9Tw";
+
+        if (currentUser){
+           // logUrl = "/events/logout";
+            status = "Checkout";
+            loadEventInfo(res, true, currentUser);
+            
+           // loadEventInfo(res, true, "doms230@aol.com");
+
+        } else{
+            //logUrl = "/login/auth/facebook";
+            status = "Login before purchase";
+            loadEventInfo(res, false);
+        }
+    });
+
+    router.get('/logout', function (req, res) {
+        parse.User.logOut();
+        //logUrl = "/login/auth/facebook";
+        status = "Login before purchase";
+        name = "";
+        loadEventInfo(res, false);
+    }, function(err, account) {
+    // asynchronously called
+    if (err != null){
+        res.send(err)
+
+    } else {
+        res.send(account)
+    }
+});
 
 router.get('/auth/facebook',
-    passport.authenticate('facebook', { scope: ['public_profile', 'email'] }));
+    passport.authenticate('events', { scope: ['public_profile', 'email'] }));
 
 router.get('/auth/facebook/callback',
-    passport.authenticate('facebook', { failureRedirect: '/events?id=' + eventId }),
+    passport.authenticate('events', { failureRedirect: '/events?id=' + eventId }),
     function(req, res) {
         // Successful authentication, redirect home.
 
@@ -118,7 +121,7 @@ router.get('/login', function(req, res){
 //Main UI Data Jaunts
 
 function loadUserInfo(res, username){
-}*/
+}
 
 function loadEventInfo(res, logged, username){
     var logButton;
@@ -203,7 +206,6 @@ function loadEventInfo(res, logged, username){
             });
 
            /* var data = [];
-
             for (var i = 0; i < ticketName.length; i ++ ){
                 data.push({
                     name: ticketName[i],
@@ -239,7 +241,6 @@ router.get('/getMerchant', function (req, res, next) {
 });
 
 router.post('/updateTickets', function (req, res) {
-
     var ticketQuantity = req.body.ticketQuantity;
     var purchaseId = req.body.purchase;
 
@@ -249,7 +250,6 @@ router.post('/updateTickets', function (req, res) {
     var eventQuery = new parse.Query(updateEvent);
     eventQuery.get(eventId, {
         success: function (ticket) {
-
             var ticketSold = ticket.get('ticketSold');
 
             for (var i = 0; i < ticketSold.length; i++) {
@@ -261,7 +261,6 @@ router.post('/updateTickets', function (req, res) {
                 success: function (gameScore) {
                     // Execute any logic that should take place after the object is saved.
                     //alert('New object created with objectId: ' + gameScore.id);
-
                     //res.redirect("/profile");
                 },
                 error: function (gameScore, error) {
@@ -277,71 +276,13 @@ router.post('/updateTickets', function (req, res) {
         }
     });
 
-    //right now this is updating results... do thing that creates new line in collection if it doesn't exist.
-
-    var updateTickets = parse.Object.extend("Tickets");
-    var ticketQuery = new parse.Query(updateTickets);
-    ticketQuery.equalTo("eventId", eventId);
-    ticketQuery.equalTo("ticketHolderId", currentUser.get("ticketHolderId"));
-    ticketQuery.find({
-        success: function (results) {
-
-            if (results.length == 0) {
-                var Ticket = parse.Object.extend("Tickets");
-                var ticket = new Ticket();
-
-                ticket.set("ticketName", ticketName);
-                ticket.set("ticketQuantity", [1]);
-                ticket.set("eventId", eventId);
-                ticket.set("eventName", title);
-                ticket.set("ticketHolderId", currentUser.get("objectId"));
-                ticket.set("isRemoved", false);
-                ticket.set("didRSVP", false);
-                ticket.set("didCheckin", false);
-
-                ticket.save(null, {
-                    success: function (gameScore) {
-                        // Execute any logic that should take place after the object is saved.
-                        //alert('New object created with objectId: ' + gameScore.id);
-
-                        //res.redirect("/profile");
-                    },
-                    error: function (gameScore, error) {
-                        // Execute any logic that should take place if the save fails.
-                        // error is a Parse.Error with an error code and message.
-                        //  alert('Failed to create new object, with error code: ' + error.message);
-                    }
-                });
-            } else {
-
-                for (var i = 0; i < results.length; i++) {
-                    var tickets = results.get('ticketQuantity');
-                }
-
-                for (var o = 0; i < tickets.length; o++) {
-                    tickets[o] = tickets[o] + parseInt(ticketQuantity[o]);
-                }
-
-                results.set('ticketQuantity', tickets);
-                results.save();
-
-                // res.redirect("/profile");
-            }
-        },
-        error: function (error) {
-            console.log(error);
-        }
-    });
-
-    //add purchase Id to refund collection
-
     if (purchaseId != "free") {
         var Purchase = parse.Object.extend("Refunds");
         var purchase = new Purchase();
 
         purchase.set("eventId", eventId);
         purchase.set("purchaseId",purchaseId);
-        purchase.set("ticketHolderId", currentUser);
+        purchase.set("ticketHolderId", userObjectId);
 
         purchase.save(null, {
             success: function (gameScore) {
@@ -355,11 +296,88 @@ router.post('/updateTickets', function (req, res) {
             }
         });
     }
+
+    //right now this is updating results... do thing that creates new line in collection if it doesn't exist.
+
+    var updateTickets = parse.Object.extend("Tickets");
+    var ticketQuery = new parse.Query(updateTickets);
+    ticketQuery.equalTo("eventId", eventId);
+    ticketQuery.equalTo("ticketHolderId",userObjectId);
+    ticketQuery.find({
+        success: function (results) {
+            console.log(results.length);
+            if (results.length == 0) {
+                var Ticket = parse.Object.extend("Tickets");
+                var ticket = new Ticket();
+
+                ticket.set("ticketName", ticketName);
+                ticket.set("ticketQuantity", [1]);
+                ticket.set("eventId", eventId);
+                ticket.set("eventName", title);
+                ticket.set("ticketHolderId", userObjectId);
+                ticket.set("isRemoved", false);
+                ticket.set("didRSVP", false);
+                ticket.set("didCheckin", false);
+
+                ticket.save(null, {
+                    success: function (gameScore) {
+                        // Execute any logic that should take place after the object is saved.
+                        //alert('New object created with objectId: ' + gameScore.id);
+                         //res.send("yoma");
+                        res.redirect("/profile/");
+                    },
+                    error: function (gameScore, error) {
+                        // Execute any logic that should take place if the save fails.
+                        // error is a Parse.Error with an error code and message.
+                        //  alert('Failed to create new object, with error code: ' + error.message);
+                    }
+                });
+            } else {
+                
+                res.send("asdf");
+
+                /*for (var i = 0; i < results.length; i++) {
+                    var object = results[i];
+                    var tickets = object.get('ticketQuantity');
+                }
+                console.log(tickets[0]);
+
+                for (var o = 0; i < tickets.length; o++) {
+                    tickets[o] =  parseInt(tickets[o] + ticketQuantity[o]);
+                }
+
+                console.log("after: " + tickets[0] );
+
+                results.set('ticketQuantity', tickets);
+                results.save(null, {
+                    success: function (gameScore) {
+                        // Execute any logic that should take place after the object is saved.
+                        //alert('New object created with objectId: ' + gameScore.id);
+
+                        res.send("yoma");
+                        //res.redirect("/profile");
+                    },
+                    error: function (gameScore, error) {
+                        // Execute any logic that should take place if the save fails.
+                        // error is a Parse.Error with an error code and message.
+                        //  alert('Failed to create new object, with error code: ' + error.message);
+                    }
+                });*/
+
+                // res.redirect("/profile");
+            }
+        },
+        error: function (error) {
+        }
+    });
+
+    //add purchase Id to refund collection
+
 });
 
 //login jaunts
 
-/*function createUser(username, password, email, name, gender, photo, req, res){
+function createUser(username, password, email, name, gender, photo, req, res){
 
     var user = new parse.User();
     user.set("username", username);
@@ -369,7 +387,7 @@ router.post('/updateTickets', function (req, res) {
     user.set("gender", gender);
     user.set("age", "");
 
-    /*var file = new parse.File("facebookImage.jpeg", photo);
+    var file = new parse.File("facebookImage.jpeg", photo);
     user.set("Profile", file);
 
     user.signUp(null, {
@@ -379,6 +397,7 @@ router.post('/updateTickets', function (req, res) {
             console.log("created:" + user);
 
             parse.User.become(parse.Session.current()).then(function (user) {
+                userObjectId = user.id;
                 res.redirect('/events?id=' + eventId );
             }, function (error) {
                 res.redirect('/events?id=' + eventId );
@@ -397,6 +416,7 @@ function loginUser(username, password, email, name, gender, photo, req, res){
             //change button to log out and stripe buy tickets jaunt
 
             parse.User.become(parse.Session.current()).then(function (user) {
+                userObjectId = user.id;
                 // The current user is now set to user.
                 res.redirect('/events?id=' + eventId );
             }, function (error) {
@@ -411,6 +431,6 @@ function loginUser(username, password, email, name, gender, photo, req, res){
             }
         }
     });
-}*/
+}
 
 module.exports = router;
