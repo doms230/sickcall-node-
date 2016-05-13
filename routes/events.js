@@ -44,7 +44,7 @@ var userObjectId;
 passport.use('events', new FacebookStrategy({
         clientID: "178018185913116",
         clientSecret: "a561ac32e474b6d927d512a8f3ae37df",
-        callbackURL: "https://www.hiikey.com/events/auth/facebook/callback",
+        callbackURL: "http://localhost:3000/events/auth/facebook/callback",
         profileFields: ['id', 'name', 'age_range','gender', 'emails', 'picture.type(large)']
     },
     function(accessToken, refreshToken, profile, cb) {
@@ -246,7 +246,8 @@ router.get('/getMerchant', function (req, res, next) {
 });
 
 router.post('/updateTickets', function (req, res) {
-    var ticketQuantity = req.body.ticketQuantity;
+    //TODO: change back to rq.body.ticketQuantity;
+    var ticketQuantity = [1,0,0];
     var purchaseId = req.body.purchase;
 
     var resultJaunt;
@@ -261,7 +262,6 @@ router.post('/updateTickets', function (req, res) {
             for (var i = 0; i < ticketSold.length; i++) {
                 ticketSold[i] = ticketSold[i] + parseInt(ticketQuantity[i]);
             }
-
             ticket.set('ticketSold', ticketSold);
             ticket.save(null, {
                 success: function (gameScore) {
