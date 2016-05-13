@@ -86,7 +86,26 @@
 
             <a href="#" id= "pay" class="btn btn-default "><span class="fa fa-twitter"></span><%=status%></a>
 
+            <div class="alert alert-info fade in" id="login-error" style="display:none;">
+                <button type="button" class="close">×</button>
+                Login Before Purchase
+            </div>
+
+            <div class="alert alert-warning fade in" id="quan-error" style="display:none;">
+                <button type="button" class="close">×</button>
+                Choose Quantity
+            </div>
+
+            <div class="alert alert-success fade in" id="success-alert" style="display:none;">
+                <button type="button" class="close">×</button>
+                Tickets Acquired!
+            </div>
+
             <script >
+
+                $('.alert .close').on('click', function(e) {
+                    $(this).parent().hide();
+                });
 
                 var ticketQuantity;
                 var ticketName;
@@ -142,9 +161,9 @@
 
                             updateTickets.done(function(data){
                                 //post jaunt to update database
-                               // alert(data);
+                                //alert(data);
 
-                                //redirect("/profile");
+                                window.location = ("/profile");
                             });
 
                            // alert( "Data Loaded: " + data.id );
@@ -180,10 +199,12 @@
                     checkout.open();*/
 
                     if ($('#pay').text() == "Login before purchase"){
-                        alert("Please Login before purchase.");
+                       // alert("Please Login before purchase.");
+                        $('#login-error').show();
 
                     } else if (getQuantity() == 0){
-                        alert("Please choose quantity before checkout.");
+                        //alert("Please choose quantity before checkout.");
+                        $('#quan-error').show();
 
                     } else if(totalPrice == 0){
 
@@ -195,7 +216,10 @@
 
                         updateTickets.done(function(data){
                             //post jaunt to update database
-                               // alert(data);
+                            //window.location = ("/profile");
+                            $('#success-alert').text(data);
+                            $('#success-alert').show();
+
                         });
 
                     } else {
@@ -246,6 +270,7 @@
                 }
 
                 //put in label that shows the total before they decide to checkout
+
 
             </script>
 
