@@ -16,7 +16,7 @@ parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF", "bctRQbnLCvxRIHaJTk
 //sign in jaunts
 var username;
 var password;
-var name;
+var name = null;
 var gender;
 var photo;
 var email;
@@ -71,7 +71,7 @@ passport.use('events', new FacebookStrategy({
         //console.log(parse.user);
 
         parse.User.enableUnsafeCurrentUser();
-        currentUser = parse.User.current();
+        currentUser = null;
 
         //currentUser = "0IOlbiZ9Tw";
 
