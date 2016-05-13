@@ -69,12 +69,12 @@ passport.use('events', new FacebookStrategy({
 
         //console.log(parse.user);
 
-       // parse.User.enableUnsafeCurrentUser();
-        //currentUser = parse.User.current();
+        parse.User.enableUnsafeCurrentUser();
+        currentUser = parse.User.current();
 
         //currentUser = "0IOlbiZ9Tw";
 
-        if (req.session.user != null){
+        if (currentUser){
            // logUrl = "/events/logout";
             status = "Checkout";
             loadEventInfo(res, true, "");
@@ -426,10 +426,10 @@ function loginUser(username, password, email, name, gender, photo, req, res){
         success: function(user) {
             //change button to log out and stripe buy tickets jaunt
 
-            req.session.user=user;
-            res.redirect('/events?id=' + eventId);
+            //req.session.user=user;
+           // res.redirect('/events?id=' + eventId);
 
-            /*parse.User.become(parse.Session.current()).then(function (user) {
+            parse.User.become(parse.Session.current()).then(function (user) {
                 userObjectId = user.id;
                 // The current user is now set to user.
                 res.redirect('/events?id=' + eventId );
@@ -437,7 +437,7 @@ function loginUser(username, password, email, name, gender, photo, req, res){
             }, function (error) {
                 res.redirect('/events?id=' + eventId );
                 //console.log("error");
-            });*/
+            });
         },
         error: function(user, error, res) {
             //createUser(username, password, email, name, gender, photo);
