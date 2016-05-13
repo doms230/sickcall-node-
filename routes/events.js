@@ -71,7 +71,7 @@ passport.use('events', new FacebookStrategy({
         //console.log(parse.user);
 
         parse.User.enableUnsafeCurrentUser();
-        currentUser = null;
+        //currentUser = null;
 
         //currentUser = "0IOlbiZ9Tw";
 
