@@ -120,6 +120,10 @@ router.get('/login', function(req, res){
 
 //Main UI Data Jaunts
 
+router.get('/createUser', function (req, res ) {
+    createUser(username, password, email, name, gender, photo , req, res);
+});
+
 function loadUserInfo(res, username){
 }
 
@@ -313,7 +317,7 @@ router.post('/updateTickets', function (req, res) {
                 var ticket = new Ticket();
 
                 ticket.set("ticketName", ticketName);
-                ticket.set("ticketQuantity", [1]);
+                ticket.set("ticketQuantity", [1, 0, 0]);
                 ticket.set("eventId", eventId);
                 ticket.set("eventName", title);
                 ticket.set("ticketHolderId", userObjectId);
@@ -380,7 +384,7 @@ router.post('/updateTickets', function (req, res) {
 
 //login jaunts
 
-function createUser(username, password, email, name, gender, photo, req, res){
+function createUser(username, password, email, name, gender, photo, res){
 
     var user = new parse.User();
     user.set("username", username);
@@ -390,8 +394,8 @@ function createUser(username, password, email, name, gender, photo, req, res){
     user.set("gender", gender);
     user.set("age", "");
 
-    var file = new parse.File("facebookImage.jpeg", photo);
-    user.set("Profile", file);
+    //var file = new parse.File("facebookImage.jpeg", photo);
+    //user.set("Profile", file);
 
     user.signUp(null, {
         success: function(user) {
@@ -403,11 +407,13 @@ function createUser(username, password, email, name, gender, photo, req, res){
                 userObjectId = user.id;
                 res.redirect('/events?id=' + eventId );
             }, function (error) {
-                res.redirect('/events?id=' + eventId );
+                res.send('/events?id=' + eventId );
             });
         },
         error: function(user, error) {
             // Show the error message somewhere and let the user try again.
+            console.log(user);
+            console.log("error" + error);
             alert("Error: " + error.code + " " + error.message);
         }
     });
@@ -422,16 +428,17 @@ function loginUser(username, password, email, name, gender, photo, req, res){
                 userObjectId = user.id;
                 // The current user is now set to user.
                 res.redirect('/events?id=' + eventId );
+                //console.log("asdf");
             }, function (error) {
                 res.redirect('/events?id=' + eventId );
+                //console.log("error");
             });
         },
         error: function(user, error, res) {
             //createUser(username, password, email, name, gender, photo);
             //needSignup = true;
-            if (error.code == 101){
-                createUser(username, password, email, name, gender, photo);
-            }
+                createUser(username, password, email, name, gender, photo , res);
+            //res.redirect('/createUser');
         }
     });
 }
