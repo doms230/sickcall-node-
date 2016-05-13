@@ -63,7 +63,11 @@ app.use('/login', login);
 app.use(cookieSession({
   name: "cookei",
   secret: "deez",
-  maxAge: 15724800000
+  duration: 30 * 60 * 1000,
+  activeDuration: 5 * 60 * 1000,
+  httpOnly: true,
+  secure: true,
+  ephemeral: true
 }));
 
 passport.serializeUser(function(user, done) {

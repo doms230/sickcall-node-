@@ -35,7 +35,7 @@ var ticketsAvailable = [];
 var eventUser;
 var merchantId;
 var status;
-var currentUser;
+var currentUser = null;
 var logUrl;
 
 var userObjectId;
@@ -44,7 +44,7 @@ var userObjectId;
 passport.use('events', new FacebookStrategy({
         clientID: "178018185913116",
         clientSecret: "a561ac32e474b6d927d512a8f3ae37df",
-        callbackURL: "https://www.hiikey.com/events/auth/facebook/callback",
+        callbackURL: "http://localhost:3000/events/auth/facebook/callback",
         profileFields: ['id', 'name', 'age_range','gender', 'emails', 'picture.type(large)']
     },
     function(accessToken, refreshToken, profile, cb) {
@@ -77,7 +77,7 @@ passport.use('events', new FacebookStrategy({
         if (currentUser){
            // logUrl = "/events/logout";
             status = "Checkout";
-            loadEventInfo(res, true, "");
+            loadEventInfo(res, true, currentUser);
             
            // loadEventInfo(res, true, "doms230@aol.com");
 
