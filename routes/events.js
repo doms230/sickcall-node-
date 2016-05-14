@@ -94,6 +94,7 @@ passport.use('events', new FacebookStrategy({
            // loadEventInfo(res, true, "doms230@aol.com");
 
         } else{
+            name = "";
             //logUrl = "/login/auth/facebook";
             status = "Login before purchase";
             loadEventInfo(res, false);
