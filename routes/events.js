@@ -62,7 +62,6 @@ passport.use('events', new FacebookStrategy({
     }
 ));
 
-
     router.get('/', function (req, res, next) {
         eventId = req.query.id;
 
@@ -78,15 +77,15 @@ passport.use('events', new FacebookStrategy({
         }*/
 
         //console.log(parse.user);
-
+        
         parse.User.enableUnsafeCurrentUser();
         //currentUser = null;
-        currentUser = parse.User.current();
+       // currentUser = parse.User.current();
         //currentUser = "0IOlbiZ9Tw";
 
-        if (req.session.count != null){
-            req.session.count = 0;
-            console.log(req.session.count);
+        parse.User.logOut();
+
+        if (currentUser){
            // logUrl = "/events/logout";
             status = "Checkout";
             loadEventInfo(res, true, currentUser);
@@ -94,8 +93,6 @@ passport.use('events', new FacebookStrategy({
            // loadEventInfo(res, true, "doms230@aol.com");
 
         } else{
-            req.session.count ++ ;
-            console.log(req.session.count);
             //logUrl = "/login/auth/facebook";
             status = "Login before purchase";
             loadEventInfo(res, false);
