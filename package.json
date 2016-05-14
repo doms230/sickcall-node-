@@ -28,6 +28,7 @@
     "connect": "~3.4.1",
     "cookie-session": "~1.2.0",
     "passport-facebook":"~2.1.0",
-    "parse-cloud-express": "~1.2.0"
+    "parse-cloud-express": "~1.2.0",
+    "jquery": "2.2.3"
   }
 }

@@ -42,9 +42,12 @@ passport.use('profile', new FacebookStrategy({
 /* GET home page. */
 router.get('/', function(req, res, next) {
     parse.User.enableUnsafeCurrentUser();
-    currentUser = parse.User.current();
+   // currentUser = parse.User.current();
 
     //currentUser = "0IOlbiZ9Tw";
+
+    parse.User.logOut();
+    currentUser = parse.User.current();
 
     if (currentUser){
         //logUrl = "/events/logout";
