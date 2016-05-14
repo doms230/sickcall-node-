@@ -4,7 +4,7 @@
 var express = require('express');
 var router = express.Router();
 var stripe = require("stripe")(
-    "sk_test_HSpPMwMkr1Z6Eypr5MMldJ46"
+    " sk_live_wFw3B2lTIGPACNAsoGAH9bPO "
 );
 
 var passport = require('passport')
@@ -13,7 +13,7 @@ var passport = require('passport')
 var parse = require("parse/node").Parse;
 parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF", "bctRQbnLCvxRIHaJTkv3gqhlwSzxjiMesjx8kEwo");
 
-//sign in jaunts
+//sign in jaunts ""
 var username;
 var password;
 var name = null;
@@ -45,16 +45,21 @@ var userObjectId;
 passport.use('events', new FacebookStrategy({
         clientID: "178018185913116",
         clientSecret: "a561ac32e474b6d927d512a8f3ae37df",
-        //callbackURL: "http://localhost:3000/events/auth/facebook/callback",
-        callbackURL: "https://www.hiikey.com/events/auth/facebook/callback",
+        callbackURL: "http://localhost:3000/events/auth/facebook/callback",
+        //callbackURL: "https://www.hiikey.com/events/auth/facebook/callback",
         profileFields: ['id', 'name', 'age_range','gender', 'emails', 'picture.type(large)']
     },
     function(accessToken, refreshToken, profile, cb) {
+
+
         //username acts as "username" & "email"
         username = profile.emails[0].value;
         password = profile.id;
         gender = profile.gender;
         photo = profile.photos[0].value;
+
+       /* file = new parse.File("facebookImage.txt", photo.src);
+        file.save();*/
         email = username;
         name = profile.name.givenName + " " + profile.name.familyName;
 
@@ -338,6 +343,7 @@ router.post('/updateTickets', function (req, res) {
                 ticket.set("isRemoved", false);
                 ticket.set("didRSVP", false);
                 ticket.set("didCheckin", false);
+                ticket.set("qrcode", userObjectId.toLowerCase());
 
                 ticket.save(null, {
                     success: function (gameScore) {
@@ -408,7 +414,6 @@ function createUser(username, password, email, name, gender, photo, res){
     user.set("gender", gender);
     user.set("age", "");
 
-    //var file = new parse.File("facebookImage.jpeg", photo);
     //user.set("Profile", file);
 
     user.signUp(null, {
@@ -451,7 +456,7 @@ function loginUser(username, password, email, name, gender, photo, req, res){
                 //console.log("error");
             });
         },
-        error: function(user, error, res) {
+        error: function(user, error) {
             //createUser(username, password, email, name, gender, photo);
             //needSignup = true;
                 createUser(username, password, email, name, gender, photo , res);

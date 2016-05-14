@@ -249,10 +249,8 @@
                             //post jaunt to update database
                             //window.location = ("/profile");
 
-                            if (data = "Only one ticket per Hiikey user can be acquired at this time."){
                                 $('#success-alert').text(data);
                                 $('#success-alert').show();
-                            }
                         });
 
                     } else {
@@ -262,7 +260,7 @@
                         totalPriceWithFees = totalPrice + (totalPrice * .029) + .30 ;
 
                         var checkout = StripeCheckout.configure({
-                            key: 'pk_test_wMPl893ju7D1tv3DUO6CRCBh',
+                            key: 'pk_live_JqdjZ93F9j7RWqPd2EelHSRX',
                             token: onReceiveToken,
                             amount: totalPriceWithFees * 100 ,
                             name: "Payment Information" ,

@@ -4,7 +4,7 @@
 var express = require('express');
 var router = express.Router();
 var stripe = require("stripe")(
-    "sk_test_HSpPMwMkr1Z6Eypr5MMldJ46"
+    "sk_live_wFw3B2lTIGPACNAsoGAH9bPO"
 );
 
 var currentUser; 
@@ -31,7 +31,7 @@ router.post('/buyTickets', function(req, res){
         amount: req.body.amount, // amount in cents, again
         currency: "usd",
         //source: "tok_17zVIsHskqJlyyfaEiMdnQLB",
-        source: req.body.stripeToken,
+        source: "",
          destination: req.body.destination,
         //application_fee: (req.body.amount * .029) + .30,
         application_fee: req.body.application_fee,

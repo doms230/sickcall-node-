@@ -33,12 +33,13 @@
             <img href="" src="images/appstoreButton.png" class="img-responsive" alt="Available on The App Store" width="126" height="88">
         </a>
     </div>
+
 </nav>
 
 <div class="container-fluid">
 
     <h1> Your ticket for every event.</h1>
-    <img src="http://api.qrserver.com/v1/create-qr-code/?data=<%=userId%>!&size=1024x1024" alt="Failed to load, enter code manually." class="img-thumbnail">
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=1024x1024&data=<%=userId%>" alt="Failed to load, enter code manually." class="img-thumbnail">
     <h3><%=userId%></h3>
     <h2>Attending</h2>
 <script>
