@@ -24,7 +24,7 @@ router.get('/', function(req, res, next) {
 
 var chargeIds = [];
 
-router.post('/buyTickets', function(req, res){
+router.get('/buyTickets', function(req, res){
 
     //res.send("yo");
         stripe.charges.create({
@@ -41,8 +41,8 @@ router.post('/buyTickets', function(req, res){
     function(err, charge) {
         if (err && err.type === 'StripeCardError') {
             // The card has been declined
-
-            res.send(err);
+            res.status(500).send('Something broke!');
+           // res.send(err);
         } else {
             res.status(500).send('Something broke!');
         }
