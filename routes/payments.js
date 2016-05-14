@@ -24,7 +24,7 @@ router.get('/', function(req, res, next) {
 
 var chargeIds = [];
 
-router.post('/buyTickets', function(req, res){
+router.get('/buyTickets', function(req, res){
 
     //res.send("yo");
         stripe.charges.create({
