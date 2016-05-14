@@ -31,7 +31,7 @@ router.post('/buyTickets', function(req, res){
         amount: req.body.amount, // amount in cents, again
         currency: "usd",
         //source: "tok_17zVIsHskqJlyyfaEiMdnQLB",
-        source: "",
+        source: req.body.stripeToken,
          destination: req.body.destination,
         //application_fee: (req.body.amount * .029) + .30,
         application_fee: req.body.application_fee,
@@ -44,7 +44,7 @@ router.post('/buyTickets', function(req, res){
 
             res.send(err);
         } else {
-            res.send(charge);
+            res.status(500).send('Something broke!');
         }
     });
 });
