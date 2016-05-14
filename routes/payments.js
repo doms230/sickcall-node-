@@ -41,10 +41,10 @@ router.post('/buyTickets', function(req, res){
     function(err, charge) {
         if (err && err.type === 'StripeCardError') {
             // The card has been declined
-            res.status(400).send('Something broke!');
+            res.send(JSON.stringify({ statusCode: 400, statusMessage: "yoma" }));
            // res.send(err);
         } else {
-            res.status(400).send('Something broke!');
+            res.send(JSON.stringify({ statusCode: 400, statusMessage: "yoma" }));
         }
     });
 });
