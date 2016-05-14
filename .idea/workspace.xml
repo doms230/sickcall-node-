@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b6409295-0300-48bf-8227-44efe9f69b8f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/payments.js" afterPath="$PROJECT_DIR$/routes/payments.js" />
-    </list>
+    <list default="true" id="b6409295-0300-48bf-8227-44efe9f69b8f" name="Default" comment="" />
     <ignored path="hiikeynode.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -80,8 +78,8 @@
       <file leaf-file-name="payments.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/payments.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="630">
-              <caret line="42" column="41" selection-start-line="42" selection-start-column="41" selection-end-line="42" selection-end-column="41" />
+            <state relative-caret-position="195">
+              <caret line="26" column="19" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -367,12 +365,12 @@
       <updated>1456138769973</updated>
       <workItem from="1462034797702" duration="110667000" />
       <workItem from="1463028135249" duration="29000" />
-      <workItem from="1463028185375" duration="73616000" />
+      <workItem from="1463028185375" duration="73920000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="184312000" />
+    <option name="totallyTimeSpent" value="184616000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -776,8 +774,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/payments.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="42" column="41" selection-start-line="42" selection-start-column="41" selection-end-line="42" selection-end-column="41" />
+        <state relative-caret-position="195">
+          <caret line="26" column="19" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="24" />
           <folding />
         </state>
       </provider>
