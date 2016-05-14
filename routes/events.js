@@ -35,17 +35,18 @@ var ticketsAvailable = [];
 var eventUser;
 var merchantId;
 var status;
-var currentUser = null;
+var currentUser;
 var logUrl;
 
 var userObjectId;
 
 //twitter login
+
 passport.use('events', new FacebookStrategy({
         clientID: "178018185913116",
         clientSecret: "a561ac32e474b6d927d512a8f3ae37df",
-        //callbackURL: "http://localhost:3000/events/auth/facebook/callback",
-        callbackURL: "https://www.hiikey.com/events/auth/facebook/callback",
+        callbackURL: "http://localhost:3000/events/auth/facebook/callback",
+        //callbackURL: "https://www.hiikey.com/events/auth/facebook/callback",
         profileFields: ['id', 'name', 'age_range','gender', 'emails', 'picture.type(large)']
     },
     function(accessToken, refreshToken, profile, cb) {
@@ -59,10 +60,18 @@ passport.use('events', new FacebookStrategy({
 
         cb(null, profile);
     }
-    ));
+));
+
 
     router.get('/', function (req, res, next) {
         eventId = req.query.id;
+
+        /*if (req.session.count == null) {
+            req.session.count = 0;
+        }
+        //res.send(req.session.count);
+        console.log(req.session.count);
+        req.session.count++;*/
         
        /* if (eventId == null){
             eventId = req.query.id;
@@ -72,10 +81,12 @@ passport.use('events', new FacebookStrategy({
 
         parse.User.enableUnsafeCurrentUser();
         //currentUser = null;
-
+        currentUser = parse.User.current();
         //currentUser = "0IOlbiZ9Tw";
 
-        if (currentUser){
+        if (req.session.count != null){
+            req.session.count = 0;
+            console.log(req.session.count);
            // logUrl = "/events/logout";
             status = "Checkout";
             loadEventInfo(res, true, currentUser);
@@ -83,6 +94,8 @@ passport.use('events', new FacebookStrategy({
            // loadEventInfo(res, true, "doms230@aol.com");
 
         } else{
+            req.session.count ++ ;
+            console.log(req.session.count);
             //logUrl = "/login/auth/facebook";
             status = "Login before purchase";
             loadEventInfo(res, false);
@@ -112,7 +125,6 @@ router.get('/auth/facebook/callback',
     passport.authenticate('events', { failureRedirect: '/events?id=' + eventId }),
     function(req, res) {
         // Successful authentication, redirect home.
-
         res.redirect('/events/login');
         //res.send("all good");
     });
