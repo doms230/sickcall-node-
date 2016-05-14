@@ -84,6 +84,7 @@ passport.use('events', new FacebookStrategy({
         //currentUser = "0IOlbiZ9Tw";
 
         parse.User.logOut();
+        currentUser = parse.User.current();
 
         if (currentUser){
            // logUrl = "/events/logout";
