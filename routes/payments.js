@@ -28,13 +28,13 @@ router.post('/buyTickets', function(req, res){
 
     //res.send("yo");
         stripe.charges.create({
-        amount: req.body.amount, // amount in cents, again
+        amount: 100, // amount in cents, again
         currency: "usd",
         //source: "tok_17zVIsHskqJlyyfaEiMdnQLB",
         source: req.body.stripeToken,
          destination: req.body.destination,
         //application_fee: (req.body.amount * .029) + .30,
-        application_fee: req.body.application_fee,
+        application_fee: 59,
         description: req.body.description
        // description: req.body.stripeToken.description
     },
