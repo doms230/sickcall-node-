@@ -24,7 +24,7 @@ router.get('/', function(req, res, next) {
 
 var chargeIds = [];
 
-router.post('/buyTickets', function(req, res){
+router.get('/buyTickets', function(req, res){
 
     //res.send("yo");
         stripe.charges.create({
@@ -41,10 +41,10 @@ router.post('/buyTickets', function(req, res){
     function(err, charge) {
         if (err && err.type === 'StripeCardError') {
             // The card has been declined
-            res.send(JSON.stringify({ statusCode: 400, statusMessage: "yoma" }));
+            res.send(JSON.stringify({ statusCode: 400, message: "yoma" }));
            // res.send(err);
         } else {
-            res.send(JSON.stringify({ statusCode: 400, statusMessage: "yoma" }));
+            res.send(JSON.stringify({ statusCode: 400, message: "yoma" }));
         }
     });
 });
