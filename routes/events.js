@@ -4,7 +4,7 @@
 var express = require('express');
 var router = express.Router();
 var stripe = require("stripe")(
-    " sk_live_wFw3B2lTIGPACNAsoGAH9bPO "
+    "sk_live_wFw3B2lTIGPACNAsoGAH9bPO"
 );
 
 var passport = require('passport')
