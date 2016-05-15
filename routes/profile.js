@@ -24,8 +24,8 @@ var name;
 passport.use('profile', new FacebookStrategy({
  clientID: "178018185913116",
  clientSecret: "a561ac32e474b6d927d512a8f3ae37df",
- //callbackURL: "https://www.hiikey.com/profile/auth/facebook/callback",
-    callbackURL: "http://localhost:3000/profile/auth/facebook/callback",
+ callbackURL: "https://www.hiikey.com/profile/auth/facebook/callback",
+    //callbackURL: "http://localhost:3000/profile/auth/facebook/callback",
  profileFields: ['id', 'name', 'age_range','gender', 'emails', 'picture.type(large)']
  },
  function(accessToken, refreshToken, profile, cb) {
@@ -42,6 +42,8 @@ passport.use('profile', new FacebookStrategy({
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+    
+    var success = req.query.id; 
     parse.User.enableUnsafeCurrentUser();
    // currentUser = parse.User.current();
 
@@ -61,7 +63,7 @@ router.get('/', function(req, res, next) {
         //logUrl = "/login/auth/facebook";
         //status = "Login before purchase";
         //loadUserInfo(res);
-
+        
         name = "";
         var data = [];
         
@@ -71,13 +73,31 @@ router.get('/', function(req, res, next) {
                 date:  " "
             });
         }
-
-        res.render('profile', {
-            data: data,
-            userId: "",
-            user: name,
-            logButton: "Sign in with Facebook"
-        });
+        if (success == null ){
+            res.render('profile', {
+                data: data,
+                userId: "",
+                user: name,
+                logButton: "Sign in with Facebook",
+                ticketAlert: false,
+                ticketMessage: ""
+            });
+        } else {
+            var message = "";
+            if (success == "no"){
+                message = "Only one ticket per Hiikey user can be acquired at this time.";
+            } else{
+                message = "Tickets acquired, sign in again & show this page at the door.";
+            }
+            res.render('profile', {
+                data: data,
+                userId: "",
+                user: name,
+                logButton: "Sign in with Facebook",
+                ticketAlert: false,
+                ticketMessage: message
+            });
+        }
     }
 });
 

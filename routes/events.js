@@ -37,6 +37,8 @@ var merchantId;
 var status;
 var currentUser;
 var logUrl;
+var message;
+var statusCode;
 
 var userObjectId;
 
@@ -45,12 +47,11 @@ var userObjectId;
 passport.use('events', new FacebookStrategy({
         clientID: "178018185913116",
         clientSecret: "a561ac32e474b6d927d512a8f3ae37df",
-        callbackURL: "http://localhost:3000/events/auth/facebook/callback",
-        //callbackURL: "https://www.hiikey.com/events/auth/facebook/callback",
+        //callbackURL: "http://localhost:3000/events/auth/facebook/callback",
+        callbackURL: "https://www.hiikey.com/events/auth/facebook/callback",
         profileFields: ['id', 'name', 'age_range','gender', 'emails', 'picture.type(large)']
     },
     function(accessToken, refreshToken, profile, cb) {
-
 
         //username acts as "username" & "email"
         username = profile.emails[0].value;
@@ -82,7 +83,29 @@ passport.use('events', new FacebookStrategy({
         }*/
 
         //console.log(parse.user);
-        
+
+        var updateTickets = parse.Object.extend("Tickets");
+        var ticketQuery = new parse.Query(updateTickets);
+        ticketQuery.equalTo("eventId", "WDDOG14J9w");
+        ticketQuery.equalTo("ticketHolderId","UurWZEnawF");
+        ticketQuery.find({
+            success: function (results) {
+                if (results.length == 0) {
+                    statusCode = "false" ;
+                    message = "null";
+
+                } else  {
+                    statusCode = "true";
+                    message = "Only one ticket per Hiikey user can be acquired at this time.";
+
+                }
+
+                //res.send(JSON.stringify({ status: statusCode, message: message }));
+            },
+            error: function (error) {
+            }
+        });
+
         parse.User.enableUnsafeCurrentUser();
         //currentUser = null;
        // currentUser = parse.User.current();
@@ -104,6 +127,10 @@ passport.use('events', new FacebookStrategy({
             status = "Login before purchase";
             loadEventInfo(res, false);
         }
+    });
+
+    router.get('/checkForTicket', function (req, res) {
+
     });
 
     router.get('/logout', function (req, res) {
@@ -218,7 +245,7 @@ function loadEventInfo(res, logged, username){
                         user: name,
                         data: data, 
                         status: status,
-                        loginUrl: ""
+                        loginUrl: statusCode
                     });
                 },
                 error: function (object, error) {

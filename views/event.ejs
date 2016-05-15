@@ -22,15 +22,11 @@
 
     <script src="https://checkout.stripe.com/checkout.js"></script>
 
-
-
     <!-- Custom styles for this template
     <link href="navbar.css" rel="stylesheet"> -->
 
-
 </head>
 <body>
-
 <!-- Static navbar -->
 <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -56,22 +52,6 @@
         </div><!--/.nav-collapse -->
     </div><!--/.container-fluid -->
 </nav>
-
-<!--<nav class="navbar navbar-default ">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <p class="navbar-text"><%=user%></p>
-            <a  id="log" href="/events/auth/facebook" class="btn btn-primary navbar-btn"><span class="fa fa-twitter"></span><%=logButton%></a>
-        </div>
-    </div>
-
-    <div class="navbar-header">
-        <a href="https://itunes.apple.com/us/app/hiikey/id1013280340?ls=1&mt=8">
-            <img href="" src="images/appstoreButton.png" class="img-responsive" alt="Available on The App Store" width="126" height="88">
-        </a>
-    </div>
-
-</nav>-->
 
 <div class="page-header">
     <h1><%= title %><small> <%= date %></small></h1>
@@ -115,7 +95,7 @@
                 </tbody>
             </table>
 
-            <div class="alert alert-info fade in" id="login-error" style="display:none;">
+            <div class="alert alert-info fade in" id="login-error" style="display:none;" >
                 <button type="button" class="close">×</button>
                 Login Before Purchase
             </div>
@@ -126,13 +106,26 @@
             </div>
 
             <div class="alert alert-success fade in" id="success-alert" style="display:none;">
-                <button type="button" class="close">×</button>
                 Tickets Acquired!
+                <button id="goTickets" type="button" class="btn-sm"> Your Tickets  </button>
             </div>
 
             <a href="#" id= "pay" class="btn btn-default "><span class="fa fa-twitter"></span><%=status%></a>
 
+            <h6 id= "checkTickets" class="icon-bar"  ><%=loginUrl%></h6>
+
             <script >
+
+                document.getElementById("checkTickets").style.visibility = "hidden";
+
+                var message = "Only one ticket per Hiikey user can be acquired at this time.";
+
+                function yoma() {
+                    window.location = ("/profile");
+                }
+                /*$('#goTickets').on('click', function(e) {
+                    window.location = ("/profile");
+                });*/
 
                 $('.alert .close').on('click', function(e) {
                     $(this).parent().hide();
@@ -192,9 +185,11 @@
 
                             updateTickets.done(function(data){
                                 //post jaunt to update database
-                                //alert(data);
 
-                                window.location = ("/profile");
+                                $('#success-alert').html(data +'<button onclick="yoma()" id="goTickets" type="button" class="btn-sm">Your Tickets</button> ')
+                                $('#success-alert').show();
+
+                                //window.location = ("/profile");
                             });
 
                            // alert( "Data Loaded: " + data.id );
@@ -206,6 +201,25 @@
 
                 // Open Checkout when the link is clicked
                 $('#pay').on('click', function() {
+
+                    var checkTickets = $.get('/events/checkForTicket', {
+                    });
+
+                    checkTickets.done(function(data){
+                        status = data;
+
+                        /*  if(status == true){
+                         window.location = ("/error");
+                         }*/
+                        alert(status);
+                        if (status == true){
+                            window.location = ("/profile");
+                        } else {
+                            alert(yoma);
+                        }
+                        //message = data.message
+                        //alert(data);
+                    });
 
                     //ticketQuantity = [$('#0').val(), $('#1').val(), $('#2').val()];
                     ticketQuantity = [$('#0').val()];
@@ -247,12 +261,13 @@
 
                         updateTickets.done(function(data){
                             //post jaunt to update database
-                            //window.location = ("/profile");
-
-                                $('#success-alert').text(data);
-                                $('#success-alert').show();
+                            $('#success-alert').html(data +'<button onclick="yoma()" id="goTickets" type="button" class="btn-sm">Your Tickets</button> ')
+                            $('#success-alert').show();
                         });
 
+                    }  else if($('#checkTickets').text() == "true"){
+                        $('#success-alert').html(message +'<button onclick="yoma()" id="goTickets" type="button" class="btn-sm">Your Tickets</button> ')
+                        $('#success-alert').show();
                     } else {
 
                         //ticketName = [$('#name0').text(), $('#name1').text(), $('#name2').text()];
@@ -269,10 +284,8 @@
                             allowRememberMe: false,
                             locale: 'auto'
                         });
-
                         checkout.open();
                     }
-
                     return false;
                 });
 
