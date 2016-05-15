@@ -71,7 +71,7 @@
                 <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Price</th>
+                    <th>$ Price</th>
                     <th>Quantity</th>
                 </tr>
                 </thead>
@@ -81,7 +81,7 @@
                 <% for(var i=0; i < data.length; i++) { %>
                 <tr>
                     <td id= <%= data[i].nameId %>  ><%= data[i].name %></td>
-                    <td id= <%= data[i].priceId %> >$<%= data[i].price %> </td>
+                    <td id= <%= data[i].priceId %> ><%= data[i].price %> </td>
                     <td>
                         <div class="btn-group btn-group-sm" role="group" aria-label="...">
                             <input type="button" class= "btn btn-default disabled" id= <%= data[i].id %> value="0" />
