@@ -86,8 +86,8 @@ passport.use('events', new FacebookStrategy({
 
         var updateTickets = parse.Object.extend("Tickets");
         var ticketQuery = new parse.Query(updateTickets);
-        ticketQuery.equalTo("eventId", "WDDOG14J9w");
-        ticketQuery.equalTo("ticketHolderId","UurWZEnawF");
+        ticketQuery.equalTo("eventId", eventId);
+        ticketQuery.equalTo("ticketHolderId",userObjectId);
         ticketQuery.find({
             success: function (results) {
                 if (results.length == 0) {

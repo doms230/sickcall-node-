@@ -202,25 +202,6 @@
                 // Open Checkout when the link is clicked
                 $('#pay').on('click', function() {
 
-                    var checkTickets = $.get('/events/checkForTicket', {
-                    });
-
-                    checkTickets.done(function(data){
-                        status = data;
-
-                        /*  if(status == true){
-                         window.location = ("/error");
-                         }*/
-                        alert(status);
-                        if (status == true){
-                            window.location = ("/profile");
-                        } else {
-                            alert(yoma);
-                        }
-                        //message = data.message
-                        //alert(data);
-                    });
-
                     //ticketQuantity = [$('#0').val(), $('#1').val(), $('#2').val()];
                     ticketQuantity = [$('#0').val()];
                     var totalPrice = getTotal() ;
