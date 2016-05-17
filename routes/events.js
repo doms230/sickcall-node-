@@ -210,7 +210,7 @@ function loadEventInfo(res, logged, username){
 
             var d = new Date();
 
-            d.setDate(date.getDate() - 1);
+            d.setDate(date.getDate() - 2);
 
             console.log(formattedDate);
             ticketName = event.get('ticketName');
