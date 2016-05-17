@@ -44,260 +44,271 @@
             <ul class=" btn-sm btn-default nav navbar-nav">
                 <li><a href="/profile">Your Tickets</a></li>
             </ul>
-            <ul class="nav navbar-default navbar-nav">
-                <li class="active"><a href="https://itunes.apple.com/us/app/hiikey/id1013280340?ls=1&mt=8">
-                        <img href="" src="images/appstoreButton.png" class="img-responsive" alt="Available on The App Store" width="110" height="22">
-                    </a></li>
-            </ul>
+
         </div><!--/.nav-collapse -->
     </div><!--/.container-fluid -->
 </nav>
 
 <div class="page-header">
-    <h1><%= title %><small> <%= date %></small></h1>
-    <h6><%= description %></h6>
+    <div class="container-fluid">
+        <h1><%= title %><small> <%= date %></small></h1>
+        <h6><%= description %></h6>
+    </div>
 </div>
 
 <div class="col-md-8">
     <img src=<%= image %> class="img-thumbnail" alt="Responsive image">
 </div>
+<div class="page-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class= "col-md-4">
+                <h4>Tickets</h4>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class= "col-md-4">
-            <h4>Tickets</h4>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>$ Price</th>
+                        <th>Quantity</th>
+                    </tr>
+                    </thead>
 
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>$ Price</th>
-                    <th>Quantity</th>
-                </tr>
-                </thead>
+                    <tbody>
 
-                <tbody>
+                    <% for(var i=0; i < data.length; i++) { %>
+                    <tr>
+                        <td id= <%= data[i].nameId %>  ><%= data[i].name %></td>
+                        <td id= <%= data[i].priceId %> ><%= data[i].price %> </td>
+                        <td>
+                            <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                                <input type="button" class= "btn btn-default disabled" id= <%= data[i].id %> value="0" />
+                                <input type="Button" class="btn btn-danger" id= <%= data[i].minusButton %>  value="-"/>
+                                <input type="Button" class="btn btn-success" id= <%= data[i].addButton %> value="+"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <% } %>
 
-                <% for(var i=0; i < data.length; i++) { %>
-                <tr>
-                    <td id= <%= data[i].nameId %>  ><%= data[i].name %></td>
-                    <td id= <%= data[i].priceId %> ><%= data[i].price %> </td>
-                    <td>
-                        <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                            <input type="button" class= "btn btn-default disabled" id= <%= data[i].id %> value="0" />
-                            <input type="Button" class="btn btn-danger" id= <%= data[i].minusButton %>  value="-"/>
-                            <input type="Button" class="btn btn-success" id= <%= data[i].addButton %> value="+"/>
-                        </div>
-                    </td>
-                </tr>
-                <% } %>
+                    </tbody>
+                </table>
 
-                </tbody>
-            </table>
+                <div class="alert alert-info fade in" id="login-error" style="display:none;" >
+                    <button type="button" class="close">×</button>
+                    Login Before Purchase
+                </div>
 
-            <div class="alert alert-info fade in" id="login-error" style="display:none;" >
-                <button type="button" class="close">×</button>
-                Login Before Purchase
-            </div>
+                <div class="alert alert-warning fade in" id="quan-error" style="display:none;">
+                    <button type="button" class="close">×</button>
+                    Choose Quantity
+                </div>
 
-            <div class="alert alert-warning fade in" id="quan-error" style="display:none;">
-                <button type="button" class="close">×</button>
-                Choose Quantity
-            </div>
+                <div class="alert alert-success fade in" id="success-alert" style="display:none;">
+                    Tickets Acquired!
+                    <button id="goTickets" type="button" class="btn-sm"> Your Tickets  </button>
+                </div>
 
-            <div class="alert alert-success fade in" id="success-alert" style="display:none;">
-                Tickets Acquired!
-                <button id="goTickets" type="button" class="btn-sm"> Your Tickets  </button>
-            </div>
+                <a href="#" id= "pay" class="btn btn-default "><span class="fa fa-twitter"></span><%=status%></a>
 
-            <a href="#" id= "pay" class="btn btn-default "><span class="fa fa-twitter"></span><%=status%></a>
+                <h6 id= "checkTickets" class="icon-bar"  ><%=loginUrl%></h6>
 
-            <h6 id= "checkTickets" class="icon-bar"  ><%=loginUrl%></h6>
+                <script >
 
-            <script >
+                    document.getElementById("checkTickets").style.visibility = "hidden";
 
-                document.getElementById("checkTickets").style.visibility = "hidden";
+                    var message = "Only one ticket per Hiikey user can be acquired at this time.";
 
-                var message = "Only one ticket per Hiikey user can be acquired at this time.";
+                    function yoma() {
+                        window.location = ("/profile");
+                    }
+                    /*$('#goTickets').on('click', function(e) {
+                     window.location = ("/profile");
+                     });*/
 
-                function yoma() {
-                    window.location = ("/profile");
-                }
-                /*$('#goTickets').on('click', function(e) {
-                    window.location = ("/profile");
-                });*/
-
-                $('.alert .close').on('click', function(e) {
-                    $(this).parent().hide();
-                });
-
-                var ticketQuantity;
-                var ticketName;
-
-                function changeQuantity(quan, addButton, minusButton) {
-                    var counter = quan.val();
-
-                    addButton.click(function () {
-                        if (counter < 1) {
-                            counter++;
-                            quan.prop('value', counter);
-                        }
+                    $('.alert .close').on('click', function(e) {
+                        $(this).parent().hide();
                     });
 
-                    minusButton.click(function () {
-                        if (counter > 0) {
-                            counter -= 1;
-                            quan.prop('value', counter);
-                        }
-                    });
-                }
+                    var ticketQuantity;
+                    var ticketName;
 
-//Access-Control-Allow-Origin: http://foo.example                }
+                    function changeQuantity(quan, addButton, minusButton) {
+                        var counter = quan.val();
 
-                changeQuantity($('#0'),$('#addButton0'),$('#minusButton0'));
-                changeQuantity($('#1'),$('#addButton1'),$('#minusButton1'));
-                changeQuantity($('#2'),$('#addButton2'),$('#minusButton2'));
-
-                // Define handler to be called when Stripe returns a card token
-                function onReceiveToken(token, args) {
-
-                    var getMerchant = $.get('/events/getMerchant', {
-                    });
-
-                    getMerchant.done(function(merchant){
-
-                        var totalPrice = getTotal();
-                        var appFee = (totalPrice * .029) + .30 ;
-
-                        var buyTickets = $.post('/payments/buyTickets', {
-                            stripeToken: token.id,
-                            amount: totalPrice  * 100,
-                            destination: merchant,
-                            application_fee: Math.ceil(appFee * 100)
+                        addButton.click(function () {
+                            if (counter < 1) {
+                                counter++;
+                                quan.prop('value', counter);
+                            }
                         });
 
-                        buyTickets.done(function(data){
+                        minusButton.click(function () {
+                            if (counter > 0) {
+                                counter -= 1;
+                                quan.prop('value', counter);
+                            }
+                        });
+                    }
 
+                    //Access-Control-Allow-Origin: http://foo.example                }
+
+                    changeQuantity($('#0'),$('#addButton0'),$('#minusButton0'));
+                    changeQuantity($('#1'),$('#addButton1'),$('#minusButton1'));
+                    changeQuantity($('#2'),$('#addButton2'),$('#minusButton2'));
+
+                    // Define handler to be called when Stripe returns a card token
+                    function onReceiveToken(token, args) {
+
+                        var getMerchant = $.get('/events/getMerchant', {
+                        });
+
+                        getMerchant.done(function(merchant){
+
+                            var totalPrice = getTotal();
+                            var appFee = (totalPrice * .029) + .30 ;
+
+                            var buyTickets = $.post('/payments/buyTickets', {
+                                stripeToken: token.id,
+                                amount: totalPrice  * 100,
+                                destination: merchant,
+                                application_fee: Math.ceil(appFee * 100)
+                            });
+
+                            buyTickets.done(function(data){
+
+                                var updateTickets = $.post('/events/updateTickets', {
+                                    ticketQuantity: ticketQuantity,
+                                    purchase: data.id
+                                });
+
+                                updateTickets.done(function(data){
+                                    //post jaunt to update database
+
+                                    $('#success-alert').html(data +'<button onclick="yoma()" id="goTickets" type="button" class="btn-sm">Your Tickets</button> ')
+                                    $('#success-alert').show();
+
+                                    //window.location = ("/profile");
+                                });
+
+                                // alert( "Data Loaded: " + data.id );
+                            });
+                        });
+                    }
+
+                    // Configure Checkout
+
+                    // Open Checkout when the link is clicked
+                    $('#pay').on('click', function() {
+
+                        //ticketQuantity = [$('#0').val(), $('#1').val(), $('#2').val()];
+                        ticketQuantity = [$('#0').val()];
+                        var totalPrice = getTotal() ;
+
+                        /*ticketQuantity = [$('#0').val(), $('#1').val(), $('#2').val()];
+                         //ticketName = [$('#name0').text(), $('#name1').text(), $('#name2').text()];
+
+                         totalPriceWithFees = totalPrice + (totalPrice * .029) + .30 ;
+
+                         var checkout = StripeCheckout.configure({
+                         key: 'pk_test_wMPl893ju7D1tv3DUO6CRCBh',
+                         token: onReceiveToken,
+                         amount: totalPriceWithFees * 100 ,
+                         name: "Payment Information" ,
+                         description: "Credit card processing fee: ",
+                         zipCode: "true",
+                         allowRememberMe: false,
+                         locale: 'auto'
+                         });
+
+                         checkout.open();*/
+
+                        if ($('#pay').text() == "Login before purchase"){
+                            // alert("Please Login before purchase.");
+                            $('#login-error').show();
+
+                        } else if (getQuantity() == 0){
+                            //alert("Please choose quantity before checkout.");
+                            $('#quan-error').show();
+
+                        } else if(totalPrice == 0){
+
+                            //alert( "Good luck! If you won, we will contact you Thursday May 12th by email from hiikeyteam@gmail.com.");
                             var updateTickets = $.post('/events/updateTickets', {
                                 ticketQuantity: ticketQuantity,
-                                purchase: data.id
+                                purchase: "free"
                             });
 
                             updateTickets.done(function(data){
                                 //post jaunt to update database
-
                                 $('#success-alert').html(data +'<button onclick="yoma()" id="goTickets" type="button" class="btn-sm">Your Tickets</button> ')
                                 $('#success-alert').show();
-
-                                //window.location = ("/profile");
                             });
 
-                           // alert( "Data Loaded: " + data.id );
-                        });
-                    });
-                }
-
-                // Configure Checkout
-
-                // Open Checkout when the link is clicked
-                $('#pay').on('click', function() {
-
-                    //ticketQuantity = [$('#0').val(), $('#1').val(), $('#2').val()];
-                    ticketQuantity = [$('#0').val()];
-                    var totalPrice = getTotal() ;
-
-                    /*ticketQuantity = [$('#0').val(), $('#1').val(), $('#2').val()];
-                    //ticketName = [$('#name0').text(), $('#name1').text(), $('#name2').text()];
-
-                    totalPriceWithFees = totalPrice + (totalPrice * .029) + .30 ;
-
-                    var checkout = StripeCheckout.configure({
-                        key: 'pk_test_wMPl893ju7D1tv3DUO6CRCBh',
-                        token: onReceiveToken,
-                        amount: totalPriceWithFees * 100 ,
-                        name: "Payment Information" ,
-                        description: "Credit card processing fee: ",
-                        zipCode: "true",
-                        allowRememberMe: false,
-                        locale: 'auto'
-                    });
-
-                    checkout.open();*/
-
-                    if ($('#pay').text() == "Login before purchase"){
-                       // alert("Please Login before purchase.");
-                        $('#login-error').show();
-
-                    } else if (getQuantity() == 0){
-                        //alert("Please choose quantity before checkout.");
-                        $('#quan-error').show();
-
-                    } else if(totalPrice == 0){
-
-                        //alert( "Good luck! If you won, we will contact you Thursday May 12th by email from hiikeyteam@gmail.com.");
-                        var updateTickets = $.post('/events/updateTickets', {
-                            ticketQuantity: ticketQuantity,
-                            purchase: "free"
-                        });
-
-                        updateTickets.done(function(data){
-                            //post jaunt to update database
-                            $('#success-alert').html(data +'<button onclick="yoma()" id="goTickets" type="button" class="btn-sm">Your Tickets</button> ')
+                        }  else if($('#checkTickets').text() == "true"){
+                            $('#success-alert').html(message +'<button onclick="yoma()" id="goTickets" type="button" class="btn-sm">Your Tickets</button> ')
                             $('#success-alert').show();
-                        });
+                        } else {
 
-                    }  else if($('#checkTickets').text() == "true"){
-                        $('#success-alert').html(message +'<button onclick="yoma()" id="goTickets" type="button" class="btn-sm">Your Tickets</button> ')
-                        $('#success-alert').show();
-                    } else {
+                            //ticketName = [$('#name0').text(), $('#name1').text(), $('#name2').text()];
 
-                        //ticketName = [$('#name0').text(), $('#name1').text(), $('#name2').text()];
+                            totalPriceWithFees = totalPrice + (totalPrice * .029) + .30 ;
 
-                        totalPriceWithFees = totalPrice + (totalPrice * .029) + .30 ;
+                            var checkout = StripeCheckout.configure({
+                                key: 'pk_live_JqdjZ93F9j7RWqPd2EelHSRX',
+                                token: onReceiveToken,
+                                amount: totalPriceWithFees * 100 ,
+                                name: "Payment Information" ,
+                                description: "Credit card processing fee: ",
+                                zipCode: "true",
+                                allowRememberMe: false,
+                                locale: 'auto'
+                            });
+                            checkout.open();
+                        }
+                        return false;
+                    });
 
-                        var checkout = StripeCheckout.configure({
-                            key: 'pk_live_JqdjZ93F9j7RWqPd2EelHSRX',
-                            token: onReceiveToken,
-                            amount: totalPriceWithFees * 100 ,
-                            name: "Payment Information" ,
-                            description: "Credit card processing fee: ",
-                            zipCode: "true",
-                            allowRememberMe: false,
-                            locale: 'auto'
-                        });
-                        checkout.open();
+                    if ($('#log').text() == "Sign out") {
+                        //alert('yo');
+                        $('#log').attr("href", "/events/logout");
                     }
-                    return false;
-                });
 
-                if ($('#log').text() == "Sign out") {
-                    //alert('yo');
-                    $('#log').attr("href", "/events/logout");
-                }
+                    function getTotal() {
+                        var subTotal = $('#0').val() * $('#price0').text();
+                        //var subTotal1 = $('#1').val() * $('#price1').text();
+                        // var subTotal2 = $('#2').val() * $('#price2').text();
 
-                function getTotal() {
-                    var subTotal = $('#0').val() * $('#price0').text();
-                    //var subTotal1 = $('#1').val() * $('#price1').text();
-                   // var subTotal2 = $('#2').val() * $('#price2').text();
+                        //return subTotal + subTotal1 + subTotal2
 
-                    //return subTotal + subTotal1 + subTotal2
+                        return subTotal
+                    }
 
-                    return subTotal
-                }
+                    function getQuantity(){
+                        var quan = $('#0').val();
+                        // var quan1 = $('#1').val();
+                        // var quan2 = $('#2').val();
 
-                function getQuantity(){
-                    var quan = $('#0').val();
-                   // var quan1 = $('#1').val();
-                   // var quan2 = $('#2').val();
+                        //return quan + quan1 + quan2
+                        return quan
+                    }
 
-                    //return quan + quan1 + quan2
-                    return quan
-                }
+                    //put in label that shows the total before they decide to checkout
 
-                //put in label that shows the total before they decide to checkout
-
-            </script>
+                </script>
+            </div>
         </div>
+    </div>
+
+</div>
+
+<div class="navbar-header" >
+    <div class="container-fluid">
+
+        <a class="btn-default" href="https://itunes.apple.com/us/app/hiikey/id1013280340?ls=1&mt=8">
+            <img href="" src="images/appstoreButton.png" class="img-responsive" alt="Available on The App Store" width="110" height="22">
+        </a>
+        <a class=" btn btn-lg navbar-text" href="/terms">terms</a>
+        <h6>© SocialGroupe, Inc. </h6>
     </div>
 </div>
 

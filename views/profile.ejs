@@ -27,40 +27,47 @@
             <a href="profile/auth/facebook"  id="loginButton" class="btn btn-primary navbar-btn"><span class="fa fa-twitter"></span><%=logButton%></a>
         </div>
     </div>
-
-    <div class="navbar-header">
-        <a href="https://itunes.apple.com/us/app/hiikey/id1013280340?ls=1&mt=8">
-            <img href="" src="images/appstoreButton.png" class="img-responsive" alt="Available on The App Store" width="126" height="88">
-        </a>
-    </div>
 </nav>
 
-<div class="container-fluid">
+<div class="page-header">
+    <div class="container-fluid">
+        <h1> Your ticket for every event.</h1>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=1024x1024&data=<%=userId%>" alt="Failed to load, enter code manually." class="img-thumbnail">
+        <h3><%=userId%></h3>
+        <h2>Attending</h2>
+        <script>
 
-    <h1> Your ticket for every event.</h1>
-    <img src="https://api.qrserver.com/v1/create-qr-code/?size=1024x1024&data=<%=userId%>" alt="Failed to load, enter code manually." class="img-thumbnail">
-    <h3><%=userId%></h3>
-    <h2>Attending</h2>
-<script>
+            var eventArray = [];
+            var dateArray = [];
+            var eventNumber;
 
-    var eventArray = [];
-    var dateArray = [];
-    var eventNumber;
+            if ($('#loginButton').text() == "Sign out") {
+                //alert('yo');
+                $('#loginButton').attr("href", "/profile/logout");
+            }
 
-    if ($('#loginButton').text() == "Sign out") {
-        //alert('yo');
-        $('#loginButton').attr("href", "/profile/logout");
-    }
+        </script>
+        <ul class="list-unstyled">
+            <% for (var i = 0; i < data.length ; i++ ){ %>
 
-</script>
-    <ul class="list-unstyled">
-        <% for (var i = 0; i < data.length ; i++ ){ %>
+            <li> <h3> <%=data[i].title%> <small> <%=data[i].date%> </small> </h3> </li>
 
-        <li> <h3> <%=data[i].title%> <small> <%=data[i].date%> </small> </h3> </li>
+            <% } %>
+        </ul>
 
-        <% } %>
-    </ul>
+    </div>
 
+</div>
+
+<div class="navbar-header" >
+    <div class="container-fluid">
+
+        <a class="btn-default" href="https://itunes.apple.com/us/app/hiikey/id1013280340?ls=1&mt=8">
+            <img href="" src="images/appstoreButton.png" class="img-responsive" alt="Available on The App Store" width="110" height="22">
+        </a>
+        <a class=" btn btn-lg navbar-text" href="/terms">terms</a>
+        <h6>© SocialGroupe, Inc. </h6>
+    </div>
 </div>
 
 </body>

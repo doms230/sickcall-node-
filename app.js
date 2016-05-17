@@ -25,6 +25,7 @@ var payments = require('./routes/payments');
 var events = require('./routes/events');
 var profile = require('./routes/profile');
 var login = require('./routes/login');
+var terms = require('./routes/terms');
 var app = express();
 
 /*var api = new ParseServer({
@@ -59,6 +60,7 @@ app.use('/payments', payments);
 app.use('/events', events);
 app.use('/profile', profile);
 app.use('/login', login);
+app.use('/terms', terms);
 //app.use('/parse', api);
 
 app.use(cookieSession({

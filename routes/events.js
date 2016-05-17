@@ -199,7 +199,7 @@ function loadEventInfo(res, logged, username){
             title = event.get('Title');
             date = event.get('Date');
 
-            var month = date.getUTC;
+            var month = date.getUTCMonth();
             var day = date.getDay();
             var year = date.getFullYear();
             var hour = date.getHours();
@@ -208,9 +208,7 @@ function loadEventInfo(res, logged, username){
 
             var formattedDate = month + "/" + day + "/" + year + "," + hour + ":" + minute;
 
-            var d = new Date();
-
-            d.setDate(date.getDate() - 2);
+           // var d = new Date(date.getDate());
 
             console.log(formattedDate);
             ticketName = event.get('ticketName');
