@@ -210,7 +210,7 @@ function loadEventInfo(res, logged, username){
 
             var d = new Date();
 
-            d.setDate(date.getUTCDate());
+            d.setDate(date.getDate());
 
             console.log(formattedDate);
             ticketName = event.get('ticketName');
@@ -242,7 +242,7 @@ function loadEventInfo(res, logged, username){
 
                     res.render('event', {
                         title: title,
-                        date: d.toLocaleString(),
+                        date: date,
                         description: description,
                         image: ("flyer_ios")[0].src = yoma.url(),
                         logButton: logButton,
