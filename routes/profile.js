@@ -170,7 +170,7 @@ function loadUserInfo(res, logged){
                     for (var o = 0; o < eventTitles.length; o ++ ){
                         data.push({
                             title: eventTitles[o],
-                            date: eventdates[o]
+                            date: eventdates[o].toLocaleString()
                         });
                     }
                     
