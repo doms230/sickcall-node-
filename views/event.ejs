@@ -170,7 +170,7 @@
                             var buyTickets = $.post('/payments/buyTickets', {
                                 stripeToken: token.id,
                                 amount: totalPrice  * 100,
-                                destination: "merchant",
+                                destination: merchant,
                                 application_fee: Math.ceil(appFee * 100),
                                 description: "yoma"
                             });
