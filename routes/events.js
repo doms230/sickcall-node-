@@ -295,7 +295,7 @@ router.get('/getMerchant', function (req, res, next) {
 
 router.post('/updateTickets', function (req, res) {
     //TODO: change back to rq.body.ticketQuantity;
-    var ticketQuantity = [1,0,0];
+    var ticketQuantity = req.body.ticketQuantity;
     var purchaseId = req.body.purchase;
 
     var resultJaunt;
@@ -364,8 +364,14 @@ router.post('/updateTickets', function (req, res) {
                 var Ticket = parse.Object.extend("Tickets");
                 var ticket = new Ticket();
 
+                var turnToInt = [];
+
+                for (var i = 0; i < ticketQuantity.length; i++) {
+                    turnToInt[i] = parseInt(ticketQuantity[i]);
+                }
+
                 ticket.set("ticketName", ticketName);
-                ticket.set("ticketQuantity", [1, 0, 0]);
+                ticket.set("ticketQuantity", turnToInt);
                 ticket.set("eventId", eventId);
                 ticket.set("eventName", title);
                 ticket.set("ticketHolderId", userObjectId);

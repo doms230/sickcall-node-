@@ -43,8 +43,10 @@ router.post('/buyTickets', function(req, res){
             // The card has been declined
             //res.send(JSON.stringify({ statusCode: 400, message: "yoma" }));
             res.send(err);
+            //console.log(err);
         } else {
             res.send(charge);
+            //console.log(charge);
             //res.send(JSON.stringify({ statusCode: 400, message: "yoma" }));
         }
     });

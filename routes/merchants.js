@@ -99,7 +99,7 @@ router.get('/createMerchantTest', function (req, res) {
 
         legal_entity: {
             address: {
-                city: "Arlington",
+                city: "Dallas",
                 country: "US",
                 line1: "",
                 line2: "",
@@ -107,16 +107,16 @@ router.get('/createMerchantTest', function (req, res) {
                 state: "TX"
             },
 
-            business_name: "What You Want",
+            business_name: "Rodney Blu",
             business_tax_id: "",
             dob: {
-                day: "12",
-                month: "08",
-                year: "1995"
+                day: "28",
+                month: "11",
+                year: "1990"
             },
 
-            first_name: "Sammy",
-            last_name: "Gonzalez",
+            first_name: "",
+            last_name: "",
             ssn_last_4: "",
             "type": "individual"
         },
@@ -132,7 +132,7 @@ router.get('/createMerchantTest', function (req, res) {
         } else {
             console.log("merchant created.");
             // res.send(account);
-            createBankToken(account.id, res, "US", "usd", "Sammy Gonzalez",
+            createBankToken(account.id, res, "US", "usd", "Rodney Wilson",
                 "individual", "", "");
         }
     });
@@ -183,7 +183,7 @@ router.post('/updateMerchant', function (req, res) {
                 res.send(err)
 
             } else {
-                console.log("merchant created.")
+                console.log("merchant created.");
                 // res.send(account);
                 createBankToken(account.id, res, req.body.country, "usd", req.body.account_holder_name,
                     req.body.type, req.body.routing_number, req.body.account_number);

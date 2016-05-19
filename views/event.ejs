@@ -170,8 +170,9 @@
                             var buyTickets = $.post('/payments/buyTickets', {
                                 stripeToken: token.id,
                                 amount: totalPrice  * 100,
-                                destination: merchant,
-                                application_fee: Math.ceil(appFee * 100)
+                                destination: "merchant",
+                                application_fee: Math.ceil(appFee * 100),
+                                description: "yoma"
                             });
 
                             buyTickets.done(function(data){
@@ -201,9 +202,16 @@
                     $('#pay').on('click', function() {
 
                         //ticketQuantity = [$('#0').val(), $('#1').val(), $('#2').val()];
-                        ticketQuantity = [$('#0').val()];
+
                         var totalPrice = getTotal() ;
 
+                        if ($('#1').val() == null){
+                            ticketQuantity = [$('#0').val(), 0, 0];
+                        } else if ($('#2').val() == null) {
+                            ticketQuantity = [$('#0').val(), $('#1').val(), 0];
+                        } else {
+                            ticketQuantity = [$('#0').val(), $('#1').val(), $('#2').val()];
+                        }
                         /*ticketQuantity = [$('#0').val(), $('#1').val(), $('#2').val()];
                          //ticketName = [$('#name0').text(), $('#name1').text(), $('#name2').text()];
 
@@ -258,7 +266,7 @@
                                 token: onReceiveToken,
                                 amount: totalPriceWithFees * 100 ,
                                 name: "Payment Information" ,
-                                description: "Credit card processing fee: ",
+                                description: "Credit card processing fee:" ,
                                 zipCode: "true",
                                 allowRememberMe: false,
                                 locale: 'auto'
@@ -273,23 +281,68 @@
                         $('#log').attr("href", "/events/logout");
                     }
 
+                    function getTicketQuantity(){
+                        var ticketQuantity = [];
+
+                        ticketQuantity[0] = $('#0').val();
+                        if ($('#1').val() == null){
+                            ticketQuantity[1] = $('#1').val()
+                        } else{
+                            ticketQuantity[1] = 0
+                        }
+
+                        if ($('#2').val() == null){
+                            ticketQuantity[2] = $('#2').val()
+                        } else{
+                            ticketQuantity[2] = 0
+                        }
+
+                        return ticketQuantity
+                    }
+
                     function getTotal() {
+
+                        var subTotal1;
+                        var subTotal2;
+
                         var subTotal = $('#0').val() * $('#price0').text();
-                        //var subTotal1 = $('#1').val() * $('#price1').text();
-                        // var subTotal2 = $('#2').val() * $('#price2').text();
 
-                        //return subTotal + subTotal1 + subTotal2
+                        if ($('#1').val() == null){
+                             subTotal1 = 0;
+                        } else {
+                             subTotal1 = $('#1').val() * $('#price1').text();
+                        }
 
-                        return subTotal
+                        if ($('#2').val() == null){
+                            subTotal2 = 0;
+                        } else {
+                            subTotal2 = $('#2').val() * $('#price2').text();
+                        }
+
+                        return subTotal + subTotal1 + subTotal2
                     }
 
                     function getQuantity(){
+
+                        var quan1;
+                        var quan2;
+
                         var quan = $('#0').val();
-                        // var quan1 = $('#1').val();
-                        // var quan2 = $('#2').val();
+
+                        if ($('#1').val() == null){
+                            quan1 = 0;
+                        } else{
+                            quan1 = $('#1').val();
+                        }
+
+                        if ($('#2').val() == null){
+                            quan2 = 0;
+                        } else{
+                            quan2 = $('#2').val();
+                        }
 
                         //return quan + quan1 + quan2
-                        return quan
+                        return quan + quan1 + quan2
                     }
 
                     //put in label that shows the total before they decide to checkout
