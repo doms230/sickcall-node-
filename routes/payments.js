@@ -35,7 +35,8 @@ router.post('/buyTickets', function(req, res){
          destination: req.body.destination,
         //application_fee: (req.body.amount * .029) + .30,
         application_fee: req.body.application_fee,
-        description: req.body.description
+        description: req.body.description,
+            receipt_email: req.body.receipt_email
        // description: req.body.stripeToken.description
     },
     function(err, charge) {
