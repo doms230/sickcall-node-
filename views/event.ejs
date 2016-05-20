@@ -165,14 +165,14 @@
                         getMerchant.done(function(merchant){
 
                             var totalPrice = getTotal();
-                            var appFee = (totalPrice * .029) + .30 ;
 
                             var buyTickets = $.post('/payments/buyTickets', {
                                 stripeToken: token.id,
                                 amount: totalPrice  * 100,
                                 destination: merchant,
-                                application_fee: Math.ceil(appFee * 100),
-                                description: "yoma"
+                                description: "Ticket Purchase from Hiikey.com",
+                                receipt_email: token.email
+
                             });
 
                             buyTickets.done(function(data){
@@ -264,9 +264,9 @@
                             var checkout = StripeCheckout.configure({
                                 key: 'pk_live_JqdjZ93F9j7RWqPd2EelHSRX',
                                 token: onReceiveToken,
-                                amount: totalPriceWithFees * 100 ,
-                                name: "Payment Information" ,
-                                description: "Credit card processing fee:" ,
+                                amount: totalPrice * 100 ,
+                                name: "Checkout" ,
+                                description: "Enter Credit Card Information" ,
                                 zipCode: "true",
                                 allowRememberMe: false,
                                 locale: 'auto'

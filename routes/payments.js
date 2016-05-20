@@ -25,7 +25,6 @@ router.get('/', function(req, res, next) {
 var chargeIds = [];
 
 router.post('/buyTickets', function(req, res){
-
     //res.send("yo");
         stripe.charges.create({
         amount: req.body.amount, // amount in cents, again
@@ -38,6 +37,7 @@ router.post('/buyTickets', function(req, res){
         description: req.body.description,
             receipt_email: req.body.receipt_email
        // description: req.body.stripeToken.description
+
     },
     function(err, charge) {
         if (err && err.type === 'StripeCardError') {
