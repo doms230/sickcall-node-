@@ -7,6 +7,11 @@ var stripe = require("stripe")(
     "sk_live_wFw3B2lTIGPACNAsoGAH9bPO"
 );
 
+/*var stripe = require("stripe")(
+    "sk_test_HSpPMwMkr1Z6Eypr5MMldJ46"
+);*/
+
+
 var currentUser; 
 
 var parse = require("parse/node").Parse;

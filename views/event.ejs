@@ -60,16 +60,9 @@
 </div>
 <div class="page-header">
     <div class="container-fluid">
-
-       <!-- <div class="input-group">
-            <span class="input-group-addon" id="sizing-addon2">referral email/username</span>
-            <input id="promo" type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon2">
-        </div> -->
-
         <div class="row">
             <div class= "col-md-4">
                 <h4>Tickets</h4>
-
                 <table class="table table-striped">
                     <thead>
                     <tr>
@@ -98,6 +91,30 @@
                     </tbody>
                 </table>
 
+                <%if (data[0].raffle == true) {%>
+
+                <div class="input-group">
+                    <span class="input-group-addon" id="sizing-addon1">referrer</span>
+                    <input id="promo" placeholder="email/username" type="text" class="form-control" aria-label="...">
+                    <div class="input-group-btn">
+                        <!-- Buttons -->
+                        <button id="questionPromo" class="btn btn-default">?</button>
+                        <button id="checkPromo" class="btn btn-default">check</button>
+                    </div>
+                </div>
+
+                <div class="alert alert-warning fade in" id="promo-error" style="display:none;">
+                    <button type="button" class="close">×</button>
+                    Person wasn't found
+                </div>
+
+                <div class="alert alert-success" id="promo-success" style="display:none;">
+                    1 raffle ticket will be added to your purchase! For another raffle ticket, refer your friends!
+                </div>
+
+                <% }%>
+
+
                 <div class="alert alert-info fade in" id="login-error" style="display:none;" >
                     <button type="button" class="close">×</button>
                     Login Before Purchase
@@ -113,7 +130,7 @@
                     <button id="goTickets" type="button" class="btn-sm"> Your Tickets  </button>
                 </div>
 
-                <a href="#" id= "pay" class="btn btn-default "><span class="fa fa-twitter"></span><%=status%></a>
+                <a  href="#" id= "pay" class="btn btn-default "><span class="fa fa-twitter"></span><%=status%></a>
 
                 <h6 id= "checkTickets" class="icon-bar"  ><%=loginUrl%></h6>
 
@@ -136,6 +153,37 @@
 
                     var ticketQuantity;
                     var ticketName;
+                    var isReferred = false;
+                    var promo = $('#promo');
+
+                    $('#checkPromo').on('click', function () {
+                        if (promo.val() != ""){
+
+                            //alert( $('#promo').val());
+                            var rawPromo = promo.val();
+                            var cleanPromo = rawPromo.toLowerCase();
+
+                            var checkPromo = $.get('/events/checkPromo', {
+                                user: cleanPromo
+                            });
+
+                            checkPromo.done(function(data){
+                                //post jaunt to update database
+
+                                isReferred = data;
+
+                                if (isReferred == false){
+                                    $('#promo-success').hide();
+                                    $('#promo-error').show();
+                                } else {
+                                    $('#promo-error').hide();
+                                    $('#promo-success').show();
+                                }
+
+                                //window.location = ("/profile");
+                            });
+                        }
+                    });
 
                     function changeQuantity(quan, addButton, minusButton) {
                         var counter = quan.val();
@@ -165,19 +213,25 @@
                     function onReceiveToken(token, args) {
 
                         var getMerchant = $.get('/events/getMerchant', {
+                            isRaffle: isReferred
                         });
 
                         getMerchant.done(function(merchant){
 
                             var totalPrice = getTotal();
+                            var app_fee = 0;
+
+                            if (isReferred == true){
+                                app_fee = .70 *100
+                            }
 
                             var buyTickets = $.post('/payments/buyTickets', {
                                 stripeToken: token.id,
                                 amount: totalPrice  * 100,
                                 destination: merchant,
                                 description: "Ticket Purchase from Hiikey.com",
-                                receipt_email: token.email
-
+                                receipt_email: token.email,
+                                application_fee: app_fee
                             });
 
                             buyTickets.done(function(data){
@@ -210,13 +264,26 @@
 
                         var totalPrice = getTotal() ;
 
-                        if ($('#1').val() == null){
-                            ticketQuantity = [$('#0').val(), 0, 0];
-                        } else if ($('#2').val() == null) {
-                            ticketQuantity = [$('#0').val(), $('#1').val(), 0];
-                        } else {
-                            ticketQuantity = [$('#0').val(), $('#1').val(), $('#2').val()];
+                        if (isReferred == true){
+                            if ($('#1').val() == null){
+                                ticketQuantity = [parseInt($('#0').val()) + 1, 0, 0];
+                            } else if ($('#2').val() == null) {
+                                ticketQuantity = [parseInt($('#0').val()) + 1, $('#1').val(), 0];
+                            } else {
+                                ticketQuantity = [parseInt($('#0').val()) + 1, $('#1').val(), $('#2').val()];
+                            }
+                        } else{
+                            if ($('#1').val() == null){
+                                ticketQuantity = [$('#0').val(), 0, 0];
+                            } else if ($('#2').val() == null) {
+                                ticketQuantity = [$('#0').val(), $('#1').val(), 0];
+                            } else {
+                                ticketQuantity = [$('#0').val(), $('#1').val(), $('#2').val()];
+                            }
                         }
+
+
+
                         /*ticketQuantity = [$('#0').val(), $('#1').val(), $('#2').val()];
                          //ticketName = [$('#name0').text(), $('#name1').text(), $('#name2').text()];
 
@@ -271,7 +338,7 @@
                                 token: onReceiveToken,
                                 amount: totalPrice * 100 ,
                                 name: "Checkout" ,
-                                description: "Enter Credit Card Information" ,
+                                description: getQuantity() +  " Ticket(s)",
                                 zipCode: "true",
                                 allowRememberMe: false,
                                 locale: 'auto'
@@ -289,7 +356,12 @@
                     function getTicketQuantity(){
                         var ticketQuantity = [];
 
-                        ticketQuantity[0] = $('#0').val();
+                        if(isReferred == true){
+                            ticketQuantity[0] = parseInt($('#0').val()) + 1;
+                        } else{
+                            ticketQuantity[0] = $('#0').val();
+                        }
+
                         if ($('#1').val() == null){
                             ticketQuantity[1] = $('#1').val()
                         } else{
@@ -334,6 +406,8 @@
 
                         var quan = $('#0').val();
 
+                        var totesAfterReferral;
+
                         if ($('#1').val() == null){
                             quan1 = 0;
                         } else{
@@ -346,8 +420,14 @@
                             quan2 = $('#2').val();
                         }
 
+                        if (isReferred == true){
+                            totesAfterReferral = parseInt(quan) + parseInt(quan1) + parseInt(quan2) + 1;
+                        } else{
+                            totesAfterReferral = parseInt(quan) + parseInt(quan1) + parseInt(quan2);
+                        }
+
                         //return quan + quan1 + quan2
-                        return quan + quan1 + quan2
+                        return totesAfterReferral
                     }
 
                     //put in label that shows the total before they decide to checkout

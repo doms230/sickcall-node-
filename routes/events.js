@@ -6,6 +6,9 @@ var router = express.Router();
 var stripe = require("stripe")(
     "sk_live_wFw3B2lTIGPACNAsoGAH9bPO"
 );
+/*var stripe = require("stripe")(
+    "sk_test_HSpPMwMkr1Z6Eypr5MMldJ46"
+);*/
 
 var passport = require('passport')
     , FacebookStrategy = require('passport-facebook').Strategy;
@@ -34,11 +37,13 @@ var ticketsSold = [];
 var ticketsAvailable = [];
 var eventUser;
 var merchantId;
+var raffleMerchantId;
 var status;
 var currentUser;
 var logUrl;
 var message;
 var statusCode;
+var isRaffle;
 
 var userObjectId;
 
@@ -97,7 +102,6 @@ passport.use('events', new FacebookStrategy({
                 } else  {
                     statusCode = "true";
                     message = "Only one ticket per Hiikey user can be acquired at this time.";
-
                 }
 
                 //res.send(JSON.stringify({ status: statusCode, message: message }));
@@ -127,10 +131,6 @@ passport.use('events', new FacebookStrategy({
             status = "Login before purchase";
             loadEventInfo(res, false);
         }
-    });
-
-    router.get('/checkForTicket', function (req, res) {
-
     });
 
     router.get('/logout', function (req, res) {
@@ -209,7 +209,7 @@ function loadEventInfo(res, logged, username){
             var formattedDate = month + "/" + day + "/" + year + "," + hour + ":" + minute;
 
            // var d = new Date(date.getDate());
-
+            isRaffle = event.get("isRaffle");
             console.log(formattedDate);
             ticketName = event.get('ticketName');
             ticketPrice = event.get('ticketPrice');
@@ -234,7 +234,8 @@ function loadEventInfo(res, logged, username){
                             minusButton: "minusButton" + i,
                             addButton: "addButton" + i,
                             priceId: "price" + i,
-                            nameId: "name" + i
+                            nameId: "name" + i,
+                            raffle: isRaffle
                         });
                     }
 
@@ -290,12 +291,58 @@ function loadEventInfo(res, logged, username){
 }
 
 router.get('/getMerchant', function (req, res, next) {
-    res.send(merchantId);
+    //if the the person reffered someone, 
+    if (req.query.isRaffle == false) {
+        res.send(merchantId);
+    } else {
+        if (raffleMerchantId == null){
+            res.send(merchantId);
+        } else{
+            res.send(raffleMerchantId)
+        }
+    }
+});
+
+router.get('/checkPromo', function (req, res, next) {
+    console.log(req.query.user);
+    var jaunt = parse.Object.extend("_User");
+    var query = new parse.Query(jaunt);
+    query.equalTo("username", req.query.user);
+    query.find({
+        success: function(results) {
+            // Do something with the returned Parse.Object values
+            console.log(results.length);
+            if (results.length == 0){
+                res.send(false);
+            } else {
+                //res.send(true);
+                // if it exists, get merchantId
+                for (var i = 0; i < results.length; i++) {
+                    var object = results[i];
+                    raffleMerchantId = object.get('merchantId');
+                }
+
+                //null merchantId so api knows that raffler is not a brand ambassador
+                if (raffleMerchantId == ""){
+                    raffleMerchantId = null;
+                    res.send(false);
+                } else if (raffleMerchantId == null){
+                    res.send(false);
+                } else{
+                    res.send(true)
+                }
+            }
+        },
+        error: function(error) {
+            res.send(false);
+        }
+    });
 });
 
 router.post('/updateTickets', function (req, res) {
     //TODO: change back to rq.body.ticketQuantity;
     var ticketQuantity = req.body.ticketQuantity;
+    console.log(ticketQuantity[0]);
     var purchaseId = req.body.purchase;
 
     var resultJaunt;
@@ -425,16 +472,12 @@ router.post('/updateTickets', function (req, res) {
 
                 // res.redirect("/profile");
             }
-
             res.send(resultJaunt);
         },
         error: function (error) {
         }
     });
-
-
     //add purchase Id to refund collection
-
 });
 
 //login jaunts
