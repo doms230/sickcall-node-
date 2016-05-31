@@ -113,7 +113,6 @@
 
                 <% }%>
 
-
                 <div class="alert alert-info fade in" id="login-error" style="display:none;" >
                     <button type="button" class="close">×</button>
                     Login Before Purchase
@@ -405,6 +404,10 @@
 
                         var quan = $('#0').val();
 
+                        if (quan != 0){
+                            quan = parseInt(quan) + 1;
+                        }
+
                         var totesAfterReferral;
 
                         if ($('#1').val() == null){
@@ -420,7 +423,7 @@
                         }
 
                         if (isReferred == true){
-                            totesAfterReferral = parseInt(quan) + parseInt(quan1) + parseInt(quan2) + 1;
+                            totesAfterReferral = parseInt(quan) + parseInt(quan1) + parseInt(quan2);
                         } else{
                             totesAfterReferral = parseInt(quan) + parseInt(quan1) + parseInt(quan2);
                         }
