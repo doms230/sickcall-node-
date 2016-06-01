@@ -24,6 +24,10 @@ var gender;
 var photo;
 var email;
 
+//promo
+var promoUserId;
+var wasReferred = false;
+
 //event Jaunts
 var title;
 var date;
@@ -52,8 +56,8 @@ var userObjectId;
 passport.use('events', new FacebookStrategy({
         clientID: "178018185913116",
         clientSecret: "a561ac32e474b6d927d512a8f3ae37df",
-        //callbackURL: "http://localhost:3000/events/auth/facebook/callback",
-        callbackURL: "https://www.hiikey.com/events/auth/facebook/callback",
+        callbackURL: "http://localhost:3000/events/auth/facebook/callback",
+        //callbackURL: "https://www.hiikey.com/events/auth/facebook/callback",
         profileFields: ['id', 'name', 'age_range','gender', 'emails', 'picture.type(large)']
     },
     function(accessToken, refreshToken, profile, cb) {
@@ -320,6 +324,7 @@ router.get('/checkPromo', function (req, res, next) {
                 for (var i = 0; i < results.length; i++) {
                     var object = results[i];
                     raffleMerchantId = object.get('merchantId');
+                    promoUserId = object.id;
                 }
 
                 //null merchantId so api knows that raffler is not a brand ambassador
@@ -329,7 +334,8 @@ router.get('/checkPromo', function (req, res, next) {
                 } else if (raffleMerchantId == null){
                     res.send(false);
                 } else{
-                    res.send(true)
+                    res.send(true);
+                    wasReferred = true;
                 }
             }
         },
@@ -477,7 +483,50 @@ router.post('/updateTickets', function (req, res) {
         error: function (error) {
         }
     });
-    //add purchase Id to refund collection
+
+
+    //notify event host that someone bought a tickets
+
+    var query = new parse.Query(parse.Installation);
+    query.equalTo('userId', eventUser);
+
+    parse.Push.send({
+        where: query, // Set our Installation query
+        data: {
+            alert: name + " purchased tickets."
+        }
+    }, {
+        success: function() {
+
+            // Push was successful
+        },
+        error: function(error) {
+            // Handle error
+            console.log(error);
+        }
+    });
+
+    //notifiy person who's username was used as referral
+    if (wasReferred == true){
+        var rQuery = new parse.Query(parse.Installation);
+        rQuery.equalTo('userId', promoUserId);
+
+        parse.Push.send({
+            where: rQuery, // Set our Installation query
+            data: {
+                alert: name + " used your referral, $$ is coming your way! "
+            }
+        }, {
+            success: function() {
+
+                // Push was successful
+            },
+            error: function(error) {
+                // Handle error
+                console.log(error);
+            }
+        });
+    }
 });
 
 //login jaunts
