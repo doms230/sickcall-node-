@@ -56,8 +56,8 @@ var userObjectId;
 passport.use('events', new FacebookStrategy({
         clientID: "178018185913116",
         clientSecret: "a561ac32e474b6d927d512a8f3ae37df",
-        callbackURL: "http://localhost:3000/events/auth/facebook/callback",
-        //callbackURL: "https://www.hiikey.com/events/auth/facebook/callback",
+        //callbackURL: "http://localhost:3000/events/auth/facebook/callback",
+        callbackURL: "https://www.hiikey.com/events/auth/facebook/callback",
         profileFields: ['id', 'name', 'age_range','gender', 'emails', 'picture.type(large)']
     },
     function(accessToken, refreshToken, profile, cb) {
@@ -312,6 +312,7 @@ router.get('/checkPromo', function (req, res, next) {
     var jaunt = parse.Object.extend("_User");
     var query = new parse.Query(jaunt);
     query.equalTo("username", req.query.user);
+    query.equalTo("isConnected", true);
     query.find({
         success: function(results) {
             // Do something with the returned Parse.Object values
@@ -325,18 +326,11 @@ router.get('/checkPromo', function (req, res, next) {
                     var object = results[i];
                     raffleMerchantId = object.get('merchantId');
                     promoUserId = object.id;
+                    console.log(promoUserId);
                 }
 
-                //null merchantId so api knows that raffler is not a brand ambassador
-                if (raffleMerchantId == ""){
-                    raffleMerchantId = null;
-                    res.send(false);
-                } else if (raffleMerchantId == null){
-                    res.send(false);
-                } else{
-                    res.send(true);
-                    wasReferred = true;
-                }
+                res.send(true);
+                wasReferred = true;
             }
         },
         error: function(error) {
