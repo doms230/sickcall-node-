@@ -1,17 +1,14 @@
 /**
- * Created by macmini on 3/24/16.
+ * Created by macmini on 6/1/16.
  */
 var express = require('express');
 var router = express.Router();
-/*var stripe = require("stripe")(
-    "sk_live_wFw3B2lTIGPACNAsoGAH9bPO"
-);*/
 
 var stripe = require("stripe")(
     "sk_test_HSpPMwMkr1Z6Eypr5MMldJ46"
 );
 
-var currentUser; 
+var currentUser;
 
 var parse = require("parse/node").Parse;
 parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF", "bctRQbnLCvxRIHaJTkv3gqhlwSzxjiMesjx8kEwo");
@@ -20,7 +17,7 @@ router.get('/', function(req, res, next) {
 
     parse.User.enableUnsafeCurrentUser();
     currentUser = parse.User.current();
-    
+
     res.send("yoma");
 });
 
@@ -30,63 +27,63 @@ var chargeIds = [];
 
 router.post('/buyTickets', function(req, res){
     //res.send("yo");
-        stripe.charges.create({
-        amount: req.body.amount, // amount in cents, again
-        currency: "usd",
-        //source: "tok_17zVIsHskqJlyyfaEiMdnQLB",
-        source: req.body.stripeToken,
-         destination: req.body.destination,
-        //application_fee: (req.body.amount * .029) + .30,
-        application_fee: req.body.application_fee,
-        description: req.body.description,
+    stripe.charges.create({
+            amount: req.body.amount, // amount in cents, again
+            currency: "usd",
+            //source: "tok_17zVIsHskqJlyyfaEiMdnQLB",
+            source: req.body.stripeToken,
+            destination: req.body.destination,
+            //application_fee: (req.body.amount * .029) + .30,
+            application_fee: req.body.application_fee,
+            description: req.body.description,
             receipt_email: req.body.receipt_email
-       // description: req.body.stripeToken.description
+            // description: req.body.stripeToken.description
 
-    },
-    function(err, charge) {
-        if (err && err.type === 'StripeCardError') {
-            // The card has been declined
-            //res.send(JSON.stringify({ statusCode: 400, message: "yoma" }));
-            res.send(err);
-            //console.log(err);
-        } else {
-            res.send(charge);
-            //console.log(charge);
-            //res.send(JSON.stringify({ statusCode: 400, message: "yoma" }));
-        }
-    });
+        },
+        function(err, charge) {
+            if (err && err.type === 'StripeCardError') {
+                // The card has been declined
+                //res.send(JSON.stringify({ statusCode: 400, message: "yoma" }));
+                res.send(err);
+                //console.log(err);
+            } else {
+                res.send(charge);
+                //console.log(charge);
+                //res.send(JSON.stringify({ statusCode: 400, message: "yoma" }));
+            }
+        });
 });
 
 router.post('/webBuyTickets', function(req, res){
 
     /*if (currentUser) {
-        //res.send("yo");
-        stripe.charges.create({
-                amount: req.body.amount, // amount in cents, again
-                currency: "usd",
-                source: req.body.stripeToken,
-                destination: req.body.destination,
-                application_fee: req.body.application_fee,
-                description: req.body.description
-            },
-            function (err, charge) {
-                if (err && err.type === 'StripeCardError') {
-                    // The card has been declined
+     //res.send("yo");
+     stripe.charges.create({
+     amount: req.body.amount, // amount in cents, again
+     currency: "usd",
+     source: req.body.stripeToken,
+     destination: req.body.destination,
+     application_fee: req.body.application_fee,
+     description: req.body.description
+     },
+     function (err, charge) {
+     if (err && err.type === 'StripeCardError') {
+     // The card has been declined
 
-                    res.send(err);
-                } else {
-                    //
+     res.send(err);
+     } else {
+     //
 
-                    res.send(charge);
-                }
-            });
+     res.send(charge);
+     }
+     });
 
-    } else {
-        
-    }*/
+     } else {
+
+     }*/
 
     res.json({ id: "Please sign in before purchase." });
-    
+
 });
 
 router.get('/buyTicketsTest', function(req, res){
