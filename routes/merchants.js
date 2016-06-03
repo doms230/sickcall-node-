@@ -143,8 +143,7 @@ router.post('/updateMerchant', function (req, res) {
 
     req.body.account,
     {
-        country: req.body.country,
-        //  business_name: req.body.business_name,
+       // country: req.body.country,
         email: req.body.email,
 
         business_name:req.body.business_name,
