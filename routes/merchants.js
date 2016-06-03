@@ -144,7 +144,7 @@ router.post('/updateMerchant', function (req, res) {
     req.body.account,
     {
        // country: req.body.country,
-        email: req.body.email,
+       /* email: req.body.email,
 
         business_name:req.body.business_name,
         decline_charge_on:{
@@ -174,7 +174,7 @@ router.post('/updateMerchant', function (req, res) {
             last_name: req.body.last_name,
             ssn_last_4: req.body.ssn_last_4,
             "type": req.body.type
-        }
+        }*/
 
     }, function(err, account) {
             // asynchronously called
