@@ -4,7 +4,7 @@
 var express = require('express');
 var router = express.Router();
 var stripe = require("stripe")(
-    "sk_test_HSpPMwMkr1Z6Eypr5MMldJ46"
+    "sk_live_wFw3B2lTIGPACNAsoGAH9bPO"
 );
 
         /* GET users listing. */
