@@ -54,7 +54,7 @@ router.post('/createMerchant', function (req, res) {
             },
 
             business_name: req.body.business_name,
-            personal_id_number: req.body.business_tax_id,
+            bussiness_tax_id: req.body.business_tax_id,
             dob: {
                 day: req.body.day,
                 month: req.body.month,
