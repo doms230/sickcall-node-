@@ -4,7 +4,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongodb = require("mongodb");
-//var ParseServer = require('parse-server').ParseServer;
+var ParseServer = require('parse-server').ParseServer;
 var stripe = require("stripe")(
     "sk_test_HSpPMwMkr1Z6Eypr5MMldJ46"
 );
@@ -27,15 +27,19 @@ var profile = require('./routes/profile');
 var login = require('./routes/login');
 var terms = require('./routes/terms');
 var paymentsTest = require('./routes/paymentsTest');
+var chats = require('./routes/chats');
 var app = express();
-
-/*var api = new ParseServer({
+var api = new ParseServer({
   databaseURI: 'mongodb://heroku_8b6h0nrz:89j3qh02svfu720n4nkl81df54@ds015849.mlab.com:15849/heroku_8b6h0nrz', // Provide an absolute path
   appId: 'O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF',
   masterKey: 'lykNp62jc700RfU3EOr0WRe8ZCZJ4kiD4ZI4FRaZ', // Keep this key secret!
   fileKey: '20137ff7-4160-41ee-bc18-1c2bf416e433',
-  serverURL: 'https://hiikey.herokuapp.com' // Don't forget to change to https if needed
-});*/
+ // serverURL: 'https://hiikey.herokuapp.com' // Don't forget to change to https if needed
+  serverURL: 'http://localhost:3000/parse',
+  liveQuery: {
+    classNames: ['Chat', 'PublicPost']
+  }
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -63,7 +67,8 @@ app.use('/profile', profile);
 app.use('/login', login);
 app.use('/terms', terms);
 app.use('/paymentsTest', paymentsTest);
-//app.use('/parse', api);
+app.use('/chats', chats);
+app.use('/parse', api);
 
 app.use(cookieSession({
   name: "cookei",
