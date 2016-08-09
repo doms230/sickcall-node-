@@ -37,7 +37,7 @@ var api = new ParseServer({
   appId: 'pwneJNtOqdAJlPtartF1GbtaOqCL46iyjegNbAyB',
   masterKey: 'LuU3vxON2P947zmrEC5qOBZxrgHzdPtWwYXrZnln',
   fileKey: '20137ff7-4160-41ee-bc18-1c2bf416e433',
-  serverURL: 'https://hiikey.herokuapp.com/parse', // Don't forget to change to https if needed
+  serverURL: 'http://hiikey.herokuapp.com/parse', // Don't forget to change to https if needed
  // serverURL: 'http://localhost:3000/parse',
   liveQuery: {
     classNames: ['Chat', 'PublicPost']
