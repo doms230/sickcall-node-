@@ -30,12 +30,15 @@ var paymentsTest = require('./routes/paymentsTest');
 var chats = require('./routes/chats');
 var app = express();
 var api = new ParseServer({
-  databaseURI: 'mongodb://heroku_8b6h0nrz:89j3qh02svfu720n4nkl81df54@ds015849.mlab.com:15849/heroku_8b6h0nrz', // Provide an absolute path
-  appId: 'O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF',
-  masterKey: 'lykNp62jc700RfU3EOr0WRe8ZCZJ4kiD4ZI4FRaZ', // Keep this key secret!
+  databaseURI: 'mongodb://hiikey:ihateml@b1!@ds153345-a0.mlab.com:53345,ds153345-a1.mlab.com:53345/heroku_rfhfq2b5?replicaSet=rs-ds153345', // Provide an absolute path
+  //appId: 'O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF',
+  //masterKey: 'lykNp62jc700RfU3EOr0WRe8ZCZJ4kiD4ZI4FRaZ', // Keep this key secret!
+  //TODO: remove appId and masterkey below this.. are test keys
+  appId: 'pwneJNtOqdAJlPtartF1GbtaOqCL46iyjegNbAyB',
+  masterKey: 'LuU3vxON2P947zmrEC5qOBZxrgHzdPtWwYXrZnln',
   fileKey: '20137ff7-4160-41ee-bc18-1c2bf416e433',
- // serverURL: 'https://hiikey.herokuapp.com' // Don't forget to change to https if needed
-  serverURL: 'http://localhost:3000/parse',
+  serverURL: 'https://hiikey.herokuapp.com/parse', // Don't forget to change to https if needed
+ // serverURL: 'http://localhost:3000/parse',
   liveQuery: {
     classNames: ['Chat', 'PublicPost']
   }
