@@ -34,7 +34,7 @@ var api = new ParseServer({
   databaseURI: 'mongodb://heroku_rfhfq2b5:u7q5lg6q7fujm6gldpmpeqk2k6@ds153345-a0.mlab.com:53345,ds153345-a1.mlab.com:53345/heroku_rfhfq2b5?replicaSet=rs-ds153345',
   appId: 'pwneJNtOqdAJlPtartF1GbtaOqCL46iyjegNbAyB',
   masterKey: 'LuU3vxON2P947zmrEC5qOBZxrgHzdPtWwYXrZnln', // Keep this key secret!
-  //fileKey: '20137ff7-4160-41ee-bc18-1c2bf416e433',
+  fileKey: '20137ff7-4160-41ee-bc18-1c2bf416e433',
  // serverURL: 'https://hiikey.herokuapp.com' // Don't forget to change to https if needed
   serverURL: 'https://hiikey.herokuapp.com/parse',
   liveQuery: {
