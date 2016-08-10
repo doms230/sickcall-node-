@@ -3,6 +3,8 @@
 var parse = require("parse/node").Parse;
 parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF",
     "bctRQbnLCvxRIHaJTkv3gqhlwSzxjiMesjx8kEwo");
+var moment = require("moment");
+
 var currentDate = new Date();
 
 console.log("current date:" + currentDate);
