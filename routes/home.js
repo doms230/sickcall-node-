@@ -18,6 +18,36 @@ var currentDate = new Date();
 /* GET home page. */
 router.get('/', function(req, res, next) {
     res.render('home',{});
+
+   /* var Posts = parse.Object.extend('Post');
+    var query = new parse.Query(Posts);
+    query.equalTo("isRemoved", false);
+    query.find({
+        success: function(results) {
+            // Do something with the returned Parse.Object values
+            for (var i = 0; i < results.length; i++) {
+                var object = results[i];
+                //console.log(object.id + ' : ' + object.createdAt);
+
+                //get post date
+                var postDate = new Date(object.createdAt);
+
+                // console.log(moment().diff(postDate,'hour'));
+                var timeDifference = moment().diff(postDate,'hour');
+                if (timeDifference => 2 ){
+                    object.set("isRemoved", true);
+                    console.log("greater");
+                }
+            }
+            object.save();
+        },
+        error: function(error) {
+            alert("Error: " + error.code + " " + error.message);
+        }
+    });*/
+
+
+
 });
 
 module.exports = router;
