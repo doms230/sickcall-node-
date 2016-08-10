@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 var parse = require("parse/node").Parse;
-parse.initialize("pwneJNtOqdAJlPtartF1GbtaOqCL46iyjegNbAyB",
-    "ZwdTh7WxOkLhBj6pFyZ7bTVk0DLyGuNYZR6bBszQ");
+parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF",
+    "bctRQbnLCvxRIHaJTkv3gqhlwSzxjiMesjx8kEwo");
 var currentDate = new Date();
 
 console.log("current date:" + currentDate);
