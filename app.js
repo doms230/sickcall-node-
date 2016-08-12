@@ -10,11 +10,8 @@ var stripe = require("stripe")(
 );
 
 var session = require('express-session');
-
 var cookieSession = require('cookie-session');
-
 var passport = require('passport');
-
 stripe.setApiVersion('2016-03-07');
 var mongoose = require('mongoose');
 
@@ -35,18 +32,27 @@ var api = new ParseServer({
   masterKey: 'lykNp62jc700RfU3EOr0WRe8ZCZJ4kiD4ZI4FRaZ', // Keep this key secret!
   fileKey: '20137ff7-4160-41ee-bc18-1c2bf416e433',
   serverURL: 'https://hiikey.herokuapp.com/parse',
+  //serverURL: 'http://localhost:3000/parse',
+  cloud: "./cloud/main.js",
   liveQuery: {
     classNames: ['Chat', 'PublicPost']
   },
   push: {
     ios: [
       {
-        pfx: 'productionPushCert-aug11-16.p12',
+        pfx:'/productionPushCert-aug11-16.p12',
         bundleId: 'com.socialgroupe.hiikey',
         production: true
+      },
+      {
+        pfx:'/productionPushCert-aug11-16.p12',
+        bundleId: 'com.socialgroupe.hiikey',
+        production: false
       }
     ]
   }
+
+
  /* verifyUserEmails: true,
   emailVerifyTokenValidityDuration: 2 * 60 * 60, // in seconds (2 hours = 7200 seconds)
   preventLoginWithUnverifiedEmail: false, // defaults to false
