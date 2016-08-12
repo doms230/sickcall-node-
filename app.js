@@ -37,8 +37,8 @@ var api = new ParseServer({
   serverURL: 'https://hiikey.herokuapp.com/parse',
   liveQuery: {
     classNames: ['Chat', 'PublicPost']
-  },
-  verifyUserEmails: true,
+  }
+ /* verifyUserEmails: true,
   emailVerifyTokenValidityDuration: 2 * 60 * 60, // in seconds (2 hours = 7200 seconds)
   preventLoginWithUnverifiedEmail: false, // defaults to false
   publicServerURL: 'https://hiikey.herokuapp.com/parse',
@@ -64,7 +64,7 @@ var api = new ParseServer({
         production: true
       }
     ]
-  }
+  }*/
 });
 
 // view engine setup
