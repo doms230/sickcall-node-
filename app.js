@@ -43,8 +43,7 @@ var api = new ParseServer({
       {
         pfx: 'productionPushCert-aug11-16.p12',
         bundleId: 'com.socialgroupe.hiikey',
-        production: true,
-        masterKey: "lykNp62jc700RfU3EOr0WRe8ZCZJ4kiD4ZI4FRaZ"
+        production: true
       }
     ]
   }
