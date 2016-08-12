@@ -43,7 +43,7 @@ var api = new ParseServer({
   preventLoginWithUnverifiedEmail: false, // defaults to false
   publicServerURL: 'https://hiikey.herokuapp.com/parse',
   // Your apps name. This will appear in the subject and body of the emails that are sent.
-  appName: 'Parse App',
+  appName: 'Hiikey',
   // The email adapter
   emailAdapter: {
     module: 'parse-server-simple-mailgun-adapter',
