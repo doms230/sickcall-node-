@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
     var query = new parse.Query(parse.Installation);
     query.equalTo('deviceType', 'ios');
 
-    parse.Push.send({
+    /*parse.Push.send({
             where: { query },
             data: { alert: 'Test',
                 badge: 1,
@@ -26,7 +26,7 @@ router.get('/', function(req, res, next) {
             console.log("good");
         }, function(error) {
             console.log(error);
-        });
+        });*/
 });
 
 module.exports = router;
