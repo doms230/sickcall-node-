@@ -37,6 +37,15 @@ var api = new ParseServer({
   serverURL: 'https://hiikey.herokuapp.com/parse',
   liveQuery: {
     classNames: ['Chat', 'PublicPost']
+  },
+  push: {
+    ios: [
+      {
+        pfx: 'productionPushCert-aug11-16.p12',
+        bundleId: 'com.socialgroupe.hiikey',
+        production: true
+      }
+    ]
   }
  /* verifyUserEmails: true,
   emailVerifyTokenValidityDuration: 2 * 60 * 60, // in seconds (2 hours = 7200 seconds)
