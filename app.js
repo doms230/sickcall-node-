@@ -37,6 +37,33 @@ var api = new ParseServer({
   serverURL: 'https://hiikey.herokuapp.com/parse',
   liveQuery: {
     classNames: ['Chat', 'PublicPost']
+  },
+  verifyUserEmails: true,
+  emailVerifyTokenValidityDuration: 2 * 60 * 60, // in seconds (2 hours = 7200 seconds)
+  preventLoginWithUnverifiedEmail: false, // defaults to false
+  publicServerURL: 'https://hiikey.herokuapp.com/parse',
+  // Your apps name. This will appear in the subject and body of the emails that are sent.
+  appName: 'Parse App',
+  // The email adapter
+  emailAdapter: {
+    module: 'parse-server-simple-mailgun-adapter',
+    options: {
+      // The address that your emails come from
+      fromAddress: 'noreply@hiikey.com',
+      // Your domain from mailgun.com
+      domain: 'app5de970d9d00a40e5b5eeb940170e17f6.mailgun.org',
+      // Your API key from mailgun.com
+      apiKey: 'key-e026a6336d9f9c1a3eacaa54f2175703'
+    }
+  },
+  push: {
+    ios: [
+      {
+        pfx: 'productionPushCert-aug11-16.p12',
+        bundleId: 'com.socialgroupe.hiikey',
+        production: true
+      }
+    ]
   }
 });
 
