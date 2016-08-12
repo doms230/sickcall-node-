@@ -13,7 +13,7 @@ parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF",
 /* GET home page. */
 router.get('/', function(req, res, next) {
     res.render('home',{});
-    var query = new parse.Query(parse.Installation);
+   /* var query = new parse.Query(parse.Installation);
     query.equalTo('deviceType', 'ios');
 
     parse.Push.send({
@@ -26,7 +26,7 @@ router.get('/', function(req, res, next) {
             console.log("good");
         }, function(error) {
             console.log(error);
-        });
+        });(/)
 });
 
 module.exports = router;
