@@ -10,6 +10,7 @@ var currentDate = new Date();
 console.log("current date:" + currentDate);
 var Posts = parse.Object.extend('Post');
 var query = new parse.Query(Posts);
+query.limit(1000);
 query.equalTo("isRemoved", false);
 query.find({
     success: function(results) {
