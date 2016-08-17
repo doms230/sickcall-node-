@@ -25,10 +25,10 @@ query.find({
             var timeDifference = moment().diff(postDate,'hour');
             console.log(timeDifference);
             if (timeDifference > 2 ){
-                //object.set("isRemoved", true);
+                object.set("isRemoved", true);
                 console.log("greater");
             }
-            //object.save();
+            object.save();
         }
 
     },
