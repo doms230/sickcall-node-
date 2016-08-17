@@ -25,22 +25,22 @@ var login = require('./routes/login');
 var terms = require('./routes/terms');
 var paymentsTest = require('./routes/paymentsTest');
 var chats = require('./routes/chats');
+var notifications = require('./routes/notifications');
 var app = express();
 var api = new ParseServer({
   databaseURI: 'mongodb://heroku_rfhfq2b5:u7q5lg6q7fujm6gldpmpeqk2k6@ds153345-a0.mlab.com:53345,ds153345-a1.mlab.com:53345/heroku_rfhfq2b5?replicaSet=rs-ds153345',
   appId: 'O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF',
   masterKey: 'lykNp62jc700RfU3EOr0WRe8ZCZJ4kiD4ZI4FRaZ', // Keep this key secret!
   fileKey: '20137ff7-4160-41ee-bc18-1c2bf416e433',
-  serverURL: 'https://hiikey.herokuapp.com/parse',
-  //serverURL: 'http://localhost:3000/parse',
-  cloud: "./cloud/main.js",
+  //serverURL: 'https://hiikey.herokuapp.com/parse',
+  serverURL: 'http://localhost:3000/parse',
   liveQuery: {
     classNames: ['Chat', 'PublicPost']
   },
   push: {
     ios: [
       {
-        pfx:'/productionPushCert-aug11-16.p12',
+        pfx:'productionPushCert-aug11-16.p12',
         bundleId: 'com.socialgroupe.hiikey',
         production: true
       },
@@ -109,7 +109,9 @@ app.use('/login', login);
 app.use('/terms', terms);
 app.use('/paymentsTest', paymentsTest);
 app.use('/chats', chats);
+app.use('/notifications', notifications);
 app.use('/parse', api);
+
 
 app.use(cookieSession({
   name: "cookei",

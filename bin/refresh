@@ -27,8 +27,9 @@ query.find({
                 object.set("isRemoved", true);
                 console.log("greater");
             }
+            object.save();
         }
-        object.save();
+
     },
     error: function(error) {
         alert("Error: " + error.code + " " + error.message);
