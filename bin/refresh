@@ -24,9 +24,9 @@ query.find({
             // console.log(moment().diff(postDate,'hour'));
             var timeDifference = moment().diff(postDate,'hour');
             console.log(timeDifference);
-            if (timeDifference => 2 ){
+            if (timeDifference > 2 ){
                 //object.set("isRemoved", true);
-                //console.log("greater");
+                console.log("greater");
             }
             //object.save();
         }
