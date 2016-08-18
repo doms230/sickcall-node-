@@ -6,7 +6,7 @@ parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF",
 var moment = require("moment");
 
 var currentDate = new Date();
-
+//TODO: Won't scale if people are posting more than 6000 videos an hour .. change
 console.log("current date:" + currentDate);
 var Posts = parse.Object.extend('Post');
 var query = new parse.Query(Posts);
