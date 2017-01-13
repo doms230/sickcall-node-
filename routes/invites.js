@@ -14,11 +14,25 @@ var client = require('twilio')('AC847fa672cc0a2207e0dd2938d15483c4', '90c2990bc7
 router.get('/', function(req, res, next) {
     res.render('home',{});
 
+    var phoneNumbers = req.query.phoneNumbers;
+    var names = req.query.names;
+
+    for (i = 0; i < phoneNumbers.length; i++) {
+        sendInvite(phoneNumbers[i], names[i], req.query.hostname, req.query.eventName, req.query.code, req.query.eventDate);
+    }
+
+    //sendInvite("+16095027269", "Teaonna", "Dom Smith", "Coachella", "123456", "1/2/17")
+
+});
+
+function sendInvite(phoneNumber, guestName, hostName, eventName, code, date) {
     client.sendMessage({
 
-        to: req.query.phone_number, // Any number Twilio can deliver to
+        to: phoneNumber, // Any number Twilio can deliver to
         from: '+18562194216 ', // A number you bought from Twilio and can use for outbound communication
-        body: req.query.message // body of the SMS message
+        body: ' "Hey ' + guestName + ', you are invited to my event ' + eventName + ' on '  + date + '! Head to Hiikey and use my event code:'
+        + code + ' for access to the event." -' + hostName + ' https://itunes.apple.com/us/app/hiikey/id1013280340?ls=1&mt=8'
+        // body of the SMS message
 
     }, function(err, responseData) { //this function is executed when a response is received from Twilio
 
@@ -33,6 +47,7 @@ router.get('/', function(req, res, next) {
 
         }
     });
-});
+}
+
 
 module.exports = router;
