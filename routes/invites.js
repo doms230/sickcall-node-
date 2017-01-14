@@ -30,7 +30,7 @@ function sendInvite(phoneNumber, guestName, hostName, eventName, code, date) {
 
         to: phoneNumber, // Any number Twilio can deliver to
         from: '+18562194216 ', // A number you bought from Twilio and can use for outbound communication
-        body: ' "Hey ' + guestName + ', you are invited to my event ' + eventName + ' on '  + date + '! Head to Hiikey and use my event code:'
+        body: ' "Hey ' + guestName + ', you are invited to my event ' + eventName + ' on '  + date + '! Head to Hiikey and use my code: '
         + code + ' for access to the event." -' + hostName + ' https://itunes.apple.com/us/app/hiikey/id1013280340?ls=1&mt=8'
         // body of the SMS message
 
