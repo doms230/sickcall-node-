@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang ="en">
+<head>
+    <meta charset="utf-8">
+    <title id="title"> <%= title %> | Hiikey</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--Ajax-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+    <!-- Facebook Pixel Code -->
+    <script>
+        !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+                n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+            n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+                document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+        fbq('init', '643088589176557');
+        fbq('track', "PageView");</script>
+    <noscript><img height="1" width="1" style="display:none"
+                   src="https://www.facebook.com/tr?id=643088589176557&ev=PageView&noscript=1"
+        /></noscript>
+    <!-- End Facebook Pixel Code -->
+
+    <!-- Custom styles for this template
+    <link href="navbar.css" rel="stylesheet"> -->
+</head>
+<body>
+
+<div class="page-header">
+    <div class="container-fluid">
+        <h1><%= title %><small> <%= date %></small></h1>
+        <h6><%= description %></h6>
+    </div>
+</div>
+
+<div class="col-md-8">
+    <img src=<%= image %> class="img-thumbnail" alt="Responsive image">
+</div>
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-68774707-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+<div class="navbar-header" >
+    <div class="container-fluid">
+        <a class="btn-default" href="https://itunes.apple.com/us/app/hiikey/id1013280340?ls=1&mt=8">
+            <img href="" src="images/appstoreButton.png" class="img-responsive" alt="Available on The App Store" width="110" height="22">
+        </a>
+        <a class=" btn btn-lg navbar-text" href="/terms">Terms</a>
+        <h6>© SocialGroupe, Inc. </h6>
+    </div>
+</div>
+
+</body>
+</html>

@@ -14,6 +14,7 @@ var terms = require('./routes/terms');
 var notifications = require('./routes/notifications');
 var videos = require('./routes/videos');
 var invites = require('./routes/invites');
+var events = require('./routes/events');
 
 var app = express();
 var api = new ParseServer({
@@ -90,6 +91,7 @@ app.use('/notifications', notifications);
 app.use('/videos', videos);
 app.use('/parse', api);
 app.use('/invites',invites);
+app.use('/events', events);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
