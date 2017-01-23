@@ -38,13 +38,19 @@
 
 <div class="page-header">
     <div class="container-fluid">
-        <h1><%= title %><small> <%= startDate %> - <%= endDate %></small></h1>
-        <h6><%= description %></h6>
+        <h1><%= title %></h1>
+        <h3><%=address%></h3>
+        <h4><%= startDate %> - <%= endDate %></h4>
+        <p><%= description %></p>
+        <img src=<%= image %>   alt="Responsiveimage" class="img-thumbnail" >
+
     </div>
 </div>
 
-<div class="col-md-8">
-    <img src=<%= image %>   alt="Responsiveimage" class="img-thumbnail" >
+<div class="container-fluid">
+    <h4>event code: <%=eventCode%></h4>
+    <p>Download the Hiikey app from the App store. You'll be able to join the conversation, get directions,
+        keep up with your plans, create your own event, and more!</p>
 </div>
 
  <script>

@@ -45,14 +45,18 @@ var eventUser;
                     var endDate = new Date(object.get('endTime'));
 
                     // var d = new Date(date.getDate());
-                    address = object.get('Address');
+                    address = object.get('address');
+
+                    var eventCode = object.get('code');
 
                     res.render('event', {
                         title: title,
                         startDate: moment(startDate).format("ddd, MMM Do YYYY, h:mm a"),
                         endDate: moment(endDate).format("ddd, MMM Do YYYY, h:mm a") ,
                         description: description,
-                         image: (object.get("eventImage").name())[0].src = yoma.url()
+                        image: (object.get("eventImage").name())[0].src = yoma.url(),
+                        address: address,
+                        eventCode: eventCode
                         //user: name,
                     });
                 }
