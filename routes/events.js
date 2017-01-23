@@ -41,14 +41,16 @@ var eventUser;
                     description = object.get('description');
 
                     title = object.get('title');
-                    var postDate = new Date(object.get('startTime'));
+                    var startDate = new Date(object.get('startTime'));
+                    var endDate = new Date(object.get('endTime'));
 
                     // var d = new Date(date.getDate());
                     address = object.get('Address');
 
                     res.render('event', {
                         title: title,
-                        date: moment(postDate),
+                        startDate: moment(startDate).format("ddd, MMM Do YYYY, h:mm a"),
+                        endDate: moment(endDate).format("ddd, MMM Do YYYY, h:mm a") ,
                         description: description,
                          image: (object.get("eventImage").name())[0].src = yoma.url()
                         //user: name,
