@@ -47,7 +47,13 @@ var eventUser;
                     title = object.get('title');
                     var startDate = object.get('startTime');
 
-                    var jaunt = moment(startDate).utcOffset(currentDate.getTimezoneOffset()).format("ddd, MMM Do YYYY, h:mm a");
+                    var startJaunt = moment.utc(startDate);
+
+                    console.log(startJaunt.format("ddd, MMM Do YYYY, h:mm a"));
+
+                    startJaunt.local();
+                    console.log(startJaunt.format("ddd, MMM Do YYYY, h:mm a"));
+
 
                     var endDate = new Date(object.get('endTime'));
                     // var d = new Date(date.getDate());
@@ -67,7 +73,7 @@ var eventUser;
 
                     res.render('event', {
                         title: title,
-                        startDate: jaunt,
+                        startDate: startJaunt.format("ddd, MMM Do YYYY, h:mm a"),
                         endDate: moment(endDate).format("ddd, MMM Do YYYY, h:mm a") ,
                         description: description,
                         image: (object.get("eventImage").name())[0].src = yoma.url(),
