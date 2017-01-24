@@ -42,11 +42,9 @@ var eventUser;
 
                     title = object.get('title');
                     var startDate = object.get('startTime');
-                    var fStart = moment.utc(startDate).toDate();
 
 
                     var endDate = object.get('endTime');
-                    var fEnd =  moment.utc(endDate).toDate();
                     // var d = new Date(date.getDate());
                     address = object.get('address');
 
@@ -54,8 +52,8 @@ var eventUser;
 
                     res.render('event', {
                         title: title,
-                        startDate:moment(fStart).format("ddd, MMM Do YYYY, h:mm a"),
-                        endDate: moment(fEnd).format("ddd, MMM Do YYYY, h:mm a") ,
+                        startDate:moment( new Date(startDate)).format("ddd, MMM Do YYYY, h:mm a"),
+                        endDate: moment( new Date(endDate)).format("ddd, MMM Do YYYY, h:mm a") ,
                         description: description,
                         image: (object.get("eventImage").name())[0].src = yoma.url(),
                         address: address,
