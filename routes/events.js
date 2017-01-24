@@ -52,7 +52,7 @@ var eventUser;
                     res.render('event', {
                         title: title,
                         startDate: moment(startDate).format("ddd, MMM Do YYYY, h:mm a"),
-                        endDate: moment(endDate).format("ddd, MMM Do YYYY, h:mm a") ,
+                        endDate: moment(endDate).format("ddd, MMM Do YYYY, h:mm a").toLocaleString() ,
                         description: description,
                         image: (object.get("eventImage").name())[0].src = yoma.url(),
                         address: address,
