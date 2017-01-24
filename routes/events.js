@@ -46,7 +46,7 @@ var eventUser;
                     console.log(moment.tz.guess());
                     title = object.get('title');
                     var startDate = object.get('startTime');
-                    var yea  = moment(startDate).tz(moment.tz.guess()).format("ddd, MMM Do YYYY, h:mm a");
+
 
                     var endDate = new Date(object.get('endTime'));
                     // var d = new Date(date.getDate());
@@ -66,7 +66,7 @@ var eventUser;
 
                     res.render('event', {
                         title: title,
-                        startDate: yea,
+                        startDate: moment.parseZone(startDate).local().format("ddd, MMM Do YYYY, h:mm a"),
                         endDate: moment(endDate).format("ddd, MMM Do YYYY, h:mm a") ,
                         description: description,
                         image: (object.get("eventImage").name())[0].src = yoma.url(),
