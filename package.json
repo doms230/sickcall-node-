@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node ./bin/www"
   },
+
   "dependencies": {
     "body-parser": "^1.15.1",
     "bootstrap": "~3.3.6",

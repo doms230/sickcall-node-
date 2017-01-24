@@ -6,7 +6,6 @@ var express = require('express');
 var router = express.Router();
 var moment = require("moment");
 var momenttz = require('moment-timezone');
-
 var parse = require("parse/node").Parse;
 parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF", "bctRQbnLCvxRIHaJTkv3gqhlwSzxjiMesjx8kEwo");
 
@@ -41,22 +40,20 @@ var eventUser;
                     eventUser = object.get("userId");
                     description = object.get('description');
 
-                    var currentDate = new Date();
-                    console.log(currentDate.getTimezoneOffset());
-                    console.log(moment.tz.guess());
                     title = object.get('title');
                     var startDate = object.get('startTime');
 
-
                     var startJaunt = momenttz.tz(startDate, moment.tz.guess()).format("ddd, MMM Do YYYY, h:mm a");
-                    console.log(startJaunt);
-
 
                     var endDate = new Date(object.get('endTime'));
-                    // var d = new Date(date.getDate());
                     address = object.get('address');
 
                     var eventCode = object.get('code');
+
+                    if (object.id == "bOmzOucpQE") {
+                        startDate = "Fri, Jan 27th 2017, 10:00 pm";
+                        endDate = "Sat, Jan 28th 2017, 3:00 am";
+                    }
 
                     /*
 
@@ -70,8 +67,8 @@ var eventUser;
 
                     res.render('event', {
                         title: title,
-                        startDate: startJaunt,
-                        endDate: moment(endDate).format("ddd, MMM Do YYYY, h:mm a") ,
+                        startDate: startDate,
+                        endDate: endDate ,
                         description: description,
                         image: (object.get("eventImage").name())[0].src = yoma.url(),
                         address: address,
