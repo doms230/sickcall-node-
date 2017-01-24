@@ -5,6 +5,7 @@
 var express = require('express');
 var router = express.Router();
 var moment = require("moment");
+var momenttz = require('moment-timezone');
 
 var parse = require("parse/node").Parse;
 parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF", "bctRQbnLCvxRIHaJTkv3gqhlwSzxjiMesjx8kEwo");
@@ -40,9 +41,12 @@ var eventUser;
                     eventUser = object.get("userId");
                     description = object.get('description');
 
+                    var currentDate = new Date();
+                    console.log(currentDate.getTimezoneOffset());
+                    console.log(moment.tz.guess());
                     title = object.get('title');
                     var startDate = object.get('startTime');
-
+                    var yea  = moment(startDate).tz(moment.tz.guess()).format("ddd, MMM Do YYYY, h:mm a");
 
                     var endDate = new Date(object.get('endTime'));
                     // var d = new Date(date.getDate());
@@ -50,10 +54,20 @@ var eventUser;
 
                     var eventCode = object.get('code');
 
+                    /*
+
+                     // generate a string that only has the time portion
+                     var strWithoutTimezone = moment(localEquivalent).format("YYYY-MM-DDTHH:mm:ss")
+                     // extract out the site's timezone identifier (DateWithTimezone.getTimezone() stores the site's timezone)
+                     var timezone = moment.tz(DateWithTimezone.getTimezone()).format("Z")
+                     // create a moment in the site's timezone and use it to initialize a <span style="font-family: 'courier new', courier;">DateWithTimezone</span>
+                     return new DateWithTimezone(moment(strWithoutTimezone + timezone))
+                     */
+
                     res.render('event', {
                         title: title,
-                        startDate: moment(startDate).local().format("ddd, MMM Do YYYY, h:mm a"),
-                        endDate: moment(endDate).local().format("ddd, MMM Do YYYY, h:mm a") ,
+                        startDate: yea,
+                        endDate: moment(endDate).format("ddd, MMM Do YYYY, h:mm a") ,
                         description: description,
                         image: (object.get("eventImage").name())[0].src = yoma.url(),
                         address: address,

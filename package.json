@@ -27,6 +27,7 @@
     "parse-server": "2.2.25",
     "serve-favicon": "~2.3.0",
     "authy": "1.2.0",
-    "twilio": "2.11.1"
+    "twilio": "2.11.1",
+    "moment-timezone": "5.11"
   }
 }
