@@ -16,7 +16,11 @@ var description;
 var image;
 var address;
 var eventUser;
-
+var eventHost;
+var eventCode;
+var startDate;
+var endDate;
+var yoma;
 //twitter login
 
     router.get('/', function (req, res, next) {
@@ -35,21 +39,22 @@ var eventUser;
 
                     //res.send(object);
 
-                    var yoma = object.get('eventImage');
+                    yoma = object.get('eventImage');
 
                     eventUser = object.get("userId");
                     description = object.get('description');
 
                     title = object.get('title');
-                    var startDate = object.get('startTime');
+                    startDate = object.get('startTime');
 
                     var startJaunt = momenttz.tz(startDate, moment.tz.guess()).format("ddd, MMM Do YYYY, h:mm a");
 
-                    var endDate = new Date(object.get('endTime'));
+                    endDate = new Date(object.get('endTime'));
                     address = object.get('address');
 
-                    var eventCode = object.get('code');
+                    eventCode = object.get('code');
 
+                    //maybe try to find current location
                     if (object.id == "bOmzOucpQE") {
                         startDate = "Fri, Jan 27th 2017, 10:00 pm";
                         endDate = "Sat, Jan 28th 2017, 1:00 am";
@@ -65,6 +70,36 @@ var eventUser;
                      return new DateWithTimezone(moment(strWithoutTimezone + timezone))
                      */
 
+                    /*var userId = object.get("userId");
+
+                    var userQuery = parse.Object.extend("_User");
+                    var query = new parse.Query(userQuery);
+                    query.get(userId, {
+                        success: function(object) {
+                            console.log("h" + object.get("DisplayName"));
+                            // The object was retrieved successfully.
+                            //var name = object.get("DisplayName");
+
+                            //check to see if user chose a name for their profile
+                           /* if (name == " "){
+                                eventHost = object.get("username");
+
+                            } else {
+                                eventHost = name;
+                            }
+
+                            eventHost = object.get("username");
+
+
+
+                        },
+                        error: function(object, error) {
+                            // The object was not retrieved successfully.
+                            // error is a Parse.Error with an error code and message.
+                            res.send(error);
+                        }
+                    });*/
+
                     res.render('event', {
                         title: title,
                         startDate: startDate,
@@ -72,7 +107,8 @@ var eventUser;
                         description: description,
                         image: (object.get("eventImage").name())[0].src = yoma.url(),
                         address: address,
-                        eventCode: eventCode
+                        eventCode: eventCode,
+                        user: "thegirlwhoroars"
                         //user: name,
                     });
                 }
