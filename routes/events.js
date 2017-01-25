@@ -52,7 +52,7 @@ var eventUser;
 
                     if (object.id == "bOmzOucpQE") {
                         startDate = "Fri, Jan 27th 2017, 10:00 pm";
-                        endDate = "Sat, Jan 28th 2017, 3:00 am";
+                        endDate = "Sat, Jan 28th 2017, 1:00 am";
                     }
 
                     /*
