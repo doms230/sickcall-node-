@@ -1,6 +1,10 @@
 /**
  * Created by macmini on 4/7/16.
  * testevent-d_innovator
+ *
+ * Cookies are just stored data.. Can be used for when user logs in... store UserId or some shit to be loaded later
+ * example: https://www.codementor.io/nodejs/tutorial/cookie-management-in-express-js
+ *
  */
 var express = require('express');
 var router = express.Router();
@@ -12,6 +16,21 @@ parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF", "bctRQbnLCvxRIHaJTk
 //twitter login
 
     router.get('/', function (req, res, next) {
+
+
+        //store the cookie
+       // res.cookie("cookie" , 'jaja')
+
+        //see about setting experation date for cookie
+
+        //grab the cookie .. req.cookies.whateverThenNameOfTheSavedCookie
+       // console.log("Cookies :  ", req.cookies.cookie);
+
+        var date  = new Date();
+        console.log("timezone offset: " + date.getTimezoneOffset());
+        //console.log("timezone: " + date.timeZone);
+       // console.log("utc date:" +  date.getUTCDate());
+
         var eventCode = req.query.id;
 
         var Posts = parse.Object.extend('Event');

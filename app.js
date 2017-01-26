@@ -83,7 +83,7 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser("cookei"));
+app.use(cookieParser("cookie"));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
@@ -101,6 +101,12 @@ app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
+});
+
+
+//cookie jaunts
+app.get('/cookie',function(req, res){
+  res.cookie("cookie" , 'jaja').send('Cookie is set');
 });
 
 // error handlers
