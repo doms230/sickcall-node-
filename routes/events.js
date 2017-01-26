@@ -9,18 +9,6 @@ var momenttz = require('moment-timezone');
 var parse = require("parse/node").Parse;
 parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF", "bctRQbnLCvxRIHaJTkv3gqhlwSzxjiMesjx8kEwo");
 
-//event Jaunts
-var title;
-var date;
-var description;
-var image;
-var address;
-var eventUser;
-var eventHost;
-var eventCode;
-var startDate;
-var endDate;
-var yoma;
 //twitter login
 
     router.get('/', function (req, res, next) {
@@ -39,37 +27,26 @@ var yoma;
 
                     //res.send(object);
 
-                    yoma = object.get('eventImage');
+                    var userId = object.get('userId');
+                    var title = object.get('title');
 
-                    eventUser = object.get("userId");
-                    description = object.get('description');
-
-                    title = object.get('title');
-                    startDate = object.get('startTime');
-
+                    var startDate = object.get('startTime');
                     var startJaunt = momenttz.tz(startDate, "America/Chicago").format("ddd, MMM Do YYYY, h:mm a");
 
-                    endDate = new Date(object.get('endTime'));
+                    var endDate = new Date(object.get('endTime'));
                     var endJaunt = momenttz.tz(endDate, "America/Chicago").format("ddd, MMM Do YYYY, h:mm a");
 
-                    address = object.get('address');
-
-                    eventCode = object.get('code');
+                    var description = object.get('description');
+                    var imageURL = object.get('eventImage');
+                    var imageSRC = (object.get("eventImage").name())[0].src;
+                    var address = object.get('address');
+                    var eventCode = object.get('code');
 
                     //maybe try to find current location
                     /*if (object.id == "bOmzOucpQE") {
                         startDate = "Fri, Jan 27th 2017, 10:00 pm";
                         endDate = "Sat, Jan 28th 2017, 1:00 am";
                     }*/
-
-                    var userId = object.get('userId');
-
-                    if (userId == "oB1igd9hLP"){
-                        eventHost = "thegirlwhoroars";
-
-                    } else {
-                        eventHost = "bikergangbooking";
-                    }
 
                     /*
 
@@ -80,20 +57,8 @@ var yoma;
                      // create a moment in the site's timezone and use it to initialize a <span style="font-family: 'courier new', courier;">DateWithTimezone</span>
                      return new DateWithTimezone(moment(strWithoutTimezone + timezone))
                      */
-
-                    res.render('event', {
-                        title: title,
-                        startDate: startJaunt,
-                        endDate: endJaunt ,
-                        description: description,
-                        image: (object.get("eventImage").name())[0].src = yoma.url(),
-                        address: address,
-                        eventCode: eventCode,
-                        user: eventHost
-                        //user: name,
-                    });
-
-                    //loadUser(res)
+                    //load User
+                    loadUser(res, userId, title, startJaunt, endJaunt, description, imageSRC, imageURL, address, eventCode);
                 }
             },
             error: function(error) {
@@ -102,37 +67,31 @@ var yoma;
         });
     });
 
+function loadUser(res, userId, title, startJaunt, endJaunt, description, imageSRC, imageURL, address, eventCode){
+    var User = parse.Object.extend("_User");
+    var query = new parse.Query(User);
+    query.get(userId, {
+        success: function(object) {
+            // The object was retrieved successfully.
+           var eventHost =  object.getUsername();
 
-function loadUser(res){
-    var userId = object.get("userId");
-
-     var userQuery = parse.Object.extend("_User");
-     var query = new parse.Query(userQuery);
-     query.get(userId, {
-     success: function(object) {
-     console.log("h" + object.get("DisplayName"));
-     // The object was retrieved successfully.
-     //var name = object.get("DisplayName");
-
-     //check to see if user chose a name for their profile
-      if (name == " "){
-     eventHost = object.get("username");
-
-     } else {
-     eventHost = name;
-     }
-
-     //eventHost = object.get("username");
-
-    res.send(eventHost);
-
-     },
-     error: function(object, error) {
-     // The object was not retrieved successfully.
-     // error is a Parse.Error with an error code and message.
-     res.send(error);
-     }
-     });
+            //load event page
+            res.render('event', {
+                title: title,
+                startDate: startJaunt,
+                endDate: endJaunt,
+                description: description,
+                image: imageSRC = imageURL.url(),
+                address: address,
+                eventCode: eventCode,
+                user: eventHost
+            });
+        },
+        error: function(object, error) {
+            // The object was not retrieved successfully.
+            // error is a Parse.Error with an error code and message.
+        }
+    });
 }
 
 module.exports = router;
