@@ -19,7 +19,7 @@ parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF", "bctRQbnLCvxRIHaJTk
     router.get('/', function (req, res, next) {
 
         var date = new Date();
-        console.log( "date: " + date.toString());
+        console.log( "date: " + date.toLocaleString());
         //store the cookie
        // res.cookie("cookie" , 'jaja')
 
