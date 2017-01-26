@@ -18,17 +18,18 @@ parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF", "bctRQbnLCvxRIHaJTk
 
     router.get('/', function (req, res, next) {
 
-
+        var date = new Date();
+        console.log( "date: " + date.toString());
         //store the cookie
        // res.cookie("cookie" , 'jaja')
 
         //see about setting experation date for cookie
 
         //grab the cookie .. req.cookies.whateverThenNameOfTheSavedCookie
-       // console.log("Cookies :  ", req.cookies.cookie);
+       // console.log("Cookies :  ", req.cookies.timezone);
 
-        var tz = jstz.determine();
-        console.log(tz.name());
+        //var tz = jstz.determine();
+       // console.log(tz.name());
         //console.log("timezone: " + date.timeZone);
        // console.log("utc date:" +  date.getUTCDate());
 

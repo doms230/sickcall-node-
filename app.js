@@ -104,11 +104,6 @@ app.use(function(req, res, next) {
 });
 
 
-//cookie jaunts
-app.get('/cookie',function(req, res){
-  res.cookie("cookie" , 'jaja').send('Cookie is set');
-});
-
 // error handlers
 // development error handler
 // will print stacktrace
