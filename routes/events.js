@@ -10,6 +10,7 @@ var express = require('express');
 var router = express.Router();
 var moment = require("moment");
 var momenttz = require('moment-timezone');
+var jstz = require("jstz");
 var parse = require("parse/node").Parse;
 parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF", "bctRQbnLCvxRIHaJTkv3gqhlwSzxjiMesjx8kEwo");
 
@@ -26,8 +27,8 @@ parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF", "bctRQbnLCvxRIHaJTk
         //grab the cookie .. req.cookies.whateverThenNameOfTheSavedCookie
        // console.log("Cookies :  ", req.cookies.cookie);
 
-        var date  = new Date();
-        console.log("timezone offset: " + date.getTimezoneOffset());
+        var tz = jstz.determine();
+        console.log(tz.name());
         //console.log("timezone: " + date.timeZone);
        // console.log("utc date:" +  date.getUTCDate());
 
