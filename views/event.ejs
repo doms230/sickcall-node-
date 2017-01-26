@@ -39,13 +39,36 @@
 <div class="page-header">
     <div class="container-fluid">
         <h1><%= title %></h1>
-        <h3><%=address%></h3>
-        <h4><%= startDate %> - <%= endDate %></h4>
-        <h4><%= user%> - <small><%= description %>  </small></h4>
+        <h4>By <%= user%> - <small><%= description %>  </small></h4>
+
+        <h4>Location - <small><%=address%></small> </h4>
+        <h4> Date - <small> <%= startDate %> - <%= endDate %> </small></h4>
+        <img src=<%= image %>   alt="Responsiveimage" class="img-thumbnail" >
+
+        <!--   <div class="btn-group" data-toggle="buttons">
+      <label class="btn btn-default active">
+          <input type="radio" name="options" id="info" autocomplete="off" checked> Info
+      </label>
+      <label class="btn btn-default">
+          <input type="radio" name="options" id="rsvp" autocomplete="off"> Messages
+      </label>
+      <label class="btn btn-default">
+          <input type="radio" name="options" id="message" autocomplete="off"> RSVP's
+      </label> -->
+
+</div>
+
+    <!-- <div class="page-header">
+<div class="container-fluid">
+
+        <h4>Location - <small><%=address%></small> </h4>
+        <h4> Date - <small> <%= startDate %> - <%= endDate %> </small></h4>
         <img src=<%= image %>   alt="Responsiveimage" class="img-thumbnail" >
 
     </div>
-</div>
+
+
+</div> -->
 
 <div class="container-fluid">
     <h4>event code: <span class="label label-danger"><%=eventCode%></span> </h4>
