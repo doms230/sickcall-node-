@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang ="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <title id="title"> <%= title %> | Hiikey</title>
@@ -36,49 +36,52 @@
 </head>
 <body>
 
-<div class="page-header">
-    <div class="container-fluid">
-        <h1><%= title %></h1>
-        <h4>By <%= user%> - <small><%= description %>  </small></h4>
+<div class="container-fluid">
+    <h1><%= title %></h1>
+    <h4>By <%= user%> - <small><%= description %>  </small></h4>
+    <h4> Date - <small> <%= startDate %> - <%= endDate %> </small></h4>
+    <a href="#" class="thumbnail">
+        <img src= <%= image %> alt="...">
+    </a>
+    <h4>event code: <span class="label label-danger"><%=eventCode%></span> </h4>
 
-        <h4>Location - <small><%=address%></small> </h4>
-        <h4> Date - <small> <%= startDate %> - <%= endDate %> </small></h4>
-        <img src=<%= image %>   alt="Responsiveimage" class="img-thumbnail" >
-
-        <!--   <div class="btn-group" data-toggle="buttons">
-      <label class="btn btn-default active">
-          <input type="radio" name="options" id="info" autocomplete="off" checked> Info
-      </label>
-      <label class="btn btn-default">
-          <input type="radio" name="options" id="rsvp" autocomplete="off"> Messages
-      </label>
-      <label class="btn btn-default">
-          <input type="radio" name="options" id="message" autocomplete="off"> RSVP's
-      </label> -->
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a href="#">Location</a></li>
+        <li role="presentation"><a href="#">Messages</a></li>
+        <li role="presentation"><a href="#">RSVPs</a></li>
+    </ul>
 
 </div>
 
-    <!-- <div class="page-header">
+     <div class="page-header">
 <div class="container-fluid">
 
-        <h4>Location - <small><%=address%></small> </h4>
-        <h4> Date - <small> <%= startDate %> - <%= endDate %> </small></h4>
-        <img src=<%= image %>   alt="Responsiveimage" class="img-thumbnail" >
+    <%if (didRSVP) { %>
+    <h4>Location - <small><%=address%></small> </h4>
+
+    <iframe src="//www.google.com/maps/embed/v1/place?q= <%=coordinates%>
+      &zoom=17
+      &key=AIzaSyAdnr849aDFzuYIJBTqyzdapF_7aR8AikI">
+    </iframe>
+
+    <% } else { %>
+    <button id="rsvp" type="button" class="btn btn-success btn-lg">RSVP</button>
+    <% } %>
 
     </div>
 
-
-</div> -->
-
-<div class="container-fluid">
-    <h4>event code: <span class="label label-danger"><%=eventCode%></span> </h4>
 </div>
+        <ul class="pager navbar-fixed-bottom">
+            <li><a href="https://itunes.apple.com/us/app/hiikey/id1013280340?ls=1&mt=8">Open in app</a> </li>
+        </ul>
 
+</br>
 <ol class="breadcrumb">
-    <ul class="pager">
-        <li><a href="https://itunes.apple.com/us/app/hiikey/id1013280340?ls=1&mt=8">Open in app</a> </li>
-    </ul>
+    <li><a href="/about">ABOUT</a></li>
+    <li><a href="/terms">TERMS</a></li>
+    <p class="navbar-text navbar-right"> © 2017 SocialGroupe, Inc. </p>
 </ol>
+</br>
 
  <script>
 
