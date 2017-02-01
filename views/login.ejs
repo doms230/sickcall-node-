@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html>
 <head>
-    <title>Bootstrap 101 Template</title>
+    <title>Hiikey | Welcome</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!--Ajax-->
@@ -12,32 +11,17 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-
     <!-- Bootstrap core CSS -->
     <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link href="signin.css" rel="stylesheet">
-</head>
-<body>
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Bootstrap 101 Template</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 </head>
 <body>
 
 <div class="container">
 
+    <h1>Hiikey</h1>
     <form class="form-signin">
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <h3 class="form-signin-heading">Please sign in</h3>
+        <input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
         <div class="checkbox">
@@ -45,13 +29,35 @@
                 <input type="checkbox" value="remember-me"> Remember me
             </label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <button id="signin" class="btn btn-lg btn-default btn-block" type="submit">Sign in</button>
     </form>
+
+    </br>
+    <button id="signup" class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
 
 </div> <!-- /container -->
 
-</body>
-</html>
+
 
 </body>
+
+
 </html>
+
+<script>
+
+    $("#signin").click(function(){
+        $.post("logins/signin",
+         {
+         username: document.getElementById('inputUsername').value,
+         password: document.getElementById('inputPassword').value
+         },
+         function(data, status){
+         // alert("Data: " + data + "\nStatus: " + status);
+
+         if(status.success){
+         alert("Signed in");
+         }
+         });
+    });
+</script>

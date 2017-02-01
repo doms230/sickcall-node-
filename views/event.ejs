@@ -33,6 +33,7 @@
 
     <!-- Custom styles for this template
     <link href="navbar.css" rel="stylesheet"> -->
+
 </head>
 <body>
 
@@ -47,33 +48,35 @@
 
     <ul class="nav nav-tabs">
         <li role="presentation" class="active"><a href="#">Location</a></li>
-        <li role="presentation"><a href="#">Messages</a></li>
-        <li role="presentation"><a href="#">RSVPs</a></li>
+        <li id="messages" role="presentation"><a>Messages</a></li>
+        <li is="rsvps" role="presentation"><a href="#">RSVPs</a></li>
     </ul>
-
 </div>
 
-     <div class="page-header">
-<div class="container-fluid">
+<!-- Location -->
 
-    <%if (didRSVP) { %>
-    <h4>Location - <small><%=address%></small> </h4>
+<div class="page-header">
+    <div class="container-fluid">
 
-    <iframe src="//www.google.com/maps/embed/v1/place?q= <%=coordinates%>
+        <%if (didRSVP) { %>
+        <h4>Location - <small><%=address%></small> </h4>
+
+        <iframe src="//www.google.com/maps/embed/v1/place?q= <%=coordinates%>
       &zoom=17
       &key=AIzaSyAdnr849aDFzuYIJBTqyzdapF_7aR8AikI">
-    </iframe>
+        </iframe>
 
-    <% } else { %>
-    <button id="rsvp" type="button" class="btn btn-success btn-lg">RSVP</button>
-    <% } %>
+        <% } else { %>
+        <button id="rsvp" type="button" class="btn btn-success btn-lg">RSVP</button>
+        <% } %>
 
     </div>
 
 </div>
-        <ul class="pager navbar-fixed-bottom">
-            <li><a href="https://itunes.apple.com/us/app/hiikey/id1013280340?ls=1&mt=8">Open in app</a> </li>
-        </ul>
+
+<ul class="pager navbar-fixed-bottom">
+    <li><a href="https://itunes.apple.com/us/app/hiikey/id1013280340?ls=1&mt=8">Open in app</a> </li>
+</ul>
 
 </br>
 <ol class="breadcrumb">
@@ -84,6 +87,30 @@
 </br>
 
  <script>
+
+     $("#messages").click(function(){
+         $.get("events/rsvp",
+                 {
+                     name: "Donald Duck",
+                     city: "Duckburg"
+                 },
+                 function(data, status){
+                     //alert("Data: " + data + "\nStatus: " + status);
+
+                 });
+     });
+
+     $("#rsvp").click(function(){
+         $.post("events/rsvp",
+                 {
+                     name: "Donald Duck",
+                     city: "Duckburg"
+                 },
+                 function(data, status){
+                     //alert("Data: " + data + "\nStatus: " + status);
+                     window.location.href = data.redirect;
+                 });
+     });
 
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
                 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

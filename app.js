@@ -1,10 +1,14 @@
+//Go to Parse-Dashboard/config.json for app crendtions with the dashboard jaunt
+
 var express = require('express');
 var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
+//var cookieSession = require('cookie-session');
 var bodyParser = require('body-parser');
 var mongodb = require("mongodb");
 var ParseServer = require('parse-server').ParseServer;
+var ParseDashboard = require('parse-dashboard');
 
 var mongoose = require('mongoose');
 
@@ -17,6 +21,8 @@ var invites = require('./routes/invites');
 var events = require('./routes/events');
 var replies = require('./routes/replies');
 var about = require('./routes/about');
+var login = require('./routes/logins');
+var messages = require('./routes/messages');
 
 var app = express();
 var api = new ParseServer({
@@ -74,6 +80,24 @@ var api = new ParseServer({
   }*/
 });
 
+var dashboard = new ParseDashboard({
+  "apps": [{
+    "serverURL": 'https://www.hiikey.com/parse', // Not localhost
+    "appId": 'O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF',
+    "masterKey": 'lykNp62jc700RfU3EOr0WRe8ZCZJ4kiD4ZI4FRaZ',
+    "appName": "Hiikey",
+    "production": false,
+    "iconName": "logo.png"
+  }],
+  "users": [
+    {
+      "user":"d_innovator",
+      "pass":"Letscre@tE1!"
+    }
+  ],
+  "iconsFolder": "./public/images"
+});
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -83,7 +107,7 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser("cookie"));
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
@@ -92,17 +116,26 @@ app.use('/terms', terms);
 app.use('/notifications', notifications);
 app.use('/videos', videos);
 app.use('/parse', api);
+app.use('/dashboard', dashboard);
 app.use('/invites',invites);
 app.use('/events', events);
 app.use('/replies', replies);
 app.use('/about', about );
+app.use('/logins', login);
+app.use('/messages', messages);
+
+/*app.use(cookieSession({
+  name: 'session',
+  secret: "xxxxx",
+  maxAge: 15724800000
+}));*/
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
-
 
 // error handlers
 // development error handler

@@ -23,6 +23,8 @@ parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF", "bctRQbnLCvxRIHaJTk
 
 //twitter login
 
+var isCurrentUser = false;
+
     router.get('/', function (req, res, next) {
 
         //store the cookie
@@ -38,19 +40,24 @@ parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF", "bctRQbnLCvxRIHaJTk
         //console.log("timezone: " + date.timeZone);
        // console.log("utc date:" +  date.getUTCDate());
 
-        var currentUser = parse.User.current();
-        if (currentUser) {
-            // do stuff with the user
-            console.log("signed in")
-        } else {
-            // show the signup or login page
-            console.log("not signed in")
-        }
+
 
         var eventCode = req.query.id;
 
-        loadEvent(res, eventCode);
+        loadEvent(res, eventCode, true);
+        //checkSession(req, res);
 
+    });
+
+    router.post('/rsvp', function(req, res){
+
+        //if user is signed in, rsvp ... else go to sign in /sign up
+        res.send({redirect: '/logins'});
+
+    });
+
+    router.get('/messages', function(req, res){
+        res.render('eventCode',{});
 
     });
 
@@ -101,7 +108,20 @@ function loadEvent(res, eventCode){
                  return new DateWithTimezone(moment(strWithoutTimezone + timezone))
                  */
                 //load User
-                loadUser(res, userId, title, startJaunt, endJaunt, description, imageSRC, imageURL, address, eventCode, coordinates);
+                //loadUser(res, userId, title, startJaunt, endJaunt, description, imageSRC, imageURL, address, eventCode, coordinates);
+
+                var currentUser = parse.User.current();
+                if (currentUser) {
+                    // do stuff with the user
+                    console.log("signed in");
+                    loadUser(res, userId, title, startJaunt, endJaunt, description, imageSRC, imageURL, address, eventCode, coordinates, true );
+
+                } else {
+                    isCurrentUser = false;
+                    // show the signup or login page
+                    console.log("not signed in");
+                    loadUser(res, userId, title, startJaunt, endJaunt, description, imageSRC, imageURL, address, eventCode, coordinates, false);
+                }
             }
         },
         error: function(error) {
@@ -111,7 +131,8 @@ function loadEvent(res, eventCode){
     });
 }
 
-function loadUser(res, userId, title, startJaunt, endJaunt, description, imageSRC, imageURL, address, eventCode, coordinates){
+function loadUser(res, userId, title, startJaunt, endJaunt, description, imageSRC, imageURL, address, eventCode, coordinates, isCurrentUser){
+
     var User = parse.Object.extend("_User");
     var query = new parse.Query(User);
     query.get(userId, {
@@ -130,7 +151,7 @@ function loadUser(res, userId, title, startJaunt, endJaunt, description, imageSR
                 eventCode: eventCode,
                 user: eventHost,
                 coordinates: coordinates,
-                didRSVP: false
+                didRSVP: true
             });
         },
         error: function(object, error) {
@@ -138,6 +159,35 @@ function loadUser(res, userId, title, startJaunt, endJaunt, description, imageSR
             // error is a Parse.Error with an error code and message.
         }
     });
+}
+
+function checkSession(req, res){
+    if (req.session.token == undefined) {
+        console.log('No session token');
+
+    } else {
+        console.log('Query for session token' + req.session.token);
+        Parse.Cloud.useMasterKey();
+
+        var sq = new parse.Query('_Session')
+            .equalTo('sessionToken', req.session.token)
+            .include('user');
+
+        sq.first().then(function(sessionResult) {
+            if (sessionResult == undefined) {
+                console.log("No matching session");
+               // res.redirect('/account/pub/login');
+            } else {
+                console.log("Got matching session");
+                req.user = sessionResult.get('user');
+                res.locals.session = req.session;
+                res.locals.user = req.user;
+                console.log(sessionResult.get('user'));
+            }
+        }, function(err) {
+            console.log("Error or no matching session: " + err);
+        });
+    }
 }
 
 module.exports = router;
