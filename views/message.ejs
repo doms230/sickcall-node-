@@ -55,20 +55,19 @@
 
 <!-- Messages -->
 
-
-
 <div class="page-header">
-    <% for (var i = 0; i <= data.length  ; i++ ) { %>
+    <% for (var i = 0; i < data.length  ; i++ ) { %>
     <div class="container-fluid">
         <div class="media">
             <div class="media-left">
-                <img class="media-object" src= <%= data[i].image %> alt="..." width="64" height="64">
+                <img class="media-object" src= <%=data[i].image%> alt="..." width="64" height="64">
             </div>
             <div class="media-body">
-                <h4 class="media-heading"> <%= data[i].name %> <small> <%= data[i].createdAt %> </small></h4>
-                    <%= data[i].description %>
+                <h4 class="media-heading"> <%=data[i].name%> <small> <%=data[i].createdAt%> </small></h4>
+                    <%=data[i].message%>
             </div>
         </div>
+        </br>
     </div>
 
     <% }%>

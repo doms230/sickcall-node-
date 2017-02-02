@@ -1,5 +1,7 @@
 /**
  * Created by macmini on 2/1/17.
+ *
+ * TODO: was able to return user data.. now check the data connects
  */
 
 
@@ -11,7 +13,37 @@ var jstz = require("jstz");
 var parse = require("parse/node").Parse;
 parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF", "bctRQbnLCvxRIHaJTkv3gqhlwSzxjiMesjx8kEwo");
 
-//twitter login
+
+//messages
+var messages = [];
+var createdAt = [];
+var chatUserIds = [];
+var chatUsernames = [];
+var chatUserDisplayNames = [];
+var chatImages = [];
+var chatImageSRC = [];
+var chatImageURL = [];
+
+//events
+var userId;
+var title;
+
+var startDate;
+var startJaunt;
+
+var endDate;
+var endJaunt;
+
+var description;
+var imageURL;
+var imageSRC;
+var address;
+var code;
+var eventLocation;
+var coordinates;
+
+//user
+var eventHost;
 
 var isCurrentUser = false;
 
@@ -29,8 +61,6 @@ router.get('/', function (req, res, next) {
     // console.log(tz.name());
     //console.log("timezone: " + date.timeZone);
     // console.log("utc date:" +  date.getUTCDate());
-
-
 
     var eventCode = req.query.id;
 
@@ -60,22 +90,22 @@ function loadEvent(res, eventCode){
 
                 //res.send(object);
 
-                var userId = object.get('userId');
-                var title = object.get('title');
+                userId = object.get('userId');
+                title = object.get('title');
 
-                var startDate = object.get('startTime');
-                var startJaunt = momenttz.tz(startDate, "America/Chicago").format("ddd, MMM Do YYYY, h:mm a");
+                startDate = object.get('startTime');
+                startJaunt = momenttz.tz(startDate, "America/Chicago").format("ddd, MMM Do YYYY, h:mm a");
 
-                var endDate = new Date(object.get('endTime'));
-                var endJaunt = momenttz.tz(endDate, "America/Chicago").format("ddd, MMM Do YYYY, h:mm a");
+                endDate = new Date(object.get('endTime'));
+                endJaunt = momenttz.tz(endDate, "America/Chicago").format("ddd, MMM Do YYYY, h:mm a");
 
-                var description = object.get('description');
-                var imageURL = object.get('eventImage');
-                var imageSRC = (object.get("eventImage").name())[0].src;
-                var address = object.get('address');
-                var eventCode = object.get('code');
-                var eventLocation = object.get('location');
-                var coordinates = eventLocation.latitude + "," + eventLocation.longitude;
+                description = object.get('description');
+                imageURL = object.get('eventImage');
+                imageSRC = (object.get("eventImage").name())[0].src;
+                address = object.get('address');
+                code = object.get('code');
+                eventLocation = object.get('location');
+                coordinates = eventLocation.latitude + "," + eventLocation.longitude;
 
                 //maybe try to find current location
                 /*if (object.id == "bOmzOucpQE") {
@@ -95,18 +125,8 @@ function loadEvent(res, eventCode){
                 //load User
                 //loadUser(res, userId, title, startJaunt, endJaunt, description, imageSRC, imageURL, address, eventCode, coordinates);
 
-                var currentUser = parse.User.current();
-                if (currentUser) {
-                    // do stuff with the user
-                    console.log("signed in");
-                    loadUser(res, userId, title, startJaunt, endJaunt, description, imageSRC, imageURL, address, eventCode, coordinates, true );
+                loadUser(res, object.id );
 
-                } else {
-                    isCurrentUser = false;
-                    // show the signup or login page
-                    console.log("not signed in");
-                    loadUser(res, userId, title, startJaunt, endJaunt, description, imageSRC, imageURL, address, eventCode, coordinates, false);
-                }
             }
         },
         error: function(error) {
@@ -116,17 +136,61 @@ function loadEvent(res, eventCode){
     });
 }
 
-function loadUser(res, userId, title, startJaunt, endJaunt, description, imageSRC, imageURL, address, eventCode, coordinates, isCurrentUser){
-
-
+function loadUser(res, eventId){
 
     var User = parse.Object.extend("_User");
     var query = new parse.Query(User);
     query.get(userId, {
         success: function(object) {
             // The object was retrieved successfully.
-            var eventHost =  object.getUsername();
+            eventHost =  object.getUsername();
+            loadMessages(res, eventId);
+        },
+        error: function(object, error) {
+            // The object was not retrieved successfully.
+            // error is a Parse.Error with an error code and message.
+        }
+    });
+}
 
+function loadMessages(res,eventId ){
+    var Posts = parse.Object.extend('Chat');
+    var query = new parse.Query(Posts);
+    query.equalTo("eventId", eventId);
+    query.find({
+        success: function(results) {
+            // Do something with the returned Parse.Object values
+            for (var i = 0; i < results.length; i++) {
+                var object = results[i];
+
+                var createDate = new Date(object.createdAt);
+                var createJaunt = momenttz.tz(createDate, "America/Chicago").format("ddd, MMM Do YYYY, h:mm a");
+
+                messages[i] = object.get("message");
+                createdAt[i] = createDate;
+                chatUsernames[i] = "Dom Smith";
+                //chatUserDisplayNames[i] = "Dom SMith";
+                //chatImages = [];
+
+                var userData = loadChatUser(object.get("userId"));
+
+                chatUserDisplayNames[i] = userData.name;
+                chatImageSRC[i] = userData.imageSRC;
+              //  chatImageURL[i] = userData.imageURL;
+            }
+
+            var data = [];
+
+            for (var index = 0; index < results.length; index ++ ){
+                data.push({
+                    message: messages[index],
+                    createdAt: createJaunt[index],
+                    name: chatUserDisplayNames[index],
+                    image: chatImageSRC[index].name()[0].src = chatImageURL[index].url()
+                });
+            }
+
+            console.log(data[0].image);
             //load event page
             res.render('message', {
                 title: title,
@@ -135,17 +199,49 @@ function loadUser(res, userId, title, startJaunt, endJaunt, description, imageSR
                 description: description,
                 image: imageSRC = imageURL.url(),
                 address: address,
-                eventCode: eventCode,
+                eventCode: code,
                 user: eventHost,
                 coordinates: coordinates,
-                didRSVP: true
+                didRSVP: true,
+                data: data
             });
+        },
+        error: function(error) {
+            //alert("Error: " + error.code + " " + error.message);
+            res.send("Error: " + error.code + " " + error.message);
+        }
+    });
+}
+
+    function loadChatUser(user){
+
+       // var data = [];
+    //load chat user
+    var User = parse.Object.extend("_User");
+    var query = new parse.Query(User);
+    query.get(user, {
+        success: function(object) {
+            console.log(object);
+            // The object was retrieved successfully.
+            var username = object.getUsername();
+            console.log(object.get('Profile').name());
+           //var userImageURL = object.get('Profile');
+           var userImageSRC = object.get("Profile");
+            var data = [];
+            data.push({
+                imageSRC: userImageSRC,
+                name: username
+            });
+            console.log(data);
+            return data;
         },
         error: function(object, error) {
             // The object was not retrieved successfully.
             // error is a Parse.Error with an error code and message.
         }
     });
+        //console.log(data);
+
 }
 
 function checkSession(req, res){
