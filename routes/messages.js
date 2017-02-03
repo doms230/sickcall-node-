@@ -23,6 +23,7 @@ var userData;
 //events
 var userId;
 var title;
+var eventId;
 
 var startDate;
 var startJaunt;
@@ -61,8 +62,6 @@ router.get('/', function (req, res, next) {
     //console.log("timezone: " + date.timeZone);
     // console.log("utc date:" +  date.getUTCDate());
 
-
-
     var eventCode = req.query.id;
 
     //intialized chat variables here because if person
@@ -74,6 +73,46 @@ router.get('/', function (req, res, next) {
 
     loadEvent(res, eventCode, true);
     //checkSession(req, res);
+
+
+
+});
+
+router.post('/newMessage', function(req, res){
+
+     var New = parse.Object.extend("Chat");
+     var newMessage = new New();
+
+     newMessage.set("message", req.body.message);
+     newMessage.set("userId", req.body.userId);
+     newMessage.set("eventId", eventId);
+     newMessage.save(null, {
+     success: function (object) {
+     // Execute any logic that should take place after the object is saved.
+     res.send(object);
+     },
+     error: function (gameScore, error) {
+     // Execute any logic that should take place if the save fails.
+     // error is a Parse.Error with an error code and message.
+     res.send(error);
+     }
+     });
+
+    // Get message pushed
+    /* var query = new Parse.Query('Messages');
+     //query.equalTo('sendUser', currentUser.get("username"));
+     $.subscription = query.subscribe();
+
+     $.subscription.on('open', function(){
+     console.log('subscription opened');
+     });
+
+     $.subscription.on('create', function(message){
+     appendResults([message]);
+
+     console.log(message.get('message')); // This should output Mengyan
+     });*/
+
 
 });
 
@@ -97,6 +136,7 @@ function loadEvent(res, eventCode){
                 var object = results[i];
 
                 //res.send(object);
+                eventId = object.id;
 
                 userId = object.get('userId');
                 title = object.get('title');
@@ -212,6 +252,7 @@ function loadMessages(res,eventId ){
             console.log("User data lenfth: " + userData.length);
             if (userData.length == length){
                 res.render('message', {
+                    id: eventId,
                     title: title,
                     startDate: startJaunt,
                     endDate: endJaunt,
@@ -223,6 +264,18 @@ function loadMessages(res,eventId ){
                     coordinates: coordinates,
                     didRSVP: true,
                     data: userData
+                });
+
+                var query = new parse.Query('Chat');
+                //query.equalTo('userId', 'PGAJ3hxM7X');
+                var subscription = query.subscribe();
+
+                subscription.on('open', () => {
+                    console.log('subscription opened');
+                });
+
+                subscription.on('create', (object) => {
+                    console.log('object created: ' + object.get('message'));
                 });
             }
         },

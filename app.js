@@ -109,6 +109,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/javascripts', express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/test', test);
@@ -123,6 +124,8 @@ app.use('/replies', replies);
 app.use('/about', about );
 app.use('/logins', login);
 app.use('/messages', messages);
+
+//scripts
 
 /*app.use(cookieSession({
   name: 'session',
