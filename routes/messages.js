@@ -15,14 +15,10 @@ parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF", "bctRQbnLCvxRIHaJTk
 
 
 //messages
-var messages = [];
-var createdAt = [];
-var chatUserIds = [];
-var chatUsernames = [];
-var chatUserDisplayNames = [];
-var chatImages = [];
-var chatImageSRC = [];
-var chatImageURL = [];
+var messages;
+var createdAt;
+var chatUsernames;
+var userData;
 
 //events
 var userId;
@@ -47,6 +43,9 @@ var eventHost;
 
 var isCurrentUser = false;
 
+//chat char
+
+
 router.get('/', function (req, res, next) {
 
     //store the cookie
@@ -62,7 +61,16 @@ router.get('/', function (req, res, next) {
     //console.log("timezone: " + date.timeZone);
     // console.log("utc date:" +  date.getUTCDate());
 
+
+
     var eventCode = req.query.id;
+
+    //intialized chat variables here because if person
+    //page will freeze at load chat user .. see if userData.length == length
+    messages = [];
+    createdAt = [];
+    chatUsernames = [];
+    userData = [];
 
     loadEvent(res, eventCode, true);
     //checkSession(req, res);
@@ -157,6 +165,7 @@ function loadMessages(res,eventId ){
     var Posts = parse.Object.extend('Chat');
     var query = new parse.Query(Posts);
     query.equalTo("eventId", eventId);
+    query.descending("createdAt");
     query.find({
         success: function(results) {
             // Do something with the returned Parse.Object values
@@ -167,44 +176,12 @@ function loadMessages(res,eventId ){
                 var createJaunt = momenttz.tz(createDate, "America/Chicago").format("ddd, MMM Do YYYY, h:mm a");
 
                 messages[i] = object.get("message");
-                createdAt[i] = createDate;
+                createdAt[i] = createJaunt;
                 chatUsernames[i] = "Dom Smith";
-                //chatUserDisplayNames[i] = "Dom SMith";
-                //chatImages = [];
 
-                var userData = loadChatUser(object.get("userId"));
+                loadChatUser(object.get("userId"), i, results.length, res);
 
-                chatUserDisplayNames[i] = userData.name;
-                chatImageSRC[i] = userData.imageSRC;
-              //  chatImageURL[i] = userData.imageURL;
             }
-
-            var data = [];
-
-            for (var index = 0; index < results.length; index ++ ){
-                data.push({
-                    message: messages[index],
-                    createdAt: createJaunt[index],
-                    name: chatUserDisplayNames[index],
-                    image: chatImageSRC[index].name()[0].src = chatImageURL[index].url()
-                });
-            }
-
-            console.log(data[0].image);
-            //load event page
-            res.render('message', {
-                title: title,
-                startDate: startJaunt,
-                endDate: endJaunt,
-                description: description,
-                image: imageSRC = imageURL.url(),
-                address: address,
-                eventCode: code,
-                user: eventHost,
-                coordinates: coordinates,
-                didRSVP: true,
-                data: data
-            });
         },
         error: function(error) {
             //alert("Error: " + error.code + " " + error.message);
@@ -213,7 +190,7 @@ function loadMessages(res,eventId ){
     });
 }
 
-    function loadChatUser(user){
+    function loadChatUser(user, i,length, res){
 
        // var data = [];
     //load chat user
@@ -221,19 +198,33 @@ function loadMessages(res,eventId ){
     var query = new parse.Query(User);
     query.get(user, {
         success: function(object) {
-            console.log(object);
+            //console.log(object);
             // The object was retrieved successfully.
             var username = object.getUsername();
-            console.log(object.get('Profile').name());
-           //var userImageURL = object.get('Profile');
-           var userImageSRC = object.get("Profile");
-            var data = [];
-            data.push({
-                imageSRC: userImageSRC,
+
+            userData.push({
+                message: messages[i],
+                createdAt: createdAt[i],
+                image: (object.get("Profile").name())[0].src = object.get("Profile").url(),
                 name: username
             });
-            console.log(data);
-            return data;
+
+            console.log("User data lenfth: " + userData.length);
+            if (userData.length == length){
+                res.render('message', {
+                    title: title,
+                    startDate: startJaunt,
+                    endDate: endJaunt,
+                    description: description,
+                    image: imageSRC = imageURL.url(),
+                    address: address,
+                    eventCode: code,
+                    user: eventHost,
+                    coordinates: coordinates,
+                    didRSVP: true,
+                    data: userData
+                });
+            }
         },
         error: function(object, error) {
             // The object was not retrieved successfully.
@@ -241,7 +232,6 @@ function loadMessages(res,eventId ){
         }
     });
         //console.log(data);
-
 }
 
 function checkSession(req, res){

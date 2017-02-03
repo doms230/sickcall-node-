@@ -16,6 +16,8 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
+    <script language="javascript" type="text/javascript" src="/scripts/chat.js"> </script>
+
     <!-- Facebook Pixel Code -->
     <script>
         !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -46,6 +48,8 @@
     </a>
     <h4>event code: <span class="label label-danger"><%=eventCode%></span> </h4>
 
+    </br>
+
     <ul class="nav nav-tabs">
         <li role="presentation" ><a href="#">Location</a></li>
         <li id="messages" role="presentation" class="active"><a>Messages</a></li>
@@ -60,7 +64,7 @@
     <div class="container-fluid">
         <div class="media">
             <div class="media-left">
-                <img class="media-object" src= <%=data[i].image%> alt="..." width="64" height="64">
+                <img class="img-circle" src= <%=data[i].image%> alt="..." width="64" height="64">
             </div>
             <div class="media-body">
                 <h4 class="media-heading"> <%=data[i].name%> <small> <%=data[i].createdAt%> </small></h4>
@@ -73,10 +77,16 @@
     <% }%>
 </div>
 
-
 <!--- End Messages -->
 <ul class="pager navbar-fixed-bottom">
-    <li><a href="https://itunes.apple.com/us/app/hiikey/id1013280340?ls=1&mt=8">Open in app</a> </li>
+    <div class="col-lg-6">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder= "Message" >
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Send</button>
+      </span>
+        </div><!-- /input-group -->
+    </div><!-- /.col-lg-6 -->
 </ul>
 
 </br>
