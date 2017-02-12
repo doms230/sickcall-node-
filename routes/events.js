@@ -40,8 +40,6 @@ var isCurrentUser = false;
         //console.log("timezone: " + date.timeZone);
        // console.log("utc date:" +  date.getUTCDate());
 
-
-
         var eventCode = req.query.id;
 
         loadEvent(res, eventCode, true);

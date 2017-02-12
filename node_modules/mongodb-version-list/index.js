@@ -56,8 +56,8 @@ module.exports = function(opts, done) {
 
     downcache('http://dl.mongodb.org/dl/src/', {
       dir: cacheDir
-    }, function(err, res, body) {
-      if (err) return done(err);
+    }, function(err2, res, body) {
+      if (err2) return done(err2);
 
       var $ = cheerio.load(body);
       var versions = {};

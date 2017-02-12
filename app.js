@@ -9,7 +9,6 @@ var bodyParser = require('body-parser');
 var mongodb = require("mongodb");
 var ParseServer = require('parse-server').ParseServer;
 var ParseDashboard = require('parse-dashboard');
-
 var mongoose = require('mongoose');
 
 var routes = require('./routes/home');
@@ -23,6 +22,7 @@ var replies = require('./routes/replies');
 var about = require('./routes/about');
 var login = require('./routes/logins');
 var messages = require('./routes/messages');
+//var chats = require('./public/javascripts/chat');
 
 var app = express();
 var api = new ParseServer({
@@ -30,8 +30,8 @@ var api = new ParseServer({
   appId: 'O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF',
   masterKey: 'lykNp62jc700RfU3EOr0WRe8ZCZJ4kiD4ZI4FRaZ', // Keep this key secret!
   fileKey: '20137ff7-4160-41ee-bc18-1c2bf416e433',
-  serverURL: 'https://hiikey.herokuapp.com/parse',
-  //serverURL: 'http://localhost:3000/parse',
+  //serverURL: 'https://hiikey.herokuapp.com/parse',
+  serverURL: 'http://localhost:3000/parse',
   liveQuery: {
     classNames: ['Chat', 'PublicPost']
   },
@@ -49,6 +49,8 @@ var api = new ParseServer({
       }
     ]
   }
+
+
 
 
  /* verifyUserEmails: true,
@@ -98,6 +100,8 @@ var dashboard = new ParseDashboard({
   "iconsFolder": "./public/images"
 });
 
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -105,11 +109,10 @@ app.set('view engine', 'ejs');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
-app.use(bodyParser.json());
+//app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/javascripts', express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/test', test);
@@ -124,7 +127,7 @@ app.use('/replies', replies);
 app.use('/about', about );
 app.use('/logins', login);
 app.use('/messages', messages);
-
+//app.use('/chat', chats);
 //scripts
 
 /*app.use(cookieSession({

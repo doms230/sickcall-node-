@@ -11,8 +11,12 @@ var moment = require("moment");
 var momenttz = require('moment-timezone');
 var jstz = require("jstz");
 var parse = require("parse/node").Parse;
-parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF", "bctRQbnLCvxRIHaJTkv3gqhlwSzxjiMesjx8kEwo");
+//var $ = require("jquery");
+var jsdom = require('jsdom');
 
+var document = jsdom.jsdom('<html></html>');
+var window = document.defaultView;
+var $ = require('jquery')(window);
 
 //messages
 var messages;
@@ -49,6 +53,7 @@ var isCurrentUser = false;
 
 router.get('/', function (req, res, next) {
 
+
     //store the cookie
     //res.cookie("cookie" , 'jaja')
 
@@ -72,9 +77,35 @@ router.get('/', function (req, res, next) {
     userData = [];
 
     loadEvent(res, eventCode, true);
+
+
+   /* $("#sendmsg").click(function () {
+        $.post("messages/newMessage",
+            {
+                userId: "wcbsnOpMwH",
+                message: "adgasgfa"
+            },
+            function(data, status){
+                //alert("Data: " + data + "\nStatus: " + status);
+                //window.location.href = data.redirect;
+                //document.getElementById('usermsg').value = "";
+            });
+    });*/
+
     //checkSession(req, res);
 
+    /*var query = new Parse.Query('Chat');
+    //query.equalTo('userId', 'PGAJ3hxM7X');
+    var subscription = query.subscribe();
 
+    subscription.on('open', () => {
+        alert("sub opened");
+    });
+
+    subscription.on('create', (object) => {
+        // console.log('object created: ' + object.get('message'));
+        alert('object created: ' + object.get('message'))
+    });*/
 
 });
 
@@ -112,7 +143,6 @@ router.post('/newMessage', function(req, res){
 
      console.log(message.get('message')); // This should output Mengyan
      });*/
-
 
 });
 
@@ -220,7 +250,6 @@ function loadMessages(res,eventId ){
                 chatUsernames[i] = "Dom Smith";
 
                 loadChatUser(object.get("userId"), i, results.length, res);
-
             }
         },
         error: function(error) {
@@ -266,17 +295,19 @@ function loadMessages(res,eventId ){
                     data: userData
                 });
 
-                var query = new parse.Query('Chat');
+                /*var query = new Parse.Query('Chat');
                 //query.equalTo('userId', 'PGAJ3hxM7X');
                 var subscription = query.subscribe();
 
                 subscription.on('open', () => {
                     console.log('subscription opened');
+                    console("sub opened");
                 });
 
                 subscription.on('create', (object) => {
                     console.log('object created: ' + object.get('message'));
-                });
+                    console('object created: ' + object.get('message'))
+                });*/
             }
         },
         error: function(object, error) {

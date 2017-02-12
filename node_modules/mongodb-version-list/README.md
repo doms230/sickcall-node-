@@ -1,6 +1,6 @@
-# mongodb-version-list [![][npm_img]][npm_url] [![][travis_img]][travis_url] [![][coverage_img]][coverage_url] [![][gitter_img]][gitter_url]
+# mongodb-version-list [![][npm_img]][npm_url] [![][travis_img]][travis_url] [![][coverage_img]][coverage_url]
 
-Normalize MongoDB log entries into objects that make sense.
+> Get a list of available MongoDB versions.
 
 ## Installation
 
@@ -40,5 +40,3 @@ Apache 2.0
 [npm_url]: https://www.npmjs.org/package/mongodb-version-list
 [coverage_img]: https://coveralls.io/repos/mongodb-js/mongodb-version-list/badge.svg?branch=master
 [coverage_url]: https://coveralls.io/r/mongodb-js/mongodb-version-list
-[gitter_img]: https://badges.gitter.im/Join%20Chat.svg
-[gitter_url]: https://gitter.im/mongodb-js/mongodb-js
