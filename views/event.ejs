@@ -48,30 +48,21 @@
     <h4>event code: <span class="label label-danger"><%=eventCode%></span> </h4>
 
     <ul class="nav nav-tabs">
-        <li role="presentation" class="active"><a href="#">Location</a></li>
+        <li id="location" role="presentation" class="active"><a > Location</a></li>
         <li id="messages" role="presentation"><a>Messages</a></li>
-        <li is="rsvps" role="presentation"><a href="#">RSVPs</a></li>
+        <li id="rsvps" role="presentation"><a >RSVPs</a></li>
     </ul>
 </div>
 
 <!-- Location -->
 
 <div  id="locationDiv" class="page-header">
-    <div class="container-fluid">
+</div>
 
-        <%if (didRSVP) { %>
-        <h4>Location - <small><%=address%></small> </h4>
+<div id="messageDiv" class="page-header" hidden="yes">
+</div>
 
-        <iframe src="//www.google.com/maps/embed/v1/place?q= <%=coordinates%>
-      &zoom=17
-      &key=AIzaSyAdnr849aDFzuYIJBTqyzdapF_7aR8AikI">
-        </iframe>
-
-        <% } else { %>
-        <button id="rsvp" type="button" class="btn btn-success btn-lg">RSVP</button>
-        <% } %>
-
-    </div>
+<div id="rsvpDiv" class="page-header" hidden="yes">
 </div>
 
 <ul class="pager navbar-fixed-bottom">
@@ -87,30 +78,6 @@
 </br>
 
  <script>
-
-     $("#messages").click(function(){
-         $.get("events/rsvp",
-                 {
-                     name: "Donald Duck",
-                     city: "Duckburg"
-                 },
-                 function(data, status){
-                     //alert("Data: " + data + "\nStatus: " + status);
-
-                 });
-     });
-
-     $("#rsvp").click(function(){
-         $.post("events/rsvp",
-                 {
-                     name: "Donald Duck",
-                     city: "Duckburg"
-                 },
-                 function(data, status){
-                     //alert("Data: " + data + "\nStatus: " + status);
-                     window.location.href = data.redirect;
-                 });
-     });
 
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
                 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -131,3 +98,5 @@
 
 </body>
 </html>
+
+<script src="/javascripts/eventScripts.js"></script>
