@@ -2,3 +2,13 @@
 {"level":"info","message":"Parse LiveQuery Server starts running","timestamp":"2017-02-19T19:21:33.346Z"}
 {"level":"info","message":"Parse LiveQuery Server starts running","timestamp":"2017-02-19T19:52:46.512Z"}
 {"level":"info","message":"Parse LiveQuery Server starts running","timestamp":"2017-02-19T19:57:08.890Z"}
+{"level":"info","message":"Parse LiveQuery Server starts running","timestamp":"2017-02-19T20:59:35.050Z"}
+{"level":"info","message":"Parse LiveQuery Server starts running","timestamp":"2017-02-19T21:39:40.991Z"}
+{"level":"info","message":"Parse LiveQuery Server starts running","timestamp":"2017-02-19T21:42:52.226Z"}
+{"level":"info","message":"Parse LiveQuery Server starts running","timestamp":"2017-02-19T22:19:18.000Z"}
+{"level":"info","message":"Parse LiveQuery Server starts running","timestamp":"2017-02-19T22:21:21.204Z"}
+{"error":{"code":201,"message":"password is required."},"level":"error","message":"Error handling request: ParseError { code: 201, message: 'password is required.' }","timestamp":"2017-02-19T22:21:30.181Z"}
+{"level":"info","message":"Parse LiveQuery Server starts running","timestamp":"2017-02-19T22:22:19.860Z"}
+{"level":"info","message":"Parse LiveQuery Server starts running","timestamp":"2017-02-19T22:39:22.639Z"}
+{"level":"info","message":"Create new client: 0","timestamp":"2017-02-19T22:39:26.445Z"}
+{"level":"info","message":"Client disconnect: 0","timestamp":"2017-02-19T22:46:24.617Z"}

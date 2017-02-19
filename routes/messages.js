@@ -231,10 +231,10 @@ function loadUser(res, eventId){
     });
 }
 
-function loadMessages(res,eventId ){
+function loadMessages(){
     var Posts = parse.Object.extend('Chat');
     var query = new parse.Query(Posts);
-    query.equalTo("eventId", eventId);
+    query.equalTo("eventId", "0mrEjZt6I7");
     query.descending("createdAt");
     query.find({
         success: function(results) {
