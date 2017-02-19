@@ -65,9 +65,18 @@
 <div id="rsvpDiv" class="page-header" hidden="yes">
 </div>
 
-<ul class="pager navbar-fixed-bottom">
-    <li><a href="https://itunes.apple.com/us/app/hiikey/id1013280340?ls=1&mt=8">Open in app</a> </li>
+<ul id="messageBarDiv" class=" navbar-fixed-bottom">
+    <div class="input-group">
+        <input id="usermsg" type="text" class="form-control" placeholder= "Message" value="Hey" >
+      <span class="input-group-btn">
+        <button id="sendmsg" class="btn btn-default" type="button">Send</button>
+      </span>
+    </div><!-- /input-group -->
 </ul>
+
+<!--<ul class="pager navbar-fixed-bottom">
+    <li><a href="https://itunes.apple.com/us/app/hiikey/id1013280340?ls=1&mt=8">Open in app</a> </li>
+</ul> -->
 
 </br>
 <ol class="breadcrumb">
@@ -98,5 +107,5 @@
 
 </body>
 </html>
-
+<script src="/javascripts/bundle.js"></script>
 <script src="/javascripts/eventScripts.js"></script>

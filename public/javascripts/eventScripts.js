@@ -4,9 +4,11 @@
 
 
 $(function(){
-    //var parse = require("parse").Parse;
-    //parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF"); parse.serverURL = 'http://localhost:3000/parse';
+    var parse = require("parse").Parse;
+    parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF"); parse.serverURL = 'http://localhost:3000/parse';
+//;lkjdsfg;lk
 
+    //location
     $('#locationDiv').append('<div class="container-fluid">' +
 
     '<h4>Location - <small>1210 S Lamar St</small> </h4>' +
@@ -17,6 +19,8 @@ $(function(){
         '</iframe>' +
 
     '</div>' );
+
+    //messages
 
     $('#messageDiv').append( '<div class="container-fluid">' +
         '<div class="media">' +
@@ -31,6 +35,11 @@ $(function(){
     '</br>' +
     '</div>' );
 
+    $('#messageBarDiv').hide();
+
+
+    //rsvp
+
     $('#rsvpDiv').append(
         '<div class="container-fluid">' +
             '<div class="media">' +
@@ -38,8 +47,8 @@ $(function(){
                     '<img class="img-circle" src= /images/logo.png alt="..." width="64" height="64" >' +
                 '</div>' +
                 '<div class="media-body">' +
-                    '<h4 class="media-heading"> Dom Smith <small> 10/12/16 </small></h4>' +
-                    'Heyyyyy what\'s upppppppppppp lalalalalalalallalalalalalalal okay okay pokay okay okay ' +
+                    '<h4 class="media-heading"> Dom Smith</h4>' +
+                    'd_innovator' +
                 '</div>' +
              '</div>' +
         '</br>' +
@@ -50,6 +59,7 @@ $(function(){
         $(this).tab('show');
         $('#rsvpDiv').hide();
         $('#messageDiv').hide();
+        $('#messageBarDiv').hide();
         $('#locationDiv').show();
     });
 
@@ -59,6 +69,7 @@ $(function(){
         $('#locationDiv').hide();
         $('#rsvpDiv').hide();
         $('#messageDiv').show();
+        $('#messageBarDiv').show();
     });
 
     $('#rsvps ').click(function (e) {
@@ -66,6 +77,9 @@ $(function(){
         $(this).tab('show');
         $('#locationDiv').hide();
         $('#messageDiv').hide();
+        $('#messageBarDiv').hide();
         $('#rsvpDiv').show();
     });
 });
+
+
