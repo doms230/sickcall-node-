@@ -1,0 +1,22 @@
+{"level":"info","message":"Parse LiveQuery Server starts running","timestamp":"2017-02-20T01:03:14.064Z"}
+{"error":{"code":101,"message":"Invalid username/password."},"level":"error","message":"Error generating response. ParseError { code: 101, message: 'Invalid username/password.' }","timestamp":"2017-02-20T01:03:41.417Z"}
+{"level":"info","message":"Create new client: 0","timestamp":"2017-02-20T01:06:03.062Z"}
+{"level":"info","message":"Client disconnect: 0","timestamp":"2017-02-20T01:26:14.028Z"}
+{"level":"info","message":"Create new client: 1","timestamp":"2017-02-20T01:26:14.688Z"}
+{"level":"info","message":"Client disconnect: 1","timestamp":"2017-02-20T01:26:24.075Z"}
+{"level":"info","message":"Create new client: 2","timestamp":"2017-02-20T01:26:24.284Z"}
+{"level":"info","message":"Client disconnect: 2","timestamp":"2017-02-20T01:26:24.390Z"}
+{"level":"info","message":"Create new client: 3","timestamp":"2017-02-20T01:26:24.676Z"}
+{"level":"info","message":"Client disconnect: 3","timestamp":"2017-02-20T01:44:35.493Z"}
+{"level":"info","message":"Create new client: 4","timestamp":"2017-02-20T01:44:35.714Z"}
+{"level":"info","message":"Client disconnect: 4","timestamp":"2017-02-20T01:44:35.820Z"}
+{"level":"info","message":"Create new client: 5","timestamp":"2017-02-20T01:44:36.228Z"}
+{"level":"info","message":"Client disconnect: 5","timestamp":"2017-02-20T01:44:57.626Z"}
+{"level":"info","message":"Create new client: 6","timestamp":"2017-02-20T01:44:58.247Z"}
+{"level":"info","message":"Client disconnect: 6","timestamp":"2017-02-20T01:45:47.663Z"}
+{"level":"info","message":"Create new client: 7","timestamp":"2017-02-20T01:45:48.342Z"}
+{"error":{"code":111,"message":"schema mismatch for Chat.userId; expected String but got Pointer<_User>"},"level":"error","message":"Error generating response. ParseError {\n  code: 111,\n  message: 'schema mismatch for Chat.userId; expected String but got Pointer<_User>' }","timestamp":"2017-02-20T01:45:56.692Z"}
+{"error":{"code":111,"message":"schema mismatch for Chat.userId; expected String but got Pointer<_User>"},"level":"error","message":"Error generating response. ParseError {\n  code: 111,\n  message: 'schema mismatch for Chat.userId; expected String but got Pointer<_User>' }","timestamp":"2017-02-20T01:46:02.911Z"}
+{"error":{"code":111,"message":"schema mismatch for Chat.userId; expected String but got Pointer<_User>"},"level":"error","message":"Error generating response. ParseError {\n  code: 111,\n  message: 'schema mismatch for Chat.userId; expected String but got Pointer<_User>' }","timestamp":"2017-02-20T01:46:09.004Z"}
+{"level":"info","message":"Client disconnect: 7","timestamp":"2017-02-20T01:46:59.787Z"}
+{"level":"info","message":"Create new client: 8","timestamp":"2017-02-20T01:47:00.376Z"}
