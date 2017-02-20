@@ -38,15 +38,32 @@
 </head>
 <body>
 
-<div class="container-fluid">
-    <h1><%= title %></h1>
-    <h4>By <%= user%> - <small><%= description %>  </small></h4>
-    <h4> Date - <small> <%= startDate %> - <%= endDate %> </small></h4>
-    <a href="#" class="thumbnail">
-        <img src= <%= image %> alt="...">
-    </a>
-    <h4>event code: <span class="label label-danger"><%=eventCode%></span> </h4>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">
+                <img alt="Hiikey |">
+            </a>
 
+        </div>
+
+        <div id="userInfo" class="media">
+
+        </div>
+    </div>
+</nav>
+
+<div id="eventInfoDiv" class="container-fluid">
+
+
+
+</div>
+
+
+
+<!-- tab jaunts -->
+
+<div class="container-fluid">
     <ul class="nav nav-tabs">
         <li id="location" role="presentation" class="active"><a > Location</a></li>
         <li id="messages" role="presentation"><a>Messages</a></li>
@@ -54,7 +71,6 @@
     </ul>
 </div>
 
-<!-- Location -->
 
 <div  id="locationDiv" class="page-header" hidden="yes">
 </div>

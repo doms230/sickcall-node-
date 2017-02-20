@@ -2,3 +2,8 @@
 {"error":{"code":111,"message":"schema mismatch for Chat.userId; expected String but got Pointer<_User>"},"level":"error","message":"Error generating response. ParseError {\n  code: 111,\n  message: 'schema mismatch for Chat.userId; expected String but got Pointer<_User>' }","timestamp":"2017-02-20T01:45:56.692Z"}
 {"error":{"code":111,"message":"schema mismatch for Chat.userId; expected String but got Pointer<_User>"},"level":"error","message":"Error generating response. ParseError {\n  code: 111,\n  message: 'schema mismatch for Chat.userId; expected String but got Pointer<_User>' }","timestamp":"2017-02-20T01:46:02.912Z"}
 {"error":{"code":111,"message":"schema mismatch for Chat.userId; expected String but got Pointer<_User>"},"level":"error","message":"Error generating response. ParseError {\n  code: 111,\n  message: 'schema mismatch for Chat.userId; expected String but got Pointer<_User>' }","timestamp":"2017-02-20T01:46:09.004Z"}
+{"level":"error","message":"Can not find client NaN on disconnect","timestamp":"2017-02-20T04:53:05.818Z"}
+{"level":"error","message":"Can not find client NaN on disconnect","timestamp":"2017-02-20T04:59:13.242Z"}
+{"level":"error","message":"Can not find client NaN on disconnect","timestamp":"2017-02-20T04:59:58.207Z"}
+{"level":"error","message":"Can not find client NaN on disconnect","timestamp":"2017-02-20T05:03:04.893Z"}
+{"level":"error","message":"Can not find client NaN on disconnect","timestamp":"2017-02-20T06:32:45.230Z"}

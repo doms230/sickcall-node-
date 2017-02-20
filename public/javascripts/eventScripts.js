@@ -6,12 +6,15 @@
 
 //signinDiv
 var parse = require("parse").Parse;
-parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF"); parse.serverURL = 'http://192.168.1.67:3000/parse';
+parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF"); parse.serverURL = 'http://192.168.1.66:3000/parse';
 var currentUser = parse.User.current();
 //var currentUser = true;
 $(function(){
+
     //load event info
-    loadLocation();
+    loadEventInfo();
+    configureUser();
+   // loadLocation();
     loadMessages();
     configureNewMessage();
     loadRSVPs();
@@ -20,23 +23,93 @@ $(function(){
     if (currentUser) {
         $('#locationDiv').show();
     } else {
-        configureUser();
-        $('#signinDiv').show() 
+        $('#signinDiv').show()
     }
 });
 
+//event info
+function loadEventInfo(){
+    var Posts = parse.Object.extend('Event');
+    var query = new parse.Query(Posts);
+    query.equalTo("objectId", "bOmzOucpQE");
+    query.find({
+        success: function(results) {
+            // Do something with the returned Parse.Object values
+            for (var i = 0; i < results.length; i++) {
+                var object = results[i];
+
+                var startDate = new Date(object.get("startTime"));
+                var endDate = new Date(object.get("endTime"));
+                //TODO: Change this
+                //var createJaunt = momenttz.tz(createDate, "America/Chicago").format("ddd, MMM Do YYYY, h:mm a");
+                var title = object.get('title');
+                var image = (object.get("eventImage").name())[0].src = object.get("eventImage").url();
+                var code = object.get("code");
+                var description = object.get("description");
+                var userId = object.get("userId");
+                loadEventUser(userId,title,image,code,description,startDate,endDate);
+
+                var address = object.get("address");
+                var eventLocation = object.get('location');
+                var coordinates = eventLocation.latitude + "," + eventLocation.longitude;
+                loadLocation(address,coordinates);
+
+                /*'<ul class="nav nav-tabs">' +
+                    '<li id="location" role="presentation" class="active"><a > Location</a></li>' +
+                    '<li id="messages" role="presentation"><a>Messages</a></li>' +
+                    '<li id="rsvps" role="presentation"><a >RSVPs</a></li>' +
+                    '</ul>'
+                );*/
+            }
+        },
+        error: function(error) {
+            //alert("Error: " + error.code + " " + error.message);
+            //res.send("Error: " + error.code + " " + error.message);
+        }
+    });
+}
+
+function loadEventUser(userId, title, image, code, description, startDate, endDate ){
+    var User = parse.Object.extend("_User");
+    var query = new parse.Query(User);
+    query.get(userId, {
+        success: function(object) {
+            //console.log(object);
+            // The object was retrieved successfully.
+            var displayName = object.get("username");
+            var userImage = (object.get("Profile").name())[0].src = object.get("Profile").url();
+
+            $('#eventInfoDiv').append(
+                '<h1>' + title + '</h1>' +
+                '<h4>' + displayName + '- <small>' + description + '</small></h4>' +
+                '<h4> Date - <small>' + startDate +  '-' +  endDate + '</small></h4>' +
+                '<a href="#" class="thumbnail">' +
+                '<img alt="..." src=' + image + '>' +
+                '</a>' +
+                '<h4>event code: <span class="label label-danger">' + code + '</span> </h4>' );
+
+
+        },
+        error: function(object, error) {
+            // The object was not retrieved successfully.
+            // error is a Parse.Error with an error code and message.
+        }
+    });
+    //console.log(data);
+}
 //location
 
-function loadLocation(){
+function loadLocation(address, coordinates){
     //TODO: put actual data here
+
+    var coordinate = "//www.google.com/maps/embed/v1/place?q=" + coordinates + "&zoom=17" +
+        "&key=AIzaSyAdnr849aDFzuYIJBTqyzdapF_7aR8AikI";
+
     $('#locationDiv').append('<div class="container-fluid">' +
 
-        '<h4>Location - <small>1210 S Lamar St</small> </h4>' +
+        '<h4>Location - <small>' + address + '</small> </h4>' +
 
-        '<iframe src="//www.google.com/maps/embed/v1/place?q=32.7787196880853,-96.7693720605207' +
-        '&zoom=17' +
-        '&key=AIzaSyAdnr849aDFzuYIJBTqyzdapF_7aR8AikI">' +
-        '</iframe>' +
+        '<iframe src=' + coordinate + '></iframe>' +
 
         '</div>' );
 
@@ -239,7 +312,7 @@ function loadUserInfo(userId, date, message, isChat){
 }
 
 function configureUser() {
-    $('#signin').click(function (e) {
+    $('#signin').click(function () {
         var username =  document.getElementById('inputUsername').value;
         var password =  document.getElementById('inputPassword').value;
 
@@ -251,10 +324,62 @@ function configureUser() {
             },
             error: function(user, error) {
                 // The login failed. Check error to see why.
-                console.log(error);
+                alert(error);
+                //console.log(error);
             }
         });
     });
+
+    if (currentUser){
+        var User = parse.Object.extend("_User");
+        var query = new parse.Query(User);
+        query.get("wcbsnOpMwH", {
+            success: function(object) {
+                //console.log(object);
+                // The object was retrieved successfully.
+                var username = object.getUsername();
+                var displayName = object.get("DisplayName");
+                var image = (object.get("Profile").name())[0].src = object.get("Profile").url();
+
+                /*$('#userInfo').append(
+                    '<div class="media-left">' +
+                    '<img class="img-circle" src=' + image + 'alt="..." width="25" height="25" >' +
+                    '</div>' +
+                    '<div class="media-body">' +
+                    '<h4 class="media-heading">' + displayName + '<small>' + username + '</small> </h4>' +
+
+                    '</div>');*/
+
+                $('#userInfo').append(
+                    '<div class="media-left">' +
+                    '<img class="img-circle" alt="..." width="25" height="25" src=' + image + '>' +
+                    '</div>' +
+                    '<div class="media-body">' +
+                    '<h4 class="media-heading">' + displayName + '<small>' + username + '</small> </h4>' +
+
+                    '</div>');
+
+
+            },
+            error: function(object, error) {
+                // The object was not retrieved successfully.
+                // error is a Parse.Error with an error code and message.
+            }
+        });
+    } else {
+        //TODO: show Welcome to Hiikey instead of user info
+    }
+
+    /*
+     <div class="media-left">
+     <img class="img-circle" src= <%= image %>  alt="..." width="25" height="25" >
+     </div>
+     <div class="media-body">
+     <h4 class="media-heading"> Dom Smith <small>d_innovator</small> </h4>
+
+     </div>
+     */
+
 }
 
 
