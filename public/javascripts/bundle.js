@@ -13514,23 +13514,16 @@ function traverse(obj, encountered, shouldThrow, allowDeepUnsaved) {
 var parse = require("parse").Parse;
 parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF"); parse.serverURL = 'http://192.168.1.66:3000/parse';
 var currentUser = parse.User.current();
+var isConfirmed = false;
+var didRSVP = false;
+
 //var currentUser = true;
 $(function(){
 
-    //load event info
     loadEventInfo();
-    configureUser();
-   // loadLocation();
-    loadMessages();
-    configureNewMessage();
-    loadRSVPs();
 
     //check to se if user is logged in
-    if (currentUser) {
-        $('#locationDiv').show();
-    } else {
-        $('#signinDiv').show()
-    }
+
 });
 
 //event info
@@ -13543,6 +13536,8 @@ function loadEventInfo(){
             // Do something with the returned Parse.Object values
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
+
+                var eventId = object.id;
 
                 var startDate = new Date(object.get("startTime"));
                 var endDate = new Date(object.get("endTime"));
@@ -13558,14 +13553,15 @@ function loadEventInfo(){
                 var address = object.get("address");
                 var eventLocation = object.get('location');
                 var coordinates = eventLocation.latitude + "," + eventLocation.longitude;
+                var invites = object.get('invites');
+
                 loadLocation(address,coordinates);
 
-                /*'<ul class="nav nav-tabs">' +
-                    '<li id="location" role="presentation" class="active"><a > Location</a></li>' +
-                    '<li id="messages" role="presentation"><a>Messages</a></li>' +
-                    '<li id="rsvps" role="presentation"><a >RSVPs</a></li>' +
-                    '</ul>'
-                );*/
+                //load event info
+
+                configureUser(eventId,userId,title,invites);
+                configureMessages(eventId);
+                loadRSVPs(eventId);
             }
         },
         error: function(error) {
@@ -13593,8 +13589,6 @@ function loadEventUser(userId, title, image, code, description, startDate, endDa
                 '<img alt="..." src=' + image + '>' +
                 '</a>' +
                 '<h4>event code: <span class="label label-danger">' + code + '</span> </h4>' );
-
-
         },
         error: function(object, error) {
             // The object was not retrieved successfully.
@@ -13623,7 +13617,7 @@ function loadLocation(address, coordinates){
         e.preventDefault();
         $(this).tab('show');
 
-        if (currentUser){
+        if (isConfirmed){
             $('#rsvpDiv').hide();
             $('#messageDiv').hide();
             $('#messageBarDiv').hide();
@@ -13634,35 +13628,11 @@ function loadLocation(address, coordinates){
 
 //messages
 
-function configureNewMessage() {
-    $('#sendmsg').click(function (e) {
-        var message =  document.getElementById('usermsg').value;
-
-        //TODO: replace eventId with actual one
-        var New = parse.Object.extend("Chat");
-        var newMessage = new New();
-        newMessage.set("message", message);
-        newMessage.set("userId", "wcbsnOpMwH");
-        newMessage.set("eventId", "0mrEjZt6I7");
-        newMessage.save(null, {
-            success: function (object) {
-                // Execute any logic that should take place after the object is saved.
-                document.getElementById('usermsg').value = "";
-            },
-            error: function (gameScore, error) {
-                // Execute any logic that should take place if the save fails.
-                // error is a Parse.Error with an error code and message.
-
-            }
-        });
-    });
-}
-
-function loadMessages(){
+function configureMessages(eventId){
     //TODO: load proper event id
     var Posts = parse.Object.extend('Chat');
     var query = new parse.Query(Posts);
-    query.equalTo("eventId", "0mrEjZt6I7");
+    query.equalTo("eventId", eventId);
     query.descending("createdAt");
     query.find({
         success: function(results) {
@@ -13688,7 +13658,7 @@ function loadMessages(){
     $('#messages').click(function (e) {
         e.preventDefault();
         $(this).tab('show');
-        if (currentUser){
+        if (isConfirmed){
             $('#locationDiv').hide();
             $('#rsvpDiv').hide();
             $('#messageDiv').show();
@@ -13699,11 +13669,6 @@ function loadMessages(){
     var query = new parse.Query('Chat');
     query.equalTo("eventId", "0mrEjZt6I7");
     var subscription = query.subscribe();
-
-    /*subscription.on('open', () => {
-        //console.log('subscription opened');
-       // alert("sub opened");
-    });*/
 
     subscription.on('create', (object) => {
         //console.log('object created: ' + object.get('message'));
@@ -13716,6 +13681,27 @@ function loadMessages(){
 
         loadUserInfo(userId,createDate,message,true);
 
+    });
+
+    $('#sendmsg').click(function (e) {
+        var message =  document.getElementById('usermsg').value;
+        //TODO: send notification
+        var New = parse.Object.extend("Chat");
+        var newMessage = new New();
+        newMessage.set("message", message);
+        newMessage.set("userId", "wcbsnOpMwH");
+        newMessage.set("eventId", eventId);
+        newMessage.save(null, {
+            success: function (object) {
+                // Execute any logic that should take place after the object is saved.
+                document.getElementById('usermsg').value = "";
+            },
+            error: function (gameScore, error) {
+                // Execute any logic that should take place if the save fails.
+                // error is a Parse.Error with an error code and message.
+
+            }
+        });
     });
 }
 
@@ -13736,11 +13722,10 @@ function appendMessage(name, date, message, image) {
 
 //rsvp
 
-function loadRSVPs(){
-    //TODO: load proper event id
+function loadRSVPs(eventId){
     var Posts = parse.Object.extend('RSVP');
     var query = new parse.Query(Posts);
-    query.equalTo("eventId", "0mrEjZt6I7");
+    query.equalTo("eventId", eventId);
     query.equalTo("isConfirmed", true);
     query.descending("createdAt");
     query.find({
@@ -13762,7 +13747,7 @@ function loadRSVPs(){
     $('#rsvps').click(function (e) {
         e.preventDefault();
         $(this).tab('show');
-        if (currentUser){
+        if (isConfirmed){
             $('#locationDiv').hide();
             $('#messageDiv').hide();
             $('#messageBarDiv').hide();
@@ -13817,25 +13802,7 @@ function loadUserInfo(userId, date, message, isChat){
     //console.log(data);
 }
 
-function configureUser() {
-    $('#signin').click(function () {
-        var username =  document.getElementById('inputUsername').value;
-        var password =  document.getElementById('inputPassword').value;
-
-        parse.User.logIn(username, password, {
-            success: function(user) {
-                console.log(user);
-                $('#signinDiv').hide();
-                $('#locationDiv').show();
-            },
-            error: function(user, error) {
-                // The login failed. Check error to see why.
-                alert(error);
-                //console.log(error);
-            }
-        });
-    });
-
+function configureUser(eventId, eventHostId, eventTitle, invites) {
     if (currentUser){
         var User = parse.Object.extend("_User");
         var query = new parse.Query(User);
@@ -13846,15 +13813,8 @@ function configureUser() {
                 var username = object.getUsername();
                 var displayName = object.get("DisplayName");
                 var image = (object.get("Profile").name())[0].src = object.get("Profile").url();
-
-                /*$('#userInfo').append(
-                    '<div class="media-left">' +
-                    '<img class="img-circle" src=' + image + 'alt="..." width="25" height="25" >' +
-                    '</div>' +
-                    '<div class="media-body">' +
-                    '<h4 class="media-heading">' + displayName + '<small>' + username + '</small> </h4>' +
-
-                    '</div>');*/
+                var number = object.get("phoneNumber");
+                var isInvited = false;
 
                 $('#userInfo').append(
                     '<div class="media-left">' +
@@ -13865,6 +13825,13 @@ function configureUser() {
 
                     '</div>');
 
+                for (var i = 0; i < invites.length; i++) {
+                    if (results[i] == number){
+                        isInvited = true;
+                    }
+                }
+
+                checkRSVP(eventId,eventHostId,eventTitle, isInvited);
 
             },
             error: function(object, error) {
@@ -13873,19 +13840,101 @@ function configureUser() {
             }
         });
     } else {
-        //TODO: show Welcome to Hiikey instead of user info
+       // $('#locationDiv').show();
+        $('#signin').click(function () {
+            var username =  document.getElementById('inputUsername').value;
+            var password =  document.getElementById('inputPassword').value;
+
+            parse.User.logIn(username, password, {
+                success: function(user) {
+                    console.log(user);
+                    if (isConfirmed){
+                        isConfirmed = true;
+                        $('#signinDiv').hide();
+                        $('#locationDiv').show();
+
+                    } else if(didRSVP){
+                        $('#alertDiv').append('<h4> RSVP Pending. </h4>');
+                        $('#alertDiv').show();
+
+                    } else {
+                        $('#rsvpButton').show();
+                    }
+                },
+                error: function(user, error) {
+                    // The login failed. Check error to see why.
+                    alert(error);
+                    //console.log(error);
+                }
+            });
+        });
     }
+}
 
-    /*
-     <div class="media-left">
-     <img class="img-circle" src= <%= image %>  alt="..." width="25" height="25" >
-     </div>
-     <div class="media-body">
-     <h4 class="media-heading"> Dom Smith <small>d_innovator</small> </h4>
+function checkRSVP(eventId, eventHostId, eventTitle, isInvited){
+    var Posts = parse.Object.extend('RSVP');
+    var query = new parse.Query(Posts);
+    query.equalTo("eventId", eventId);
+    query.equalTo("userId", "wcbsnOpMwH");
+    query.find({
+        success: function(results) {
+            // Do something with the returned Parse.Object values
+            for (var i = 0; i < results.length; i++) {
+                var object = results[i];
 
-     </div>
-     */
+                if (results.length > 0){
+                    if (object.get("isBlocked")){
+                        //add jaunt that says user has been blocked
+                        $('#alertDiv').append('<h4> You\'re blocked from this event. </h4>');
+                        $('#alertDiv').show();
+                    } else if (object.get("isConfirmed")){
+                        $('#locationDiv').show();
 
+                    } else {
+                        $('#alertDiv').append('<h4> RSVP Pending. </h4>');
+                        $('#alertDiv').show();
+                    }
+                } else {
+                    $('#rsvpButton').show();
+                    $('#rsvpButton').click(function () {
+                        var NewRSVP = parse.Object.extend("RSVP");
+                        var rsvp = new NewRSVP();
+                        rsvp.set("eventId", eventId);
+                        rsvp.set("userId", "wcbsnOpMwH");
+                        rsvp.set("eventHostId", eventHostId);
+                        rsvp.set("evenTitle", eventTitle);
+                        rsvp.set("isSubscribed", true);
+                        rsvp.set("isConfirmed", isInvited);
+                        rsvp.set("isRemoved", false);
+                        rsvp.set("isBlocked", false);
+                        rsvp.save(null, {
+                            success: function(gameScore) {
+                                // Execute any logic that should take place after the object is saved.
+                                if (isInvited){
+                                    $('#rsvpButton').hide();
+                                    $('#locationDiv').show();
+
+                                } else {
+                                    $('#alertDiv').append('<h4> "RSVP Pending." </h4>');
+                                    $('#alertDiv').show();
+                                }
+                            },
+                            error: function(gameScore, error) {
+                                // Execute any logic that should take place if the save fails.
+                                // error is a Parse.Error with an error code and message.
+                                alert('Failed to create new object, with error code: ' + error.message);
+                            }
+                        });
+                    });
+                }
+
+            }
+        },
+        error: function(error) {
+            //alert("Error: " + error.code + " " + error.message);
+            //res.send("Error: " + error.code + " " + error.message);
+        }
+    });
 }
 
 
