@@ -13520,10 +13520,12 @@ var eventId;
 var eventHostId;
 var eventTitle;
 var isInvited = false;
+var address;
+var coordinates;
 
 //var currentUser = true;
 $(function(){
-
+   // $('#rsvpButton').hide();
     loadEventInfo();
 
     $('#rsvpButton').click(function () {
@@ -13542,8 +13544,10 @@ $(function(){
          success: function(gameScore) {
          // Execute any logic that should take place after the object is saved.
              if (isInvited){
-             $('#rsvpButton').hide();
-             $('#locationDiv').show();
+                 $('#rsvpButton').hide();
+                 loadLocation();
+                 configureMessages();
+                 loadRSVPs();
 
              } else {
                  $('#rsvpButton').hide();
@@ -13587,28 +13591,8 @@ $(function(){
         });
     });
 
-    $('#location').click(function (e) {
-        e.preventDefault();
-        $(this).tab('show');
 
-        if (isConfirmed){
-            $('#rsvpDiv').hide();
-            $('#messageDiv').hide();
-            $('#messageBarDiv').hide();
-            $('#locationDiv').show();
-        }
-    });
 
-    $('#messages').click(function (e) {
-        e.preventDefault();
-        $(this).tab('show');
-        if (isConfirmed){
-            $('#locationDiv').hide();
-            $('#rsvpDiv').hide();
-            $('#messageDiv').show();
-            $('#messageBarDiv').show();
-        }
-    });
 
     $('#sendmsg').click(function (e) {
         var message =  document.getElementById('usermsg').value;
@@ -13631,6 +13615,33 @@ $(function(){
         });
     });
 
+    $('#location').click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+        $('#rsvpDiv').hide();
+        $('#messageDiv').hide();
+        $('#messageBarDiv').hide();
+        $('#locationDiv').show();
+    });
+
+    $('#messages').click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+        $('#locationDiv').hide();
+        $('#rsvpDiv').hide();
+        $('#messageDiv').show();
+        $('#messageBarDiv').show();
+    });
+
+    $('#rsvps').click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+        $('#locationDiv').hide();
+        $('#messageDiv').hide();
+        $('#messageBarDiv').hide();
+        $('#rsvpDiv').show();
+    });
+
     //check to se if user is logged in
 
 });
@@ -13639,7 +13650,7 @@ $(function(){
 function loadEventInfo(){
     var Posts = parse.Object.extend('Event');
     var query = new parse.Query(Posts);
-    query.equalTo("objectId", "bOmzOucpQE");
+    query.equalTo("objectId", "M3fUHRH1TQ");
     query.find({
         success: function(results) {
             // Do something with the returned Parse.Object values
@@ -13659,18 +13670,13 @@ function loadEventInfo(){
                 eventHostId = object.get("userId");
                 loadEventUser(eventHostId,eventTitle,image,code,description,startDate,endDate);
 
-                var address = object.get("address");
+                address = object.get("address");
                 var eventLocation = object.get('location');
-                var coordinates = eventLocation.latitude + "," + eventLocation.longitude;
+                coordinates = eventLocation.latitude + "," + eventLocation.longitude;
                 var invites = object.get('invites');
 
-                loadLocation(address,coordinates);
-
-                //load event info
-
                 configureUser(invites);
-                configureMessages(eventId);
-                loadRSVPs(eventId);
+
             }
         },
         error: function(error) {
@@ -13708,7 +13714,7 @@ function loadEventUser(userId, title, image, code, description, startDate, endDa
 }
 //location
 
-function loadLocation(address, coordinates){
+function loadLocation(){
     //TODO: put actual data here
 
     var coordinate = "//www.google.com/maps/embed/v1/place?q=" + coordinates + "&zoom=17" +
@@ -13721,11 +13727,12 @@ function loadLocation(address, coordinates){
         '<iframe src=' + coordinate + '></iframe>' +
 
         '</div>' );
+    $('#locationDiv').show();
 }
 
 //messages
 
-function configureMessages(eventId){
+function configureMessages(){
     //TODO: load proper event id
     var Posts = parse.Object.extend('Chat');
     var query = new parse.Query(Posts);
@@ -13752,8 +13759,8 @@ function configureMessages(eventId){
         }
     });
 
-    var query = new parse.Query('Chat');
-    query.equalTo("eventId", "0mrEjZt6I7");
+   // var query = new parse.Query('Chat');
+    //query.equalTo("eventId", "0mrEjZt6I7");
     var subscription = query.subscribe();
 
     subscription.on('create', (object) => {
@@ -13783,11 +13790,12 @@ function appendMessage(name, date, message, image) {
         '</div>' +
         '</br>' +
         '</div>' );
+
 }
 
 //rsvp
 
-function loadRSVPs(eventId){
+function loadRSVPs(){
     var Posts = parse.Object.extend('RSVP');
     var query = new parse.Query(Posts);
     query.equalTo("eventId", eventId);
@@ -13809,16 +13817,7 @@ function loadRSVPs(eventId){
         }
     });
 
-    $('#rsvps').click(function (e) {
-        e.preventDefault();
-        $(this).tab('show');
-        if (isConfirmed){
-            $('#locationDiv').hide();
-            $('#messageDiv').hide();
-            $('#messageBarDiv').hide();
-            $('#rsvpDiv').show();
-        }
-    });
+
 }
 
 function appendRSVP(image, username, displayName) {
@@ -13857,7 +13856,6 @@ function loadUserInfo(userId, date, message, isChat){
                 //appendRSVP
                 appendRSVP(image,username,displayName);
             }
-
         },
         error: function(object, error) {
             // The object was not retrieved successfully.
@@ -13894,9 +13892,7 @@ function configureUser(invites) {
                         isInvited = true;
                     }
                 }
-
                 checkRSVP();
-
             },
             error: function(object, error) {
                 // The object was not retrieved successfully.
@@ -13906,7 +13902,7 @@ function configureUser(invites) {
     }
 }
 
-function checkRSVP(eventId){
+function checkRSVP(){
     var Posts = parse.Object.extend('RSVP');
     var query = new parse.Query(Posts);
     query.equalTo("eventId", eventId);
@@ -13914,18 +13910,22 @@ function checkRSVP(eventId){
     query.find({
         success: function(results) {
             // Do something with the returned Parse.Object values
-            for (var i = 0; i < results.length; i++) {
+            //alert(results.length);
+            for (var i = 0; i <= results.length; i++) {
                 var object = results[i];
-               // alert(results.length);
+                //alert(results.length);
+                //
                 if (results.length > 0){
-                    alert("hey");
+                   // alert("hey");
                     if (object.get("isBlocked")){
                         //add jaunt that says user has been blocked
                         $('#alertDiv').append('<h4> You\'re blocked from this event. </h4>');
                         $('#alertDiv').show();
                     } else if (object.get("isConfirmed")){
 
-                        $('#locationDiv').show();
+                        loadLocation();
+                        configureMessages();
+                        loadRSVPs();
 
                     } else {
                         $('#alertDiv').append('<h4> RSVP Pending. </h4>');
@@ -13938,11 +13938,13 @@ function checkRSVP(eventId){
             }
         },
         error: function(error) {
+            //alert("error");
             //alert("Error: " + error.code + " " + error.message);
             //res.send("Error: " + error.code + " " + error.message);
         }
     });
 }
+
 
 },{"parse":126}],170:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.

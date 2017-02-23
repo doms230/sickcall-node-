@@ -1,0 +1,131 @@
+{"level":"info","message":"Parse LiveQuery Server starts running","timestamp":"2017-02-23T03:11:27.932Z"}
+{"level":"info","message":"Create new client: 0","timestamp":"2017-02-23T03:11:37.459Z"}
+{"level":"info","message":"Client disconnect: 0","timestamp":"2017-02-23T03:12:19.632Z"}
+{"level":"info","message":"Create new client: 1","timestamp":"2017-02-23T03:12:20.334Z"}
+{"level":"info","message":"Client disconnect: 1","timestamp":"2017-02-23T03:12:20.599Z"}
+{"level":"info","message":"Create new client: 2","timestamp":"2017-02-23T03:12:22.068Z"}
+{"level":"info","message":"Create new client: 3","timestamp":"2017-02-23T03:12:30.086Z"}
+{"level":"info","message":"Client disconnect: 3","timestamp":"2017-02-23T03:12:33.836Z"}
+{"level":"info","message":"Client disconnect: 2","timestamp":"2017-02-23T03:19:32.668Z"}
+{"level":"info","message":"Create new client: 4","timestamp":"2017-02-23T03:19:33.212Z"}
+{"level":"info","message":"Client disconnect: 4","timestamp":"2017-02-23T03:19:33.259Z"}
+{"level":"info","message":"Create new client: 5","timestamp":"2017-02-23T03:19:34.423Z"}
+{"level":"info","message":"Client disconnect: 5","timestamp":"2017-02-23T03:21:20.095Z"}
+{"level":"info","message":"Client disconnect: NaN","timestamp":"2017-02-23T03:21:20.574Z"}
+{"level":"error","message":"Can not find client NaN on disconnect","timestamp":"2017-02-23T03:21:20.626Z"}
+{"level":"info","message":"Create new client: 6","timestamp":"2017-02-23T03:21:21.558Z"}
+{"level":"info","message":"Client disconnect: 6","timestamp":"2017-02-23T03:21:51.348Z"}
+{"level":"info","message":"Create new client: 7","timestamp":"2017-02-23T03:21:53.081Z"}
+{"level":"info","message":"Client disconnect: 7","timestamp":"2017-02-23T03:22:19.435Z"}
+{"level":"info","message":"Client disconnect: NaN","timestamp":"2017-02-23T03:22:20.036Z"}
+{"level":"error","message":"Can not find client NaN on disconnect","timestamp":"2017-02-23T03:22:20.037Z"}
+{"level":"info","message":"Create new client: 8","timestamp":"2017-02-23T03:22:20.922Z"}
+{"level":"info","message":"Client disconnect: 8","timestamp":"2017-02-23T03:23:58.366Z"}
+{"level":"info","message":"Create new client: 9","timestamp":"2017-02-23T03:24:00.033Z"}
+{"level":"info","message":"Client disconnect: 9","timestamp":"2017-02-23T03:24:27.234Z"}
+{"level":"info","message":"Create new client: 10","timestamp":"2017-02-23T03:24:27.600Z"}
+{"level":"info","message":"Client disconnect: 10","timestamp":"2017-02-23T03:24:27.687Z"}
+{"level":"info","message":"Create new client: 11","timestamp":"2017-02-23T03:24:29.447Z"}
+{"level":"info","message":"Client disconnect: 11","timestamp":"2017-02-23T03:24:37.591Z"}
+{"level":"info","message":"Client disconnect: NaN","timestamp":"2017-02-23T03:24:38.535Z"}
+{"level":"error","message":"Can not find client NaN on disconnect","timestamp":"2017-02-23T03:24:38.535Z"}
+{"level":"info","message":"Create new client: 12","timestamp":"2017-02-23T03:24:39.248Z"}
+{"level":"info","message":"Client disconnect: 12","timestamp":"2017-02-23T03:24:51.936Z"}
+{"level":"info","message":"Create new client: 13","timestamp":"2017-02-23T03:24:53.498Z"}
+{"level":"info","message":"Client disconnect: 13","timestamp":"2017-02-23T03:25:45.363Z"}
+{"level":"info","message":"Create new client: 14","timestamp":"2017-02-23T03:25:47.293Z"}
+{"level":"info","message":"Client disconnect: 14","timestamp":"2017-02-23T03:26:18.398Z"}
+{"level":"info","message":"Client disconnect: NaN","timestamp":"2017-02-23T03:26:19.352Z"}
+{"level":"error","message":"Can not find client NaN on disconnect","timestamp":"2017-02-23T03:26:19.352Z"}
+{"level":"info","message":"Create new client: 15","timestamp":"2017-02-23T03:26:20.705Z"}
+{"level":"info","message":"Client disconnect: 15","timestamp":"2017-02-23T03:26:29.992Z"}
+{"level":"info","message":"Create new client: 16","timestamp":"2017-02-23T03:26:31.893Z"}
+{"level":"info","message":"Client disconnect: 16","timestamp":"2017-02-23T03:26:43.532Z"}
+{"level":"info","message":"Create new client: 17","timestamp":"2017-02-23T03:26:45.451Z"}
+{"level":"info","message":"Client disconnect: 17","timestamp":"2017-02-23T03:27:30.658Z"}
+{"level":"info","message":"Client disconnect: NaN","timestamp":"2017-02-23T03:27:31.967Z"}
+{"level":"error","message":"Can not find client NaN on disconnect","timestamp":"2017-02-23T03:27:31.967Z"}
+{"level":"info","message":"Create new client: 18","timestamp":"2017-02-23T03:27:32.540Z"}
+{"level":"info","message":"Client disconnect: 18","timestamp":"2017-02-23T03:27:46.336Z"}
+{"level":"info","message":"Client disconnect: NaN","timestamp":"2017-02-23T03:27:47.337Z"}
+{"level":"error","message":"Can not find client NaN on disconnect","timestamp":"2017-02-23T03:27:47.337Z"}
+{"level":"info","message":"Create new client: 19","timestamp":"2017-02-23T03:27:48.606Z"}
+{"level":"info","message":"Client disconnect: 19","timestamp":"2017-02-23T03:28:31.132Z"}
+{"level":"info","message":"Create new client: 20","timestamp":"2017-02-23T03:28:33.302Z"}
+{"level":"info","message":"Client disconnect: 20","timestamp":"2017-02-23T03:28:48.921Z"}
+{"level":"info","message":"Create new client: 21","timestamp":"2017-02-23T03:28:51.880Z"}
+{"level":"info","message":"Client disconnect: 21","timestamp":"2017-02-23T03:34:54.165Z"}
+{"level":"info","message":"Create new client: 22","timestamp":"2017-02-23T03:34:56.705Z"}
+{"level":"info","message":"Client disconnect: 22","timestamp":"2017-02-23T03:35:12.804Z"}
+{"level":"info","message":"Create new client: 23","timestamp":"2017-02-23T03:35:16.419Z"}
+{"level":"info","message":"Client disconnect: 23","timestamp":"2017-02-23T03:35:21.406Z"}
+{"level":"info","message":"Client disconnect: NaN","timestamp":"2017-02-23T03:35:22.850Z"}
+{"level":"error","message":"Can not find client NaN on disconnect","timestamp":"2017-02-23T03:35:22.850Z"}
+{"level":"info","message":"Create new client: 24","timestamp":"2017-02-23T03:35:23.449Z"}
+{"level":"info","message":"Client disconnect: 24","timestamp":"2017-02-23T03:35:29.997Z"}
+{"level":"info","message":"Create new client: 25","timestamp":"2017-02-23T03:35:32.871Z"}
+{"level":"info","message":"Client disconnect: 25","timestamp":"2017-02-23T03:35:59.883Z"}
+{"level":"info","message":"Client disconnect: NaN","timestamp":"2017-02-23T03:36:01.671Z"}
+{"level":"error","message":"Can not find client NaN on disconnect","timestamp":"2017-02-23T03:36:01.672Z"}
+{"level":"info","message":"Create new client: 26","timestamp":"2017-02-23T03:36:02.349Z"}
+{"level":"info","message":"Client disconnect: 26","timestamp":"2017-02-23T03:36:28.708Z"}
+{"level":"info","message":"Client disconnect: NaN","timestamp":"2017-02-23T03:36:30.203Z"}
+{"level":"error","message":"Can not find client NaN on disconnect","timestamp":"2017-02-23T03:36:30.203Z"}
+{"level":"info","message":"Create new client: 27","timestamp":"2017-02-23T03:36:30.785Z"}
+{"level":"info","message":"Client disconnect: 27","timestamp":"2017-02-23T03:37:48.539Z"}
+{"level":"info","message":"Create new client: 28","timestamp":"2017-02-23T03:37:50.152Z"}
+{"level":"info","message":"Client disconnect: 28","timestamp":"2017-02-23T03:38:33.224Z"}
+{"level":"info","message":"Create new client: 29","timestamp":"2017-02-23T03:38:34.700Z"}
+{"level":"info","message":"Client disconnect: 29","timestamp":"2017-02-23T03:38:53.609Z"}
+{"level":"info","message":"Client disconnect: NaN","timestamp":"2017-02-23T03:38:55.061Z"}
+{"level":"error","message":"Can not find client NaN on disconnect","timestamp":"2017-02-23T03:38:55.062Z"}
+{"level":"info","message":"Create new client: 30","timestamp":"2017-02-23T03:38:56.353Z"}
+{"level":"info","message":"Client disconnect: 30","timestamp":"2017-02-23T03:39:11.662Z"}
+{"level":"info","message":"Create new client: 31","timestamp":"2017-02-23T03:39:13.493Z"}
+{"level":"info","message":"Client disconnect: 31","timestamp":"2017-02-23T03:44:15.082Z"}
+{"level":"info","message":"Create new client: 32","timestamp":"2017-02-23T03:44:15.526Z"}
+{"level":"info","message":"Client disconnect: 32","timestamp":"2017-02-23T03:44:15.642Z"}
+{"level":"info","message":"Create new client: 33","timestamp":"2017-02-23T03:44:16.619Z"}
+{"level":"info","message":"Client disconnect: 33","timestamp":"2017-02-23T03:44:40.422Z"}
+{"level":"info","message":"Create new client: 34","timestamp":"2017-02-23T03:44:41.859Z"}
+{"level":"info","message":"Client disconnect: 34","timestamp":"2017-02-23T03:44:55.335Z"}
+{"level":"info","message":"Create new client: 35","timestamp":"2017-02-23T03:44:56.662Z"}
+{"level":"info","message":"Client disconnect: 35","timestamp":"2017-02-23T03:45:36.504Z"}
+{"level":"info","message":"Create new client: 36","timestamp":"2017-02-23T03:45:37.958Z"}
+{"level":"info","message":"Client disconnect: 36","timestamp":"2017-02-23T03:46:39.133Z"}
+{"level":"info","message":"Client disconnect: NaN","timestamp":"2017-02-23T03:46:39.753Z"}
+{"level":"error","message":"Can not find client NaN on disconnect","timestamp":"2017-02-23T03:46:39.754Z"}
+{"level":"info","message":"Create new client: 37","timestamp":"2017-02-23T03:46:41.838Z"}
+{"level":"info","message":"Client disconnect: 37","timestamp":"2017-02-23T03:47:05.802Z"}
+{"level":"info","message":"Create new client: 38","timestamp":"2017-02-23T04:10:44.478Z"}
+{"level":"info","message":"Client disconnect: 38","timestamp":"2017-02-23T04:10:50.395Z"}
+{"level":"info","message":"Create new client: 39","timestamp":"2017-02-23T04:10:53.063Z"}
+{"level":"info","message":"Client disconnect: 39","timestamp":"2017-02-23T04:11:17.467Z"}
+{"level":"info","message":"Create new client: 40","timestamp":"2017-02-23T04:11:29.015Z"}
+{"level":"info","message":"Client disconnect: 40","timestamp":"2017-02-23T04:13:00.749Z"}
+{"level":"info","message":"Create new client: 41","timestamp":"2017-02-23T04:13:05.577Z"}
+{"level":"info","message":"Client disconnect: 41","timestamp":"2017-02-23T04:14:14.080Z"}
+{"level":"info","message":"Create new client: 42","timestamp":"2017-02-23T04:14:17.218Z"}
+{"level":"info","message":"Client disconnect: 42","timestamp":"2017-02-23T04:14:55.339Z"}
+{"level":"info","message":"Client disconnect: NaN","timestamp":"2017-02-23T04:14:56.377Z"}
+{"level":"error","message":"Can not find client NaN on disconnect","timestamp":"2017-02-23T04:14:56.377Z"}
+{"level":"info","message":"Create new client: 43","timestamp":"2017-02-23T04:14:58.210Z"}
+{"level":"info","message":"Client disconnect: 43","timestamp":"2017-02-23T04:15:39.629Z"}
+{"level":"info","message":"Create new client: 44","timestamp":"2017-02-23T04:15:44.332Z"}
+{"level":"info","message":"Client disconnect: 44","timestamp":"2017-02-23T04:17:04.999Z"}
+{"level":"info","message":"Create new client: 45","timestamp":"2017-02-23T04:17:07.567Z"}
+{"level":"info","message":"Client disconnect: 45","timestamp":"2017-02-23T04:18:07.244Z"}
+{"level":"info","message":"Create new client: 46","timestamp":"2017-02-23T04:18:10.166Z"}
+{"level":"info","message":"Client disconnect: 46","timestamp":"2017-02-23T04:18:32.675Z"}
+{"level":"info","message":"Create new client: 47","timestamp":"2017-02-23T04:18:36.549Z"}
+{"level":"info","message":"Client disconnect: 47","timestamp":"2017-02-23T04:19:04.211Z"}
+{"level":"info","message":"Create new client: 48","timestamp":"2017-02-23T04:19:07.789Z"}
+{"level":"info","message":"Client disconnect: 48","timestamp":"2017-02-23T04:19:42.510Z"}
+{"level":"info","message":"Client disconnect: NaN","timestamp":"2017-02-23T04:19:43.947Z"}
+{"level":"error","message":"Can not find client NaN on disconnect","timestamp":"2017-02-23T04:19:43.947Z"}
+{"level":"info","message":"Create new client: 49","timestamp":"2017-02-23T04:19:45.623Z"}
+{"level":"info","message":"Client disconnect: 49","timestamp":"2017-02-23T04:56:29.966Z"}
+{"level":"info","message":"Create new client: 50","timestamp":"2017-02-23T04:56:36.045Z"}
+{"level":"info","message":"Client disconnect: 50","timestamp":"2017-02-23T04:57:09.690Z"}
+{"level":"info","message":"Client disconnect: NaN","timestamp":"2017-02-23T04:57:13.546Z"}
+{"level":"error","message":"Can not find client NaN on disconnect","timestamp":"2017-02-23T04:57:13.546Z"}
