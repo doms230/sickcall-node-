@@ -129,3 +129,10 @@
 {"level":"info","message":"Client disconnect: 50","timestamp":"2017-02-23T04:57:09.690Z"}
 {"level":"info","message":"Client disconnect: NaN","timestamp":"2017-02-23T04:57:13.546Z"}
 {"level":"error","message":"Can not find client NaN on disconnect","timestamp":"2017-02-23T04:57:13.546Z"}
+{"level":"info","message":"Parse LiveQuery Server starts running","timestamp":"2017-02-23T20:11:34.708Z"}
+{"level":"info","message":"Create new client: 0","timestamp":"2017-02-23T20:11:47.159Z"}
+{"level":"info","message":"Parse LiveQuery Server starts running","timestamp":"2017-02-23T22:16:01.014Z"}
+{"level":"info","message":"Create new client: 0","timestamp":"2017-02-23T22:16:02.844Z"}
+{"level":"info","message":"Client disconnect: 0","timestamp":"2017-02-23T22:16:06.182Z"}
+{"level":"info","message":"Client disconnect: NaN","timestamp":"2017-02-23T22:16:06.346Z"}
+{"level":"error","message":"Can not find client NaN on disconnect","timestamp":"2017-02-23T22:16:06.347Z"}
