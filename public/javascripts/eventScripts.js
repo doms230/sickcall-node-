@@ -1,7 +1,6 @@
 /**
  * Created by d_innovator on 2/12/17.
  * watchify public/javascripts/eventScripts.js -o public/javascripts/bundle.js -v
-
  */
 
 //signinDiv

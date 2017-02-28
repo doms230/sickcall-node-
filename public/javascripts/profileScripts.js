@@ -9,21 +9,18 @@ var currentUser = parse.User.current();
 $(function(){
     $('#updatePhoto').click(function () {
         
-        
-        
     });
 
     $('#updateInfo').click(function () {
 
-
-
     });
-    
+
+    loadUserInfo();
     
 });
 
 function loadUserInfo(){
-    if (currentUser){
+    //if (currentUser){
         var User = parse.Object.extend("_User");
         var query = new parse.Query(User);
         query.get("wcbsnOpMwH", {
@@ -45,5 +42,5 @@ function loadUserInfo(){
                 // error is a Parse.Error with an error code and message.
             }
         });
-    }
+    //}
 }
