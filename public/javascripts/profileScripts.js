@@ -18,7 +18,7 @@ $(function(){
     loadUserInfo();
     
 });
-
+ 
 function loadUserInfo(){
     //if (currentUser){
         var User = parse.Object.extend("_User");
