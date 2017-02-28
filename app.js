@@ -22,6 +22,7 @@ var replies = require('./routes/replies');
 var about = require('./routes/about');
 var login = require('./routes/logins');
 var messages = require('./routes/messages');
+var profiles = require('./routes/profiles');
 //var chats = require('./public/javascripts/chat');
 
 var app = express();
@@ -114,6 +115,7 @@ app.use('/replies', replies);
 app.use('/about', about );
 app.use('/logins', login);
 app.use('/messages', messages);
+app.use('/profile', profiles);
 //app.use('/chat', chats);
 //scripts
 

@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
+      xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
-    <title id="title"> <%= title %> | Hiikey</title>
+    <!--<title id="title"> | Hiikey</title> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!--Ajax-->
@@ -24,12 +25,44 @@
 </head>
 
 <body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <ul class="nav nav-pills">
+            <li role="presentation"> <a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
 
+            </li>
+            <li role="presentation"><a href="#"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
 
+            </li>
+            <li role="presentation"><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
+            </li>
+        </ul>
+    </div>
+</nav>
 
+</br>
+<div  id="locationDiv" class="page-header" >
 
+    <div class="container-fluid">
+        <img id="image"  alt="..." class="img-circle" width="100" height="100">
 
+        </br>
+        </br>
 
+        <button id="updatePhoto" class="btn btn-sm btn-default" type="submit">Update Profile Picture</button>
 
+        <form class="form-signin">
+            <h4 id="username" class="form-signin-heading">@d_innovator</h4>
+            <input type="text" id="inputName" class="form-control" placeholder="Name" required autofocus>
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="text" id="inputNumber" class="form-control" placeholder="Phone Number" required>
+
+            <button id="updateInfo" class="btn btn-lg btn-default btn-block" type="submit">Update Info</button>
+        </form>
+    </div>
+
+    </div>
+</div>
 
 </body>
+</html>
