@@ -1,4 +1,8 @@
 {"level":"info","message":"Parse LiveQuery Server starts running","timestamp":"2017-02-28T02:40:14.481Z"}
 {"level":"info","message":"Parse LiveQuery Server starts running","timestamp":"2017-02-28T02:47:38.358Z"}
+<<<<<<< HEAD
 {"level":"info","message":"Parse LiveQuery Server starts running","timestamp":"2017-02-28T18:30:55.407Z"}
 {"level":"info","message":"Parse LiveQuery Server starts running","timestamp":"2017-02-28T19:31:13.288Z"}
+=======
+{"level":"info","message":"Parse LiveQuery Server starts running","timestamp":"2017-02-28T04:18:42.551Z"}
+>>>>>>> 2e10ec1d5103432038ea18d25d9a5e356c7459d9
