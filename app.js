@@ -24,6 +24,7 @@ var login = require('./routes/logins');
 var messages = require('./routes/messages');
 var profiles = require('./routes/profiles');
 var myEvents = require ('./routes/myEvents');
+var newEvent = require('./routes/newEvent');
 
 var app = express();
 var api = new ParseServer({
@@ -117,6 +118,7 @@ app.use('/logins', login);
 app.use('/messages', messages);
 app.use('/profile', profiles);
 app.use('/home', myEvents);
+app.use('/create', newEvent);
 //app.use('/chat', chats);
 //scripts
 
