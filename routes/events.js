@@ -41,7 +41,6 @@ var isCurrentUser = false;
        // console.log("utc date:" +  date.getUTCDate());
 
         var eventCode = req.query.id;
-
         loadEvent(res, eventCode, true);
         //checkSession(req, res);
 
@@ -62,7 +61,8 @@ var isCurrentUser = false;
 function loadEvent(res, eventCode){
     var Posts = parse.Object.extend('Event');
     var query = new parse.Query(Posts);
-    query.equalTo("code", eventCode);
+   // query.equalTo("code", eventCode);
+    query.equalTo("objectId", eventCode);
     query.equalTo("isRemoved", false);
     query.find({
         success: function(results) {

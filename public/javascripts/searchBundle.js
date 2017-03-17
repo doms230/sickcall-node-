@@ -17808,51 +17808,40 @@ function traverse(obj, encountered, shouldThrow, allowDeepUnsaved) {
 }
 },{"./ParseFile":141,"./ParseObject":145,"./ParseRelation":149,"babel-runtime/helpers/typeof":19}],170:[function(require,module,exports){
 /**
- * Created by d_innovator on 2/28/17.
+ * Created by macmini on 3/17/17.
  */
 
-var parse = require("parse").Parse;
-parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF"); parse.serverURL = 'http://localhost:3000/parse';
-var currentUser = parse.User.current();
 
-var rsvps = [];
+var parse = require("parse").Parse;
+parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF"); parse.serverURL = 'http://192.168.1.66:3000/parse';
+var currentUser = parse.User.current();
 
 var moment = require("moment");
 
+var rsvps = [];
+var eventId = [];
 $(function(){
-
-    loadRSVPS(); 
-
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    }
 });
 
-function loadRSVPS(){
-    var Posts = parse.Object.extend('RSVP');
-    var query = new parse.Query(Posts);
-    query.equalTo("userId", "wcbsnOpMwH");
-    query.equalTo("isRemoved", false);
-    query.find({
-        success: function(results) {
-            // Do something with the returned Parse.Object values
-            for (var i = 0; i < results.length; i++) {
-                var object = results[i];
-                rsvps[i] =  object.get("eventId");
-            }
-            loadEventInfo(rsvps); 
-        },
-        error: function(error) {
-            //alert("Error: " + error.code + " " + error.message);
-            //res.send("Error: " + error.code + " " + error.message);
-        }
-    });
+function showPosition(position) {
+    //alert( position.coords.latitude + "," +  position.coords.longitude );
+    var point = new parse.GeoPoint({latitude: position.coords.latitude , longitude: position.coords.longitude});
+    loadEventInfo(point);
 }
 
-function loadEventInfo(rsvps){
+function loadEventInfo(point){
+
+    var date = new Date();
+
     var Posts = parse.Object.extend('Event');
     var query = new parse.Query(Posts);
-    query.equalTo("userId", "wcbsnOpMwH");
     query.equalTo("isRemoved", false);
-   // query.containedIn("objectId", rsvps);
-    
+    query.greaterThan("endTime", date);
+    query.near("location", point);
+    query.ascending("startTime");
     query.find({
         success: function(results) {
             // Do something with the returned Parse.Object values
@@ -17866,7 +17855,9 @@ function loadEventInfo(rsvps){
                 var eventTitle = object.get('title');
                 var image = (object.get("eventImage").name())[0].src = object.get("eventImage").url();
                 var code = object.get("code");
+                //alert(code);
                 var description = object.get("description");
+
                 var startTime =  new Date(object.get("startTime"));
                 var date = moment(startTime).format("ddd, MMM Do YYYY, h:mm a");
 
@@ -17887,9 +17878,8 @@ function loadEventInfo(rsvps){
 
                 $("#" + objectId).click(function(){
                     window.location.href = "http://localhost:3000/events?id=" + $(this).attr("id") ;
-                   // alert($(this).attr("id"));
+                    //alert($(this).attr("id"));
                 });
-
             }
         },
         error: function(error) {

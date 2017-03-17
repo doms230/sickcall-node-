@@ -15,16 +15,15 @@ var routes = require('./routes/home');
 var test = require('./routes/test');
 var terms = require('./routes/terms');
 var notifications = require('./routes/notifications');
-var videos = require('./routes/videos');
 var invites = require('./routes/invites');
 var events = require('./routes/events');
-var replies = require('./routes/replies');
 var about = require('./routes/about');
 var login = require('./routes/logins');
 var messages = require('./routes/messages');
 var profiles = require('./routes/profiles');
 var myEvents = require ('./routes/myEvents');
 var newEvent = require('./routes/newEvent');
+var search = require('./routes/search');
 
 var app = express();
 var api = new ParseServer({
@@ -89,8 +88,6 @@ var dashboard = new ParseDashboard({
   "iconsFolder": "./public/images"
 });
 
-
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -107,18 +104,17 @@ app.use('/', routes);
 app.use('/test', test);
 app.use('/terms', terms);
 app.use('/notifications', notifications);
-app.use('/videos', videos);
 app.use('/parse', api);
 app.use('/dashboard', dashboard);
 app.use('/invites',invites);
 app.use('/events', events);
-app.use('/replies', replies);
 app.use('/about', about );
 app.use('/logins', login);
 app.use('/messages', messages);
 app.use('/profile', profiles);
 app.use('/home', myEvents);
 app.use('/create', newEvent);
+app.use('/search', search);
 //app.use('/chat', chats);
 //scripts
 
