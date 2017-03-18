@@ -34,6 +34,8 @@
     "parse-dashboard": "1.0.23",
     "jsdom":"9.10.0",
     "browserify": "14.0.0",
-    "watchify":"3.9.0"
+    "watchify":"3.9.0",
+    "nconf": "0.8.4",
+    "auth-header": "0.3.1"
   }
 }

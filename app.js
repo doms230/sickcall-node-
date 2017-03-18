@@ -24,7 +24,7 @@ var profiles = require('./routes/profiles');
 var myEvents = require ('./routes/myEvents');
 var newEvent = require('./routes/newEvent');
 var search = require('./routes/search');
-
+var digits = require('./routes/digits');
 var app = express();
 var api = new ParseServer({
   databaseURI: 'mongodb://heroku_rfhfq2b5:u7q5lg6q7fujm6gldpmpeqk2k6@ds153345-a0.mlab.com:53345,ds153345-a1.mlab.com:53345/heroku_rfhfq2b5?replicaSet=rs-ds153345',
@@ -115,6 +115,7 @@ app.use('/profile', profiles);
 app.use('/home', myEvents);
 app.use('/create', newEvent);
 app.use('/search', search);
+app.use('/digits', digits);
 //app.use('/chat', chats);
 //scripts
 

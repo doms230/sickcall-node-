@@ -27,11 +27,15 @@ $(function(){
         $('#inputNumber').click(onLoginButtonClick);
     });
 
-    $('#userInfo').append('<fb:login-button data-auto-logout-link="true" data-size="large" scope="public_profile,email" onlogin="checkLoginState();">' +
-    '</fb:login-button>');
+   // $('#userInfo').append('');
+
+    $('#userInfo').append(' <div class="alert alert-info alert-dismissible" role="alert">' +
+        '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+   ' <strong>Linking your Facebook allows hosts verify your identity before they give you access to their events.</strong></div>  <fb:login-button data-auto-logout-link="true" data-size="large" scope="public_profile,email" onlogin="checkLoginState();">' +
+        '</fb:login-button>  </br> </br>  <button id="updateInfo" class="btn btn-lg btn-default btn-block" type="submit">Update Info</button>');
 
 
-   // $('#updatePhoto').click(function () {
+    // $('#updatePhoto').click(function () {
         $(":file").change(function () {
             if (this.files && this.files[0]) {
                 var reader = new FileReader();
@@ -57,11 +61,19 @@ $(function(){
                 object.set("phoneNumber", verifiedNumber);
                 object.save();
 
+                $('#userInfo').append('<div class="alert alert-success alert-dismissible" role="alert">' +
+                    '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+                    '<strong>Your profile info has been updated.</strong></div>');
+
                 //document.getElementById('image').src
             },
             error: function(object, error) {
                 // The object was not retrieved successfully.
                 // error is a Parse.Error with an error code and message.
+                $('#userInfo').append('<div class="alert alert-danger alert-dismissible" role="alert">' +
+                    '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+                    '<strong>Oops!</strong>There was an issue updating your info. Check your internet connection and try again.' +
+                    'Email us at help@hiikey.com if the issue persists.</div>');
             }
         });
 
@@ -144,7 +156,7 @@ function onLogin(loginResponse) {
     //setDigitsButton('Signing In…');
     $.ajax({
         type: 'POST',
-        url: '/digits',
+        url: '/digits/digits',
         data: oAuthHeaders,
         success: onDigitsSuccess
     });
@@ -157,6 +169,7 @@ function onLoginFailure(loginResponse) {
     console.log('Digits login failed.');
     setDigitsButton('Sign In with Phone');
     alert("fail");
+    document.getElementById('inputNumber').value = " ";
     verifiedNumber = " ";
 }
 
@@ -168,8 +181,8 @@ function onLoginFailure(loginResponse) {
 function onDigitsSuccess(response) {
     console.log('Digits phone number retrieved.');
     //setDigitsNumber(response.phoneNumber);
-    alert(response.phoneNumber);
     verifiedNumber = response.phoneNumber;
+    document.getElementById('inputNumber').value = response.phoneNumber;
 }
 
 /**
