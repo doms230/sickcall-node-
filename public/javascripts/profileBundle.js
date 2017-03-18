@@ -13515,7 +13515,28 @@ parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF"); parse.serverURL = 
 var currentUser = parse.User.current();
 var parseFile;
 
+var facebook = " ";
+var verifiedNumber = " ";
 $(function(){
+
+    $('#digits-sdk').load(function () {
+        // Initialize Digits using the API key.
+        Digits.init({ consumerKey: 'IeV33K1YaqjI4ompRDHiDREH3' })
+            .done(function() {
+                console.log('Digits initialized.');
+            })
+            .fail(function() {
+                console.log('Digits failed to initialize.');
+            });
+
+        // Set a click event listener on the Digits button.
+        $('#inputNumber').click(onLoginButtonClick);
+    });
+
+    $('#userInfo').append('<fb:login-button data-auto-logout-link="true" data-size="large" scope="public_profile,email" onlogin="checkLoginState();">' +
+    '</fb:login-button>');
+
+
    // $('#updatePhoto').click(function () {
         $(":file").change(function () {
             if (this.files && this.files[0]) {
@@ -13538,6 +13559,8 @@ $(function(){
                // var image = (object.get("Profile").name())[0].src = object.get("Profile").url();
                 object.set("phoneNumber", document.getElementById('inputNumber').value);
                 object.set("Profile", parseFile);
+                object.set("facebook", facebook);
+                object.set("phoneNumber", verifiedNumber);
                 object.save();
 
                 //document.getElementById('image').src
@@ -13547,12 +13570,14 @@ $(function(){
                 // error is a Parse.Error with an error code and message.
             }
         });
+
     });
 
     loadUserInfo();
 
 });
 
+//user info stuff
 function imageIsLoaded(e) {
     $('#image').attr('src', e.target.result);
     var fileUploadControl = $("#newProfilePhoto")[0];
@@ -13584,11 +13609,15 @@ function loadUserInfo(){
                 var displayName = object.get("DisplayName");
                 var image = (object.get("Profile").name())[0].src = object.get("Profile").url();
                 var number = object.get("phoneNumber");
+                verifiedNumber = number;
+
+                //facebook = object.get("facebook");
 
                 $("#username").html("@" + username);
                 document.getElementById('inputName').value = displayName;
                 document.getElementById('inputNumber').value = number;
                 document.getElementById('image').src = image;
+
             },
             error: function(object, error) {
                 // The object was not retrieved successfully.
@@ -13596,6 +13625,135 @@ function loadUserInfo(){
             }
         });
     //}
+}
+
+//phone number stuff
+/**
+ * Launch the Digits login flow.
+ */
+function onLoginButtonClick(event) {
+    console.log('Digits login started.');
+    Digits.logIn().done(onLogin).fail(onLoginFailure);
+}
+
+
+/**
+ * Handle the login once the user has completed the sign in with Digits.
+ * We must POST these headers to the server to safely invoke the Digits API
+ * and get the logged-in user's data.
+ */
+function onLogin(loginResponse) {
+    console.log('Digits login succeeded.');
+    //alert(loginResponse);
+   var oAuthHeaders = parseOAuthHeaders(loginResponse.oauth_echo_headers);
+
+    //setDigitsButton('Signing In…');
+    $.ajax({
+        type: 'POST',
+        url: '/digits',
+        data: oAuthHeaders,
+        success: onDigitsSuccess
+    });
+}
+
+/**
+ * Handle the login failure.
+ */
+function onLoginFailure(loginResponse) {
+    console.log('Digits login failed.');
+    setDigitsButton('Sign In with Phone');
+    alert("fail");
+    verifiedNumber = " ";
+}
+
+/**
+ * Handle the login once the user has completed the sign in with Digits.
+ * We must POST these headers to the server to safely invoke the Digits API
+ * and get the logged-in user's data.
+ */
+function onDigitsSuccess(response) {
+    console.log('Digits phone number retrieved.');
+    //setDigitsNumber(response.phoneNumber);
+    alert(response.phoneNumber);
+    verifiedNumber = response.phoneNumber;
+}
+
+/**
+ * Parse OAuth Echo Headers:
+ * 'X-Verify-Credentials-Authorization'
+ * 'X-Auth-Service-Provider'
+ */
+function parseOAuthHeaders(oAuthEchoHeaders) {
+    var credentials = oAuthEchoHeaders['X-Verify-Credentials-Authorization'];
+    var apiUrl = oAuthEchoHeaders['X-Auth-Service-Provider'];
+
+    return {
+        apiUrl: apiUrl,
+        credentials: credentials
+    };
+}
+
+// Set the Digits button label (and make sure it is not disabled).
+function setDigitsButton(text) {
+    $('.digits-button').text(text).removeAttr('disabled');
+}
+
+// Set the Digits phone number (and disable the button).
+function setDigitsNumber(phoneNumber) {
+    $('.digits-button').text(phoneNumber).attr('disabled', 'disabled');
+}
+
+//facebook stuff
+function statusChangeCallback(response) {
+    console.log('statusChangeCallback');
+    console.log(response);
+    // The response object is returned with a status field that lets the
+    // app know the current login status of the person.
+    // Full docs on the response object can be found in the documentation
+    // for FB.getLoginStatus().
+    if (response.status === 'connected') {
+        // Logged into your app and Facebook.
+        //alert(response.userID);
+        testAPI();
+    } else {
+        // The person is not logged into your app or we are unable to tell.
+        facebook = " ";
+        document.getElementById('status').innerHTML = 'Please log ' +
+            'into this app.' + facebook;
+
+    }
+}
+
+function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+        statusChangeCallback(response);
+    });
+}
+
+window.fbAsyncInit = function() {
+    FB.init({
+        appId      : '178018185913116',
+        cookie     : true,  // enable cookies to allow the server to access
+                            // the session
+        xfbml      : true,  // parse social plugins on this page
+        version    : 'v2.8' // use graph api version 2.8
+    });
+
+    FB.getLoginStatus(function(response) {
+        statusChangeCallback(response);
+    });
+};
+
+function testAPI() {
+    console.log('Welcome!  Fetching your information.... ');
+    FB.api('/me', function(response) {
+        //alert(response.name);
+        facebook = response.id;
+        console.log('Successful login for: ' + response.name);
+        document.getElementById('status').innerHTML =
+            'Thanks for logging in, ' + facebook + '!';
+
+    });
 }
 
 },{"parse":126}],170:[function(require,module,exports){

@@ -1,0 +1,7 @@
+{"level":"info","message":"Parse LiveQuery Server starts running","timestamp":"2017-03-18T00:51:36.074Z"}
+{"error":{"code":206,"message":"Cannot modify user wcbsnOpMwH."},"level":"error","message":"Error generating response. ParseError { code: 206, message: 'Cannot modify user wcbsnOpMwH.' }","timestamp":"2017-03-18T03:43:47.005Z"}
+{"error":{"code":206,"message":"Cannot modify user wcbsnOpMwH."},"level":"error","message":"Error generating response. ParseError { code: 206, message: 'Cannot modify user wcbsnOpMwH.' }","timestamp":"2017-03-18T03:45:45.116Z"}
+{"error":{"code":206,"message":"Cannot modify user wcbsnOpMwH."},"level":"error","message":"Error generating response. ParseError { code: 206, message: 'Cannot modify user wcbsnOpMwH.' }","timestamp":"2017-03-18T03:46:33.442Z"}
+{"error":{"code":206,"message":"Cannot modify user wcbsnOpMwH."},"level":"error","message":"Error generating response. ParseError { code: 206, message: 'Cannot modify user wcbsnOpMwH.' }","timestamp":"2017-03-18T03:56:31.055Z"}
+{"error":{"code":206,"message":"Cannot modify user wcbsnOpMwH."},"level":"error","message":"Error generating response. ParseError { code: 206, message: 'Cannot modify user wcbsnOpMwH.' }","timestamp":"2017-03-18T03:57:08.328Z"}
+{"error":{"code":206,"message":"Cannot modify user wcbsnOpMwH."},"level":"error","message":"Error generating response. ParseError { code: 206, message: 'Cannot modify user wcbsnOpMwH.' }","timestamp":"2017-03-18T03:58:30.175Z"}
