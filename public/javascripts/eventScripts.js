@@ -1,6 +1,8 @@
 /**
  * Created by d_innovator on 2/12/17.
  * git
+ * watchify public/javascripts/eventScripts.js -o public/javascripts/bundle.js -v
+
  */
 
 //signinDiv
@@ -25,11 +27,11 @@ $(function(){
     // alert(currentUser.id);
 
     //alert(objectId);
-    /*parse.User.logOut().then(() => {
-        loadEventInfo("LU31SRksFm");
-    });*/
+    parse.User.logOut().then(() => {
+     loadEventInfo("LU31SRksFm");
+     });
 
-   loadEventInfo("LU31SRksFm");
+  // loadEventInfo("LU31SRksFm");
 
     $('#rsvpButton').click(function () {
         if (currentUser){
@@ -85,6 +87,10 @@ $(function(){
                 //console.log(error);
             }
         });
+    });
+
+    $('#signup').click(function(){
+        window.location.href = "http://localhost:3000/logins?e=LU31SRksFm" ;
     });
 
     $('#sendmsg').click(function (e) {
@@ -189,7 +195,13 @@ function loadEventUser(userId, title, image, code, description, startDate, endDa
             //console.log(object);
             // The object was retrieved successfully.
             var displayName = object.get("username");
-            var userImage = (object.get("Profile").name())[0].src = object.get("Profile").url();
+
+            if (object.get("Profile") != null){
+                var userImage = (object.get("Profile").name())[0].src = object.get("Profile").url();
+
+            } else {
+
+            }
 
             $('#eventInfoDiv').append(
                 '<h1>' + title + '</h1>' +
@@ -354,7 +366,10 @@ function loadUserInfo(userId, date, message, isChat){
             // The object was retrieved successfully.
             var username = object.getUsername();
             var displayName = object.get("DisplayName");
+
             var image = (object.get("Profile").name())[0].src = object.get("Profile").url();
+
+
 
             if (isChat){
                 appendMessage(username, date, message, image);

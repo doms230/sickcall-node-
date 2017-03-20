@@ -48,7 +48,7 @@ $(function(){
     $('#updateInfo').click(function () {
         var User = parse.Object.extend("_User");
         var query = new parse.Query(User);
-        query.get("wcbsnOpMwH", {
+        query.get(currentUser.id, {
             success: function(object) {
                 //console.log(object);
                 // The object was retrieved successfully.
@@ -76,7 +76,6 @@ $(function(){
                     'Email us at help@hiikey.com if the issue persists.</div>');
             }
         });
-
     });
 
     loadUserInfo();
@@ -107,22 +106,30 @@ function loadUserInfo(){
     //if (currentUser){
         var User = parse.Object.extend("_User");
         var query = new parse.Query(User);
-        query.get("wcbsnOpMwH", {
+        query.get(currentUser.id, {
             success: function(object) {
                 //console.log(object);
                 // The object was retrieved successfully.
                 var username = object.getUsername();
                 var displayName = object.get("DisplayName");
-                var image = (object.get("Profile").name())[0].src = object.get("Profile").url();
+                if(object.get("Profile") != null){
+                    var image = (object.get("Profile").name())[0].src = object.get("Profile").url();
+                }
                 var number = object.get("phoneNumber");
                 verifiedNumber = number;
 
-                //facebook = object.get("facebook");
+                facebook = object.get("facebook");
 
                 $("#username").html("@" + username);
                 document.getElementById('inputName').value = displayName;
-                document.getElementById('inputNumber').value = number;
-                document.getElementById('image').src = image;
+
+                if (number != " "){
+                    document.getElementById('inputNumber').value = number;
+                }
+
+                if (image != null){
+                    document.getElementById('image').src = image;
+                }
 
             },
             error: function(object, error) {

@@ -1,2 +1,5 @@
 {"level":"error","message":"Can not find client NaN on disconnect","timestamp":"2017-03-20T13:30:45.082Z"}
 {"level":"error","message":"Can not find client NaN on disconnect","timestamp":"2017-03-20T14:00:38.481Z"}
+{"error":{"code":111,"message":"schema mismatch for _User.Profile; expected File but got String"},"level":"error","message":"Error generating response. ParseError {\n  code: 111,\n  message: 'schema mismatch for _User.Profile; expected File but got String' }","timestamp":"2017-03-20T17:20:49.057Z"}
+{"error":{"code":111,"message":"schema mismatch for _User.Profile; expected File but got String"},"level":"error","message":"Error generating response. ParseError {\n  code: 111,\n  message: 'schema mismatch for _User.Profile; expected File but got String' }","timestamp":"2017-03-20T17:21:32.525Z"}
+{"error":{"code":202,"message":"Account already exists for this username."},"level":"error","message":"Error generating response. ParseError {\n  code: 202,\n  message: 'Account already exists for this username.' }","timestamp":"2017-03-20T17:25:38.124Z"}

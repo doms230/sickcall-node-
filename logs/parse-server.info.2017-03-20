@@ -46,3 +46,7 @@
 {"level":"info","message":"Client disconnect: 17","timestamp":"2017-03-20T14:25:33.033Z"}
 {"level":"info","message":"Create new client: 18","timestamp":"2017-03-20T14:25:39.712Z"}
 {"level":"info","message":"Client disconnect: 18","timestamp":"2017-03-20T14:27:56.261Z"}
+{"level":"info","message":"Parse LiveQuery Server starts running","timestamp":"2017-03-20T16:56:03.739Z"}
+{"error":{"code":111,"message":"schema mismatch for _User.Profile; expected File but got String"},"level":"error","message":"Error generating response. ParseError {\n  code: 111,\n  message: 'schema mismatch for _User.Profile; expected File but got String' }","timestamp":"2017-03-20T17:20:49.055Z"}
+{"error":{"code":111,"message":"schema mismatch for _User.Profile; expected File but got String"},"level":"error","message":"Error generating response. ParseError {\n  code: 111,\n  message: 'schema mismatch for _User.Profile; expected File but got String' }","timestamp":"2017-03-20T17:21:32.523Z"}
+{"error":{"code":202,"message":"Account already exists for this username."},"level":"error","message":"Error generating response. ParseError {\n  code: 202,\n  message: 'Account already exists for this username.' }","timestamp":"2017-03-20T17:25:38.124Z"}

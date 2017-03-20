@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<!DOCTYPE html >
+
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <title>Hiikey | Welcome</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,15 +14,24 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 
     <!-- Bootstrap core CSS -->
-    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="/stylesheets/style.css" rel="stylesheet">
 </head>
 <body>
 
+<h6 id="objectId" hidden="yes" > <%= objectId %>   </h6>
+
 <div class="container">
 
-    <h1>Hiikey</h1>
-    <form class="form-signin">
-        <h3 class="form-signin-heading">Please sign in</h3>
+    <ul class="nav nav-pills">
+        <li id="signupButton" role="presentation" class="active"><a >Sign Up</a></li>
+        <li id="signinButton" role="presentation"><a >Sign In</a></li>
+    </ul>
+
+
+    <h1>Welcome to Hiikey</h1>
+    <form id="signin" class="form-signin" hidden = "yes">
+        <h3 class="form-signin-heading"> Sign In</h3>
         <input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
@@ -29,32 +40,25 @@
                 <input type="checkbox" value="remember-me"> Remember me
             </label>
         </div>
-        <button id="signin" class="btn btn-lg btn-default btn-block" type="submit">Sign in</button>
+        <button id="d" class="btn btn-lg btn-default btn-block" type="submit">Sign in</button>
     </form>
 
+    <form id="signup" class="form-signin">
+        <h3 class="form-signin-heading">Sign Up</h3>
+        <input type="text" id="signupUsername" class="form-control" placeholder="Username" required autofocus>
+        <input type="email" id="signupEmail" class="form-control" placeholder="Email" required autofocus>
+        <input type="password" id="signupPassword" class="form-control" placeholder="Password" required>
+    </form>
+    <button id="signupAction" class="btn btn-lg btn-default btn-block" type="submit">Sign up</button>
+
     </br>
-    <button id="signup" class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
 
 </div> <!-- /container -->
 
 </body>
-
 </html>
 
-<script>
+<script src="/javascripts/loginBundle.js"></script>
+<script src="/javascripts/loginScripts.js"></script>
 
-    $("#signin").click(function(){
-        $.post("logins/signin",
-         {
-         username: document.getElementById('inputUsername').value,
-         password: document.getElementById('inputPassword').value
-         },
-         function(data, status){
-         // alert("Data: " + data + "\nStatus: " + status);
 
-         if(status.success){
-         alert("Signed in");
-         }
-         });
-    });
-</script>
