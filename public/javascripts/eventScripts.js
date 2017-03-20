@@ -6,8 +6,10 @@
 //signinDiv
 var parse = require("parse").Parse;
 parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF"); parse.serverURL = 'http://localhost:3000/parse';
+var moment = require("moment");
+
 var currentUser = parse.User.current();
-var isConfirmed = false;
+var showShowMessageBar = false;
 var didRSVP = false;
 var eventId;
 var eventHostId;
@@ -15,21 +17,19 @@ var eventTitle;
 var isInvited = false;
 var address;
 var coordinates;
-
+var invites;
 
 //var currentUser = true;
 $(function(){
    // $('#rsvpButton').hide();
-   // alert(currentUser.id);
+    // alert(currentUser.id);
 
     //alert(objectId);
     /*parse.User.logOut().then(() => {
         loadEventInfo("LU31SRksFm");
     });*/
 
-
-    loadEventInfo("LU31SRksFm");
-
+   loadEventInfo("LU31SRksFm");
 
     $('#rsvpButton').click(function () {
         if (currentUser){
@@ -45,7 +45,6 @@ $(function(){
             rsvp.set("isBlocked", false);
             rsvp.save(null, {
                 success: function(gameScore) {
-                    // Execute any logic that should take place after the object is saved.
                     if (isInvited){
                         $('#rsvpButton').hide();
                         loadLocation();
@@ -54,7 +53,7 @@ $(function(){
 
                     } else {
                         $('#rsvpButton').hide();
-                        $('#alertDiv').append('<h4> "RSVP Pending." </h4>');
+                        $('#alertDiv').append('<div class="alert alert-info" role="alert">RSVP Pending</div>');
                         $('#alertDiv').show();
                     }
                 },
@@ -68,7 +67,6 @@ $(function(){
         } else {
             $("#signinDiv").show();
         }
-
     });
 
     $('#signin').click(function () {
@@ -77,19 +75,9 @@ $(function(){
 
         parse.User.logIn(username, password, {
             success: function(user) {
-                console.log(user);
-                if (isConfirmed){
-                    isConfirmed = true;
-                    $('#signinDiv').hide();
-                    $('#locationDiv').show();
-
-                } else if(didRSVP){
-                    $('#alertDiv').append('<h4> RSVP Pending. </h4>');
-                    $('#alertDiv').show();
-
-                } else {
-                    $('#rsvpButton').show();
-                }
+                currentUser = user;
+                $('#signinDiv').hide();
+                configureUser(invites);
             },
             error: function(user, error) {
                 // The login failed. Check error to see why.
@@ -135,7 +123,9 @@ $(function(){
         $('#locationDiv').hide();
         $('#rsvpDiv').hide();
         $('#messageDiv').show();
-        $('#messageBarDiv').show();
+        if (showShowMessageBar){
+            $('#messageBarDiv').show();
+        }
     });
 
     $('#rsvps').click(function (e) {
@@ -164,23 +154,23 @@ function loadEventInfo(objectId){
 
                 eventId = object.id;
 
-                var startDate = new Date(object.get("startTime"));
-                var endDate = new Date(object.get("endTime"));
+                //var startDate = new Date(object.get("startTime"));
+                var startDate = moment(new Date(object.get("startTime"))).format("ddd, MMM Do YYYY, h:mm a");
                 //TODO: Change this
+                var endDate = moment(new Date(object.get("endTime"))).format("ddd, MMM Do YYYY, h:mm a");
                 //var createJaunt = momenttz.tz(createDate, "America/Chicago").format("ddd, MMM Do YYYY, h:mm a");
                 eventTitle = object.get('title');
                 var image = (object.get("eventImage").name())[0].src = object.get("eventImage").url();
                 var code = object.get("code");
                 var description = object.get("description");
                 eventHostId = object.get("userId");
-                loadEventUser(eventHostId,eventTitle,image,code,description,startDate,endDate);
 
                 address = object.get("address");
                 var eventLocation = object.get('location');
                 coordinates = eventLocation.latitude + "," + eventLocation.longitude;
-                var invites = object.get('invites');
+                invites = object.get('invites');
 
-                configureUser(invites);
+                loadEventUser(eventHostId,eventTitle,image,code,description,startDate,endDate);
 
             }
         },
@@ -203,12 +193,23 @@ function loadEventUser(userId, title, image, code, description, startDate, endDa
 
             $('#eventInfoDiv').append(
                 '<h1>' + title + '</h1>' +
-                '<h4>' + displayName + '- <small>' + description + '</small></h4>' +
-                '<h4> Date - <small>' + startDate +  '-' +  endDate + '</small></h4>' +
+               // '<h4>' + displayName + '- <small>' + description + '</small></h4>' +
+                '<h4> Date - <small>' + startDate +  ' - ' +  endDate + '</small></h4>' +
                 '<a href="#" class="thumbnail">' +
                 '<img alt="..." src=' + image + '>' +
                 '</a>' +
                 '<h4>event code: <span class="label label-danger">' + code + '</span> </h4>' );
+
+            //append event host description
+            appendMessage(displayName, " ", description, userImage);
+
+            //then configure current user stuff
+            if (currentUser){
+                configureUser(invites);
+            } else {
+                $("#signinDiv").show();
+            }
+
         },
         error: function(object, error) {
             // The object was not retrieved successfully.
@@ -238,6 +239,7 @@ function loadLocation(){
 //messages
 
 function configureMessages(){
+    showShowMessageBar = true;
     //TODO: load proper event id
     var Posts = parse.Object.extend('Chat');
     var query = new parse.Query(Posts);
@@ -249,8 +251,8 @@ function configureMessages(){
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
 
-                var createDate = new Date(object.createdAt);
-                //TODO: Change this 
+                //TODO: Change this
+                var createDate = moment(new Date(object.createdAt)).format("ddd, MMM Do YYYY, h:mm a");
                 //var createJaunt = momenttz.tz(createDate, "America/Chicago").format("ddd, MMM Do YYYY, h:mm a");
                 var message = object.get("message");
                 var userId = object.get("userId");
@@ -371,51 +373,46 @@ function loadUserInfo(userId, date, message, isChat){
 }
 
 function configureUser(invites) {
-    if (currentUser){
-        var User = parse.Object.extend("_User");
-        var query = new parse.Query(User);
-        query.get(currentUser.id, {
-            success: function(object) {
-                //console.log(object);
-                // The object was retrieved successfully.
-                var username = object.getUsername();
-                var displayName = object.get("DisplayName");
-                var image = (object.get("Profile").name())[0].src = object.get("Profile").url();
-                var number = object.get("phoneNumber");
+    var User = parse.Object.extend("_User");
+    var query = new parse.Query(User);
+    query.get(currentUser.id, {
+        success: function(object) {
+            //console.log(object);
+            // The object was retrieved successfully.
+            var username = object.getUsername();
+            var displayName = object.get("DisplayName");
+            var image = (object.get("Profile").name())[0].src = object.get("Profile").url();
+            var number = object.get("phoneNumber");
 
-                $('#userInfo').append(
-                    '<div class="media-left">' +
-                    '<img class="img-circle" alt="..." width="25" height="25" src=' + image + '>' +
-                    '</div>' +
-                    '<div class="media-body">' +
-                    '<h4 class="media-heading">' + displayName + '<small>' + username + '</small> </h4>' +
+            $('#userInfo').append(
+                '<div class="media-left">' +
+                '<img class="img-circle" alt="..." width="25" height="25" src=' + image + '>' +
+                '</div>' +
+                '<div class="media-body">' +
+                '<h4 class="media-heading">' + displayName + '<small>' + username + '</small> </h4>' +
 
-                    '</div>');
-                //alert(invites.length);
-                for (var i = 0; i <= invites.length; i++) {
-                    if (invites[i] == number){
-                        isInvited = true;
-                    }
+                '</div>');
+            //alert(invites.length);
+            for (var i = 0; i <= invites.length; i++) {
+                if (invites[i] == number){
+                    isInvited = true;
                 }
-
-                if (eventHostId == currentUser.id){
-                    loadLocation();
-                    configureMessages();
-                    loadRSVPs();
-
-                } else {
-                    checkRSVP();
-                }
-            },
-            error: function(object, error) {
-                // The object was not retrieved successfully.
-                // error is a Parse.Error with an error code and message.
             }
-        });
 
-    } else {
-        $('#rsvpButton').show();
-    }
+            if (eventHostId == currentUser.id){
+                loadLocation();
+                configureMessages();
+                loadRSVPs();
+
+            } else {
+                checkRSVP();
+            }
+        },
+        error: function(object, error) {
+            // The object was not retrieved successfully.
+            // error is a Parse.Error with an error code and message.
+        }
+    });
 }
 
 function checkRSVP(){
