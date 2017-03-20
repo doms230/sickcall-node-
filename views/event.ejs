@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
-    <title id="title"> <%= title %> | Hiikey</title>
+    <title id="title">  | Hiikey</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!--Ajax-->
@@ -36,6 +36,7 @@
 
 </head>
 <body>
+<h6 id="objectId" hidden="yes" > <%= objectId %>   </h6>
 
 <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -86,7 +87,7 @@
 
 <ul id="messageBarDiv" class=" navbar-fixed-bottom">
     <div class="input-group">
-        <input id="usermsg" type="text" class="form-control" placeholder= "Message" <%= title %>  >
+        <input id="usermsg" type="text" class="form-control" placeholder= "Message" + replace with event title  >
       <span class="input-group-btn">
         <button id="sendmsg" class="btn btn-default" type="button">Send</button>
       </span>
