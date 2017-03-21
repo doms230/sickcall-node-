@@ -13506,16 +13506,38 @@ function traverse(obj, encountered, shouldThrow, allowDeepUnsaved) {
 },{"./ParseFile":140,"./ParseObject":144,"./ParseRelation":148,"babel-runtime/helpers/typeof":19}],169:[function(require,module,exports){
 /**
  * Created by macmini on 3/20/17.
+ *
+ * watchify public/javascripts/loginScripts.js -o public/javascripts/loginBundle.js -v
+
  */
 
 var parse = require("parse").Parse;
 parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF"); parse.serverURL = 'http://localhost:3000/parse';
 
-//var currentUser = true;
+var parseFile;
+
+
 $(function(){
 
-    parse.User.logOut().then(() => {
-     });
+    /*parse.User.logOut().then(() => {
+        alert("logged out");
+
+     });*/
+
+    base64encode('/images/logo.png', function (base64Img) {
+        var simge = base64Img.split(',');
+        simge = simge[1];
+        parseFile = new parse.File("webImage.png", {"base64": simge});
+        parseFile.save().then(function() {
+            // The file has been saved to Parse.
+            alert("worked");
+        }, function(error) {
+            // The file either could not be read, or could not be saved to Parse.
+            alert(error);
+        });
+    });
+
+    var href = window.location.href;
 
     $('#signupAction').click(function () {
         var username =  document.getElementById('signupUsername').value;
@@ -13523,18 +13545,26 @@ $(function(){
         var email = document.getElementById('signupEmail').value;
 
         var user = new parse.User();
-        user.set("username", "my name");
-        user.set("password", "my pass");
+        user.set("username", username);
+        user.set("password", password);
         user.set("email", email);
         user.set("DisplayName", username );
-        //user.set("Profile", " ");
-        user.set("phoneNumber", " ");
-        user.set("twitter", " ");
-        user.set("facebook", " ");
+        user.set("Profile", parseFile);
+        user.set("phoneNumber", "");
+        user.set("twitter", "");
+        user.set("facebook", "");
 
         user.signUp(null, {
             success: function(user) {
-                window.location.href = "http://localhost:3000/profile" ;
+                var objectId = $('#objectId').html();
+
+                if (!href.toString().includes("?e=")){
+                    window.location.href = "http://localhost:3000/profile" ;
+
+                } else {
+                    window.location.href = "http://localhost:3000/profile?e=" + objectId ;
+                }
+
             },
             error: function(user, error) {
                 // Show the error message somewhere and let the user try again.
@@ -13563,6 +13593,21 @@ $(function(){
     //check to se if user is logged in
 
 });
+
+//process local file
+function base64encode(url, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.responseType = 'blob';
+    xhr.onload = function () {
+        var reader = new FileReader();
+        reader.onloadend = function () {
+            callback(reader.result);
+        };
+        reader.readAsDataURL(xhr.response);
+    };
+    xhr.open('GET', url);
+    xhr.send();
+}
 },{"parse":126}],170:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //

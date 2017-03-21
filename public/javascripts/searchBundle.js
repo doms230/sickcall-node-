@@ -17818,9 +17818,35 @@ var currentUser = parse.User.current();
 
 var moment = require("moment");
 
-var rsvps = [];
-var eventId = [];
+//watchify public/javascripts/searchScripts.js -o public/javascripts/searchBundle.js -v
+
+
 $(function(){
+    if (currentUser){
+        $("#navBar").append(    '<a class="navbar-brand" href="/about">' +
+            '<img alt="Hiikey">' +
+        '</a>' +
+        '<div class="container-fluid">' +
+            '<ul class="nav nav-pills">'+
+
+               ' <li role="presentation"> <a href="/home"><span class="  glyphicon glyphicon-home" aria-hidden="true"></span></a>' +
+                '</li>' +
+
+               ' <li role="presentation"><a href="/search"><span class="  glyphicon glyphicon-search" aria-hidden="true"></span></a>' +
+                '</li>' +
+
+                '<li role="presentation"><a href="/create"><span class="  glyphicon glyphicon-plus" aria-hidden="true"></span></a>' +
+                '</li>' +
+
+                '<li role="presentation"><a href="/profile"><span class=" glyphicon glyphicon-user" aria-hidden="true"></span></a>' +
+                '</li>' +
+            '</ul>' +
+        '</div>' );
+
+    } else {
+        $('#navBar').append('<p class=" navbar-text"> <a href="/logins" class="navbar-link">Sign In / Sign Up</a></p>');
+    }
+
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
     }

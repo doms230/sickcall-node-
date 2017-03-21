@@ -13515,9 +13515,18 @@ parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF"); parse.serverURL = 
 var currentUser = parse.User.current();
 var parseFile;
 
-var facebook = " ";
-var verifiedNumber = " ";
+var facebook = "";
+var verifiedNumber = "";
+
 $(function(){
+
+    var objectId = $("#objectId").html();
+
+    var href = window.location.href;
+
+    if (!href.toString().includes("?e=")){
+        $('#navBar').show();
+    }
 
     $('#digits-sdk').load(function () {
         // Initialize Digits using the API key.
@@ -13567,9 +13576,14 @@ $(function(){
                 object.set("phoneNumber", verifiedNumber);
                 object.save();
 
-                $('#userInfo').append('<div class="alert alert-success alert-dismissible" role="alert">' +
-                    '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
-                    '<strong>Your profile info has been updated.</strong></div>');
+                if (!href.toString().includes("?e=")){
+                    $('#userInfo').append('<div class="alert alert-success alert-dismissible" role="alert">' +
+                        '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+                        '<strong>Your profile info has been updated.</strong></div>');
+
+                } else {
+                    window.location.href = "http://localhost:3000/events?id=" + objectId ;
+                }
 
                 //document.getElementById('image').src
             },
@@ -13581,6 +13595,12 @@ $(function(){
                     '<strong>Oops!</strong>There was an issue updating your info. Check your internet connection and try again.' +
                     'Email us at help@hiikey.com if the issue persists.</div>');
             }
+        });
+    });
+
+    $("#signoutButton").click(function () {
+        parse.User.logOut().then(() => {
+            window.location.href = "http://localhost:3000/search"
         });
     });
 
@@ -13599,7 +13619,7 @@ function imageIsLoaded(e) {
         parseFile = new parse.File(name, file);
         parseFile.save().then(function() {
             // The file has been saved to Parse.
-            alert("worked");
+            //alert("worked");
         }, function(error) {
             // The file either could not be read, or could not be saved to Parse.
             alert(error);
@@ -13629,7 +13649,7 @@ function loadUserInfo(){
                 $("#username").html("@" + username);
                 document.getElementById('inputName').value = displayName;
 
-                if (number != " "){
+                if (number != ""){
                     document.getElementById('inputNumber').value = number;
                 }
 
@@ -13740,7 +13760,6 @@ function statusChangeCallback(response) {
         facebook = " ";
         document.getElementById('status').innerHTML = 'Please log ' +
             'into this app.' + facebook;
-
     }
 }
 
@@ -13772,10 +13791,8 @@ function testAPI() {
         console.log('Successful login for: ' + response.name);
         document.getElementById('status').innerHTML =
             'Thanks for logging in, ' + facebook + '!';
-
     });
 }
-
 },{"parse":126}],170:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //

@@ -11,15 +11,19 @@ var rsvps = [];
 var moment = require("moment");
 
 $(function(){
+    if (currentUser){
+        $("#navBar").show();
+        loadRSVPS();
 
-    loadRSVPS(); 
-
+    } else {
+        window.location.href = "http://localhost:3000/search"
+    }
 });
 
 function loadRSVPS(){
     var Posts = parse.Object.extend('RSVP');
     var query = new parse.Query(Posts);
-    query.equalTo("userId", "wcbsnOpMwH");
+    query.equalTo("userId", currentUser.id);
     query.equalTo("isRemoved", false);
     query.find({
         success: function(results) {
@@ -40,7 +44,7 @@ function loadRSVPS(){
 function loadEventInfo(rsvps){
     var Posts = parse.Object.extend('Event');
     var query = new parse.Query(Posts);
-    query.equalTo("userId", "wcbsnOpMwH");
+    query.equalTo("userId", currentUser.id);
     query.equalTo("isRemoved", false);
    // query.containedIn("objectId", rsvps);
     

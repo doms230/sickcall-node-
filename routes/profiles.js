@@ -8,7 +8,14 @@ var router = express.Router();
 
 router.get('/', function (req, res, next) {
 
-    res.render('profile', {});
+    var objectId = "reg";
+    console.log(req.query.e);
+
+    if (req.query.e != null){
+        objectId = req.query.e;
+    }
+
+    res.render('profile', {objectId: objectId});
 
 });
 

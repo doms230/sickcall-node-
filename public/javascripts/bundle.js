@@ -17835,12 +17835,8 @@ $(function(){
    // $('#rsvpButton').hide();
     // alert(currentUser.id);
 
-    //alert(objectId);
-    parse.User.logOut().then(() => {
-     loadEventInfo("LU31SRksFm");
-     });
 
-  // loadEventInfo("LU31SRksFm");
+   loadEventInfo("LU31SRksFm");
 
     $('#rsvpButton').click(function () {
         if (currentUser){
@@ -18023,6 +18019,7 @@ function loadEventUser(userId, title, image, code, description, startDate, endDa
 
             //append event host description
             appendMessage(displayName, " ", description, userImage);
+            $('#messageDiv').show();
 
             //then configure current user stuff
             if (currentUser){
