@@ -17820,8 +17820,16 @@ var moment = require("moment");
 
 //watchify public/javascripts/searchScripts.js -o public/javascripts/searchBundle.js -v
 
-
 $(function(){
+
+    $('#searchButton').click(function(){
+
+        var searchValue =  document.getElementById('searchValue').value;
+        //alert(searchValue);
+        geoCode(searchValue);
+
+    });
+
     if (currentUser){
         $("#navBar").append(    '<a class="navbar-brand" href="/about">' +
             '<img alt="Hiikey">' +
@@ -17866,7 +17874,7 @@ function loadEventInfo(point){
     var query = new parse.Query(Posts);
     query.equalTo("isRemoved", false);
     query.greaterThan("endTime", date);
-    query.near("location", point);
+    query.withinMiles("location",point, 50);
     query.ascending("startTime");
     query.find({
         success: function(results) {
@@ -17888,6 +17896,9 @@ function loadEventInfo(point){
                 var date = moment(startTime).format("ddd, MMM Do YYYY, h:mm a");
 
                 var objectId = object.id;
+
+                $('#progress').hide();
+                $('#searchGroup').show();
 
                 $('#eventdiv').append( '<div class="page-header" id=' + objectId + ' >' +
                     '<div class="media">' +
@@ -17913,6 +17924,72 @@ function loadEventInfo(point){
             //res.send("Error: " + error.code + " " + error.message);
         }
     });
+
+
+
+
+    function findEvent(eventCode){
+        var Posts = parse.Object.extend('Event');
+        var query = new parse.Query(Posts);
+        query.equalTo("code", eventCode);
+        query.find({
+            success: function(results) {
+                // Do something with the returned Parse.Object values
+                if (results.length > 0){
+                   //alert('ya');
+                    for (var i = 0; i < results.length; i++) {
+
+                        var objectId = object.id;
+
+                        window.location.href = "http://localhost:3000/events?id=" + objectId ;
+                    }
+                } else {
+                    //show dismissable alert above event div
+                    alert('nah');
+                }
+
+            },
+            error: function(error) {
+                //alert("Error: " + error.code + " " + error.message);
+                //res.send("Error: " + error.code + " " + error.message);
+            }
+        });
+    }
+}
+
+function geoCode(searchValue) {
+    var key = 'AIzaSyDL1MYUxhB8a5yfIB4B0X3VISgS-Kw3IcA';
+    var url = "https://maps.googleapis.com/maps/api/geocode/json";
+
+    var myNode = document.getElementById("eventdiv");
+     while (myNode.firstChild) {
+     myNode.removeChild(myNode.firstChild);
+
+     }
+
+    $.ajax({
+        url : url,
+        type : 'GET',
+        data : {
+            key: key,
+            address : searchValue,
+            sensor : false
+        },
+        async : false,
+        success : function(result) {
+
+            try {
+                //position.lat = result.results[0].geometry.location.lat;
+                //position.lng = result.results[0].geometry.location.lng;
+                //alert(result.results[0].geometry.location.lat);
+                var point = new parse.GeoPoint({latitude: result.results[0].geometry.location.lat , longitude: result.results[0].geometry.location.lng});
+                loadEventInfo(point);
+            } catch(err) {
+                alert(err);
+            }
+        }
+    });
+    //return position;
 }
 },{"moment":126,"parse":127}],171:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.

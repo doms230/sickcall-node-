@@ -12,7 +12,7 @@ parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF",
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('eventCode',{});
+    res.render('home',{});
    /* var query = new parse.Query(parse.Installation);
     query.equalTo('userId', 'ios');
     parse.Push.send({
