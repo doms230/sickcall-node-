@@ -17823,11 +17823,34 @@ var moment = require("moment");
 $(function(){
 
     $('#searchButton').click(function(){
-
+        $('#noEventsGroup').hide();
+        $('#welcomeGroup').hide();
         var searchValue =  document.getElementById('searchValue').value;
         //alert(searchValue);
         geoCode(searchValue);
+    });
 
+    $('#closeEventsButton').click(function(){
+        $('#noEventsGroup').hide();
+        $('#welcomeGroup').hide();
+        if (navigator.geolocation) {
+            $('#progress').show();
+            navigator.geolocation.getCurrentPosition(showPosition);
+
+        } else {
+            $('#welcomeGroup').show();
+        }
+    });
+
+    $('#noEventsButton').click(function(){
+        $('#noEventsGroup').hide();
+        if (navigator.geolocation) {
+            $('#progress').show();
+            navigator.geolocation.getCurrentPosition(showPosition);
+
+        } else {
+            $('#welcomeGroup').show();
+        }
     });
 
     if (currentUser){
@@ -17852,12 +17875,15 @@ $(function(){
         '</div>' );
 
     } else {
-        $('#navBar').append('<p class=" navbar-text"> <a href="/logins" class="navbar-link">Sign In / Sign Up</a></p>');
+        $('#navBar').append('<a class="navbar-brand" href="/about">' +
+            '<img alt="Hiikey | ">' +
+            '</a>' + '<p class=" navbar-text">  Welcome! <a href="/logins" class="navbar-link">Sign In / Sign Up</a></p>');
+
     }
 
-    if (navigator.geolocation) {
+    /*if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
-    }
+    }*/
 });
 
 function showPosition(position) {
@@ -17879,6 +17905,10 @@ function loadEventInfo(point){
     query.find({
         success: function(results) {
             // Do something with the returned Parse.Object values
+
+            if(results.length == 0){
+                $('#noEventsGroup').show();
+            }
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
 
@@ -17898,7 +17928,7 @@ function loadEventInfo(point){
                 var objectId = object.id;
 
                 $('#progress').hide();
-                $('#searchGroup').show();
+                //$('#searchGroup').show();
 
                 $('#eventdiv').append( '<div class="page-header" id=' + objectId + ' >' +
                     '<div class="media">' +
@@ -17914,7 +17944,7 @@ function loadEventInfo(point){
                     '</div>' );
 
                 $("#" + objectId).click(function(){
-                    window.location.href = "http://localhost:3000/events?id=" + $(this).attr("id") ;
+                    window.location.href = "http://192.168.1.66:3000/events?id=" + $(this).attr("id") ;
                     //alert($(this).attr("id"));
                 });
             }
@@ -17941,7 +17971,7 @@ function loadEventInfo(point){
 
                         var objectId = object.id;
 
-                        window.location.href = "http://localhost:3000/events?id=" + objectId ;
+                        window.location.href = "http://192.168.1.66:3000/events?id=" + objectId ;
                     }
                 } else {
                     //show dismissable alert above event div

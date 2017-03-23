@@ -7,7 +7,7 @@
 
 //signinDiv
 var parse = require("parse").Parse;
-parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF"); parse.serverURL = 'http://localhost:3000/parse';
+parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF"); parse.serverURL = 'http://192.168.1.66:3000/parse';
 var moment = require("moment");
 
 var currentUser = parse.User.current();
@@ -110,19 +110,19 @@ $(function(){
         });
     });
 
-    $('#location').click(function (e) {
+   /* $('#location').click(function (e) {
         e.preventDefault();
         $(this).tab('show');
         $('#rsvpDiv').hide();
         $('#messageDiv').hide();
         $('#messageBarDiv').hide();
         $('#locationDiv').show();
-    });
+    });*/
 
     $('#messages').click(function (e) {
         e.preventDefault();
         $(this).tab('show');
-        $('#locationDiv').hide();
+       // $('#locationDiv').hide();
         $('#rsvpDiv').hide();
         $('#messageDiv').show();
         if (showShowMessageBar){
@@ -133,7 +133,7 @@ $(function(){
     $('#rsvps').click(function (e) {
         e.preventDefault();
         $(this).tab('show');
-        $('#locationDiv').hide();
+     //   $('#locationDiv').hide();
         $('#messageDiv').hide();
         $('#messageBarDiv').hide();
         $('#rsvpDiv').show();
@@ -203,7 +203,7 @@ function loadEventUser(userId, title, image, code, description, startDate, endDa
                 '<h1>' + title + '</h1>' +
                // '<h4>' + displayName + '- <small>' + description + '</small></h4>' +
                 '<h4> Date - <small>' + startDate +  ' - ' +  endDate + '</small></h4>' +
-                '<a href="#" class="thumbnail">' +
+                '<a class="thumbnail">' +
                 '<img alt="..." src=' + image + '>' +
                 '</a>' +
                 '<h4>event code: <span class="label label-danger">' + code + '</span> </h4>' );

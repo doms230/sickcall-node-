@@ -13516,13 +13516,12 @@ parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF"); parse.serverURL = 
 
 var parseFile;
 
-
+var currentUser = parse.User.current();
 $(function(){
 
-    /*parse.User.logOut().then(() => {
-        alert("logged out");
-
-     });*/
+    if (currentUser){
+        window.location.href = "http://localhost:3000/profile"
+    }
 
     base64encode('/images/logo.png', function (base64Img) {
         var simge = base64Img.split(',');
@@ -13530,7 +13529,7 @@ $(function(){
         parseFile = new parse.File("webImage.png", {"base64": simge});
         parseFile.save().then(function() {
             // The file has been saved to Parse.
-            alert("worked");
+            //alert("worked");
         }, function(error) {
             // The file either could not be read, or could not be saved to Parse.
             alert(error);
@@ -13576,15 +13575,16 @@ $(function(){
     $('#signinButton').click(function (e) {
         e.preventDefault();
         $(this).tab('show');
-        $('#signup').hide();
-        $('#signin').show();
+        alert("asdf");
+       // $('#signup').hide();
+        //$('#signin').show();
     });
 
     $('#signupButton').click(function (e) {
         e.preventDefault();
         $(this).tab('show');
-        $('#signup').hide();
-        $('#signin').show();
+        //$('#signup').hide();
+        //$('#signin').show();
     });
 
 

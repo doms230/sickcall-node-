@@ -20,6 +20,7 @@ $(function(){
 
     if (!href.toString().includes("?e=")){
         $('#navBar').show();
+
     }
 
     $('#digits-sdk').load(function () {

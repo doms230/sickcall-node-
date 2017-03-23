@@ -27,20 +27,33 @@
  </br>
  </br>
 
- <div class="container-fluid">
-     <div id="searchGroup" class="input-group" hidden= "yes">
+ <div id="searchGroup" class="container-fluid" >
+     <div  class="input-group" >
          <input id="searchValue" type="text" class="form-control" placeholder="City" aria-label="...">
          <div class="input-group-btn">
              <button id="searchButton" class="btn btn-default" type="button">Search</button>
 
          </div><!-- /btn-group -->
      </div><!-- /input-group -->
+ </div>
 
-     <div id="progress" class="progress">
+ <div id="progress" class="container-fluid" >
+     <div class="progress" hidden="yes">
          <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
              <span class="sr-only">100% Complete</span>
          </div>
      </div>
+ </div>
+
+ <div id="welcomeGroup"  class="container-fluid">
+     <h3>Hiikey is the simplest way to organize and discover secret events.</h3>
+     <p>Hiikey uses your location to find events near you. </p>
+     <button id="closeEventsButton" class="btn btn-default" type="button">Find Events</button>
+ </div>
+
+ <div id="noEventsGroup"  class="container-fluid" hidden="yes">
+     <h4>We couldn't find any events</h4>
+     <button id="noEventsButton" class="btn btn-default" type="button">Find events near me</button>
  </div>
 
 <div  id="eventdiv" class="container-fluid" >
