@@ -66,23 +66,36 @@ $(function(){
         });
     });
 
+
+    $('#signinAction').click(function () {
+        var username =  document.getElementById('inputUsername').value;
+        var password =  document.getElementById('inputPassword').value;
+
+        parse.User.logIn(username, password, {
+            success: function(user) {
+                window.location.href = "http://localhost:3000/profile" ;
+
+            },
+            error: function(user, error) {
+                alert(error);
+            }
+        });
+    });
+
     $('#signinButton').click(function (e) {
         e.preventDefault();
         $(this).tab('show');
-        alert("asdf");
-       // $('#signup').hide();
-        //$('#signin').show();
+       // alert("asdf");
+        $('#signup').hide();
+        $('#signin').show();
     });
 
     $('#signupButton').click(function (e) {
         e.preventDefault();
         $(this).tab('show');
-        //$('#signup').hide();
-        //$('#signin').show();
+        $('#signin').hide();
+        $('#signup').show();
     });
-
-
-
 
     //check to se if user is logged in
 

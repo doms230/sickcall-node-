@@ -9,6 +9,7 @@
 var parse = require("parse").Parse;
 parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF"); parse.serverURL = 'http://192.168.1.66:3000/parse';
 var moment = require("moment");
+var config = require("./config");
 
 var currentUser = parse.User.current();
 var showShowMessageBar = false;
@@ -25,9 +26,18 @@ var invites;
 $(function(){
    // $('#rsvpButton').hide();
     // alert(currentUser.id);
+    //var x = document.getElementById('objectId').value
+   // var y = $('#objectId').html();
 
+    //var url = href.match('/id=(.+)/')[1];
 
-   loadEventInfo("LU31SRksFm");
+    alert(config.test);
+
+    var url = window.location.toString();
+    var ya = url.split("=");
+
+   //
+   loadEventInfo(ya[1]);
 
     $('#rsvpButton').click(function () {
         if (currentUser){
@@ -49,10 +59,14 @@ $(function(){
                         configureMessages();
                         loadRSVPs();
 
+                        sendNotification(eventHostId, currentUser.username + "joined your" + eventTitle + "guest list.");
+
                     } else {
                         $('#rsvpButton').hide();
                         $('#alertDiv').append('<div class="alert alert-info" role="alert">RSVP Pending</div>');
                         $('#alertDiv').show();
+
+                        sendNotification(eventHostId, currentUser.username + "requested access to " + eventTitle + ".");
                     }
                 },
                 error: function(gameScore, error) {
@@ -467,6 +481,29 @@ function checkRSVP(){
             //alert("error");
             //alert("Error: " + error.code + " " + error.message);
             //res.send("Error: " + error.code + " " + error.message);
+        }
+    });
+}
+
+function sendNotification(userId, message){
+    $.ajax({
+        url : "https://hiikey.herokuapp.com/notifications",
+        type : 'GET',
+        data : {
+            userId: userId,
+            message : message
+           },
+        async : false,
+        success : function(result) {
+
+            try {
+                //position.lat = result.results[0].geometry.location.lat;
+                //position.lng = result.results[0].geometry.location.lng;
+                //alert(result.results[0].geometry.location.lat);
+
+            } catch(err) {
+                alert(err);
+            }
         }
     });
 }

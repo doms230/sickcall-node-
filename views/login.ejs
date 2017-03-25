@@ -13,6 +13,9 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <!-- Bootstrap core CSS -->
 
     <link href="/stylesheets/style.css" rel="stylesheet">
@@ -21,38 +24,47 @@
 
 <h6 id="objectId" hidden="yes" > <%= objectId %>   </h6>
 
+
 <div class="container">
 
-    <ul class="nav nav-pills">
-        <li id="signupButton" role="presentation" class="active"><a>Sign Up</a></li>
-        <li id="signinButton" role="presentation"><a>Sign In</a></li>
-    </ul>
+     <ul class="nav nav-pills">
+        <li href="#" id="signupButton" role="presentation" class="active"><a>Sign Up</a></li>
+         <li href="#" id="signinButton" role="presentation"><a>Sign In</a></li>
+         </ul>
 
     <h1> Hiikey</h1>
-    <form id="signin" class="form-signin" hidden = "yes">
+
+
+    </br>
+
+</div> <!-- /container -->
+
+<div class="container-fluid" id="signin" hidden="yes"  >
+    <form  class="form-signin" >
         <h3 class="form-signin-heading"> Sign In</h3>
         <input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" value="remember-me"> Remember me
-            </label>
-        </div>
-        <button id="d" class="btn btn-lg btn-default btn-block" type="submit">Sign in</button>
     </form>
+    <button id="signinAction" class="btn btn-lg btn-default btn-block" type="submit">Sign in</button>
 
-    <form id="signup" class="form-signin">
+</div>
+
+<div class="container-fluid" id="signup"  >
+    <form  class="form-signin">
         <h3 class="form-signin-heading">Sign Up</h3>
         <input type="text" id="signupUsername" class="form-control" placeholder="Username" required autofocus>
         <input type="email" id="signupEmail" class="form-control" placeholder="Email" required autofocus>
         <input type="password" id="signupPassword" class="form-control" placeholder="Password" required>
     </form>
     <button id="signupAction" class="btn btn-lg btn-default btn-block" type="submit">Sign up</button>
+</div>
 
-    </br>
-
-</div> <!-- /container -->
+<nav aria-label="...">
+    <ul class="pager">
+        <li><a href="Search" id="signoutButton" >Go Back</a></li>
+    </ul>
+</nav>
 
 </body>
 </html>

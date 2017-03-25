@@ -16,3 +16,9 @@
 {"level":"info","message":"Client disconnect: 7","timestamp":"2017-03-23T03:53:48.408Z"}
 {"level":"info","message":"Create new client: 8","timestamp":"2017-03-23T03:54:43.223Z"}
 {"level":"info","message":"Client disconnect: 8","timestamp":"2017-03-23T03:54:45.911Z"}
+{"level":"info","message":"Create new client: 9","timestamp":"2017-03-23T17:31:32.877Z"}
+{"level":"info","message":"Client disconnect: 9","timestamp":"2017-03-23T17:34:17.568Z"}
+{"level":"info","message":"Create new client: 10","timestamp":"2017-03-23T17:34:41.516Z"}
+{"level":"info","message":"Client disconnect: 10","timestamp":"2017-03-23T17:37:09.925Z"}
+{"level":"info","message":"Client disconnect: NaN","timestamp":"2017-03-23T17:37:10.124Z"}
+{"level":"error","message":"Can not find client NaN on disconnect","timestamp":"2017-03-23T17:37:10.125Z"}

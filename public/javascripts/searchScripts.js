@@ -9,6 +9,8 @@ var currentUser = parse.User.current();
 
 var moment = require("moment");
 
+
+
 //watchify public/javascripts/searchScripts.js -o public/javascripts/searchBundle.js -v
 
 $(function(){
