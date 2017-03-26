@@ -17905,7 +17905,7 @@ $(function(){
     });
 
     $('#signup').click(function(){
-        window.location.href = "https://hiikey.heroku.com/logins?e=LU31SRksFm" ;
+        window.location.href = "https://www.hiikey.com/logins?e=LU31SRksFm" ;
     });
 
     $('#sendmsg').click(function (e) {

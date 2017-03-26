@@ -14,7 +14,7 @@ var currentUser = parse.User.current();
 $(function(){
 
     if (currentUser){
-        window.location.href = "https://hiikey.herokuapp.com/profile"
+        window.location.href = "https://www.hiikey.com/profile"
     }
 
     base64encode('/images/logo.png', function (base64Img) {
@@ -52,10 +52,10 @@ $(function(){
                 var objectId = $('#objectId').html();
 
                 if (!href.toString().includes("?e=")){
-                    window.location.href = "https://hiikey.herokuapp.com/profile" ;
+                    window.location.href = "https://www.hiikey.com/profile" ;
 
                 } else {
-                    window.location.href = "https://hiikey.herokuapp.com/profile?e=" + objectId ;
+                    window.location.href = "https://www.hiikey.com/profile?e=" + objectId ;
                 }
 
             },
@@ -73,7 +73,7 @@ $(function(){
 
         parse.User.logIn(username, password, {
             success: function(user) {
-                window.location.href = "https://hiikey.herokuapp.com/profile" ;
+                window.location.href = "https://www.hiikey.com/profile" ;
 
             },
             error: function(user, error) {

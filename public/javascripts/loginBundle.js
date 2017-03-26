@@ -13512,7 +13512,7 @@ function traverse(obj, encountered, shouldThrow, allowDeepUnsaved) {
  */
 
 var parse = require("parse").Parse;
-parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF"); parse.serverURL = 'http://localhost:3000/parse';
+parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF"); parse.serverURL = 'https://hiikey.herokuapp.com/parse';
 
 var parseFile;
 
@@ -13520,7 +13520,7 @@ var currentUser = parse.User.current();
 $(function(){
 
     if (currentUser){
-        window.location.href = "http://localhost:3000/profile"
+        window.location.href = "https://www.hiikey.com/profile"
     }
 
     base64encode('/images/logo.png', function (base64Img) {
@@ -13558,10 +13558,10 @@ $(function(){
                 var objectId = $('#objectId').html();
 
                 if (!href.toString().includes("?e=")){
-                    window.location.href = "http://localhost:3000/profile" ;
+                    window.location.href = "https://www.hiikey.com/profile" ;
 
                 } else {
-                    window.location.href = "http://localhost:3000/profile?e=" + objectId ;
+                    window.location.href = "https://www.hiikey.com/profile?e=" + objectId ;
                 }
 
             },
@@ -13579,7 +13579,7 @@ $(function(){
 
         parse.User.logIn(username, password, {
             success: function(user) {
-                window.location.href = "http://localhost:3000/profile" ;
+                window.location.href = "https://www.hiikey.com/profile" ;
 
             },
             error: function(user, error) {

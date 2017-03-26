@@ -137,7 +137,7 @@ function loadEventInfo(point){
                     '</div>' );
 
                 $("#" + objectId).click(function(){
-                    window.location.href = "https://hiikey.herokuapp.com/events?id=" + $(this).attr("id") ;
+                    window.location.href = "https://www.hiikey.com/events?id=" + $(this).attr("id") ;
                     //alert($(this).attr("id"));
                 });
             }
@@ -164,7 +164,7 @@ function loadEventInfo(point){
 
                         var objectId = object.id;
 
-                        window.location.href = "https://hiikey.herokuapp.com/events?id=" + objectId ;
+                        window.location.href = "https://www.hiikey.com/events?id=" + objectId ;
                     }
                 } else {
                     //show dismissable alert above event div

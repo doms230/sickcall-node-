@@ -77,7 +77,7 @@ $(function(){
                         '<strong>Your profile info has been updated.</strong></div>');
 
                 } else {
-                    window.location.href = "https://hiikey.herokuapp.com/events?id=" + objectId ;
+                    window.location.href = "https://www.hiikey.com/events?id=" + objectId ;
                 }
 
                 //document.getElementById('image').src
@@ -95,7 +95,7 @@ $(function(){
 
     $("#signoutButton").click(function () {
         parse.User.logOut().then(() => {
-            window.location.href = "https://hiikey.herokuapp.com/logins"
+            window.location.href = "https://www.hiikey.com/logins"
         });
     });
 
