@@ -17815,7 +17815,7 @@ function traverse(obj, encountered, shouldThrow, allowDeepUnsaved) {
 
 //signinDiv
 var parse = require("parse").Parse;
-parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF"); parse.serverURL = 'https://hiikey.heroku.com/parse';
+parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF"); parse.serverURL = 'https://hiikey.herokuapp.com/parse';
 var moment = require("moment");
 
 var currentUser = parse.User.current();
