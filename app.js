@@ -75,11 +75,11 @@ var api = new ParseServer({
 
 var dashboard = new ParseDashboard({
   "apps": [{
-    "serverURL": 'https://www.hiikey.com/parse', // Not localhost
+    "serverURL": 'https://hiikey.herokuapp.com/parse', // Not localhost
     "appId": 'O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF',
     "masterKey": 'lykNp62jc700RfU3EOr0WRe8ZCZJ4kiD4ZI4FRaZ',
     "appName": "Hiikey",
-    "production": false,
+    "production": true,
     "iconName": "logo.png"
   }],
   "users": [
