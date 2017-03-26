@@ -17813,10 +17813,12 @@ function traverse(obj, encountered, shouldThrow, allowDeepUnsaved) {
 
 
 var parse = require("parse").Parse;
-parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF"); parse.serverURL = 'http://192.168.1.66:3000/parse';
+parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF"); parse.serverURL = 'https://hiikey.herokuapp.com/parse';
 var currentUser = parse.User.current();
 
 var moment = require("moment");
+
+
 
 //watchify public/javascripts/searchScripts.js -o public/javascripts/searchBundle.js -v
 
@@ -17944,7 +17946,7 @@ function loadEventInfo(point){
                     '</div>' );
 
                 $("#" + objectId).click(function(){
-                    window.location.href = "http://192.168.1.66:3000/events?id=" + $(this).attr("id") ;
+                    window.location.href = "https://hiikey.herokuapp.com/events?id=" + $(this).attr("id") ;
                     //alert($(this).attr("id"));
                 });
             }
@@ -17971,7 +17973,7 @@ function loadEventInfo(point){
 
                         var objectId = object.id;
 
-                        window.location.href = "http://192.168.1.66:3000/events?id=" + objectId ;
+                        window.location.href = "https://hiikey.herokuapp.com/events?id=" + objectId ;
                     }
                 } else {
                     //show dismissable alert above event div

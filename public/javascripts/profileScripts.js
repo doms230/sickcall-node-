@@ -5,7 +5,7 @@
  */
 
 var parse = require("parse").Parse;
-parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF"); parse.serverURL = 'http://localhost:3000/parse';
+parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF"); parse.serverURL = 'https://hiikey.herokuapp.com/parse';
 var currentUser = parse.User.current();
 var parseFile;
 
@@ -77,7 +77,7 @@ $(function(){
                         '<strong>Your profile info has been updated.</strong></div>');
 
                 } else {
-                    window.location.href = "http://localhost:3000/events?id=" + objectId ;
+                    window.location.href = "https://hiikey.herokuapp.com/events?id=" + objectId ;
                 }
 
                 //document.getElementById('image').src
@@ -95,7 +95,7 @@ $(function(){
 
     $("#signoutButton").click(function () {
         parse.User.logOut().then(() => {
-            window.location.href = "http://localhost:3000/search"
+            window.location.href = "https://hiikey.herokuapp.com/logins"
         });
     });
 

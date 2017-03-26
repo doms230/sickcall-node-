@@ -52,7 +52,8 @@ function sendInvite(phoneNumber, guestName, hostName, eventName, code, date) {
 
         to: phoneNumber, // Any number Twilio can deliver to
         from: '+18562194216 ', // A number you bought from Twilio and can use for outbound communication
-        body: ' "Hey ' + guestName + ", you're invited to " + eventName + ' on '  + date + '! Check it out here: www.hiikey.com/events?id=' + code + ' "-' + hostName
+        body: ' Hey ' + guestName + ', ' + hostName + ' invited you to ' + eventName + '! Get the details here: https://www.hiikey.com/events?id=' + code +
+            '\n\n' + 'https://www.hiikey.com/app is the simplest way to organize & join secret events.'
         // body of the SMS message
 
     }, function(err, responseData) { //this function is executed when a response is received from Twilio

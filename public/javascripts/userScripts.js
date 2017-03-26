@@ -1,7 +1,7 @@
 /**
- * Created by d_innovator on 2/28/17.
+ * Created by macmini on 3/25/17.
  *
- * watchify public/javascripts/myEventScripts.js -o public/javascripts/myEventBundle.js -v
+ * watchify public/javascripts/userScripts.js -o public/javascripts/userBundle.js -v
  */
 
 var parse = require("parse").Parse;
@@ -13,14 +13,26 @@ var rsvps = [];
 var moment = require("moment");
 
 $(function(){
-    if (currentUser){
-        $("#navBar").show();
-        loadEventInfo(true);
-        loadRSVPS();
 
-    } else {
-        window.location.href = "https://hiikey.herokuapp.com/search"
-    }
+    var url = window.location.pathname.toString();
+    var ya = url.split("/");
+    //alert();
+
+    var Posts = parse.Object.extend('_User');
+    var query = new parse.Query(Posts);
+    // query.equalTo("code", eventCode);
+    query.equalTo("username", ya[2]);
+    query.first({
+        success: function(object) {
+
+            var objectId = object.id;
+            loadEventInfo(objectId, true);
+            loadRSVPS(objectId);
+        },
+        error: function(error) {
+            alert("Error: " + error.code + " " + error.message);
+        }
+    });
 
     $('#host').click(function (e) {
         e.preventDefault();
@@ -39,10 +51,10 @@ $(function(){
     });
 });
 
-function loadRSVPS(){
+function loadRSVPS(user){
     var Posts = parse.Object.extend('RSVP');
     var query = new parse.Query(Posts);
-    query.equalTo("userId", currentUser.id);
+    query.equalTo("userId", user);
     query.equalTo("isRemoved", false);
     query.find({
         success: function(results) {
@@ -51,7 +63,7 @@ function loadRSVPS(){
                 var object = results[i];
                 rsvps[i] =  object.get("eventId");
             }
-            loadEventInfo(false);
+            loadEventInfo(user, false);
         },
         error: function(error) {
             //alert("Error: " + error.code + " " + error.message);
@@ -60,21 +72,23 @@ function loadRSVPS(){
     });
 }
 
-function loadEventInfo(isHost){
+function loadEventInfo(user, isHost){
     var Posts = parse.Object.extend('Event');
     var query = new parse.Query(Posts);
     query.equalTo("isRemoved", false);
 
     if (isHost){
-        query.equalTo("userId", currentUser.id);
+        query.equalTo("userId", user);
 
     } else {
         query.containedIn("objectId", rsvps);
+
     }
 
     query.find({
         success: function(results) {
             // Do something with the returned Parse.Object values
+
             if (results == 0){
                 if (isHost){
                     $('#hostdiv').append(

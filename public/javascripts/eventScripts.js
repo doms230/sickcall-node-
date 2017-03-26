@@ -2,14 +2,12 @@
  * Created by d_innovator on 2/12/17.
  * git
  * watchify public/javascripts/eventScripts.js -o public/javascripts/bundle.js -v
-
  */
 
 //signinDiv
 var parse = require("parse").Parse;
-parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF"); parse.serverURL = 'http://192.168.1.66:3000/parse';
+parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF"); parse.serverURL = 'https://hiikey.heroku.com/parse';
 var moment = require("moment");
-var config = require("./config");
 
 var currentUser = parse.User.current();
 var showShowMessageBar = false;
@@ -30,8 +28,6 @@ $(function(){
    // var y = $('#objectId').html();
 
     //var url = href.match('/id=(.+)/')[1];
-
-    alert(config.test);
 
     var url = window.location.toString();
     var ya = url.split("=");
@@ -100,7 +96,7 @@ $(function(){
     });
 
     $('#signup').click(function(){
-        window.location.href = "http://localhost:3000/logins?e=LU31SRksFm" ;
+        window.location.href = "https://hiikey.heroku.com/logins?e=LU31SRksFm" ;
     });
 
     $('#sendmsg').click(function (e) {
@@ -123,15 +119,6 @@ $(function(){
             }
         });
     });
-
-   /* $('#location').click(function (e) {
-        e.preventDefault();
-        $(this).tab('show');
-        $('#rsvpDiv').hide();
-        $('#messageDiv').hide();
-        $('#messageBarDiv').hide();
-        $('#locationDiv').show();
-    });*/
 
     $('#messages').click(function (e) {
         e.preventDefault();
@@ -220,7 +207,12 @@ function loadEventUser(userId, title, image, code, description, startDate, endDa
                 '<a class="thumbnail">' +
                 '<img alt="..." src=' + image + '>' +
                 '</a>' +
-                '<h4>event code: <span class="label label-danger">' + code + '</span> </h4>' );
+                '<h4>event code: <span class="label label-danger">' + code + '</span> </h4> '+
+                '<nav aria-label="...">'+
+                '<ul class="pager">'+
+                '<li><a href="app" >Open in App</a></li>'+
+            '</ul>'+
+            '</nav>');
 
             //append event host description
             appendMessage(displayName, " ", description, userImage);
@@ -262,6 +254,7 @@ function loadLocation(){
 //messages
 
 function configureMessages(){
+    $('#messageBarDiv').show();
     showShowMessageBar = true;
     //TODO: load proper event id
     var Posts = parse.Object.extend('Chat');
@@ -334,11 +327,20 @@ function loadRSVPs(){
     query.find({
         success: function(results) {
             // Do something with the returned Parse.Object values
-            for (var i = 0; i < results.length; i++) {
-                var object = results[i];
 
-                var userId = object.get("userId");
-                loadUserInfo(userId,"","",false);
+            if (results.length == 0){
+                $('#rsvpDiv').append(
+                    '<div class="alert alert-info" role="alert">No Guests Yet</div>'
+                )
+
+            } else {
+                for (var i = 0; i < results.length; i++) {
+                    var object = results[i];
+
+                    var userId = object.get("userId");
+                    loadUserInfo(userId,"","",false);
+
+                }
             }
         },
         error: function(error) {
@@ -379,8 +381,6 @@ function loadUserInfo(userId, date, message, isChat){
             var displayName = object.get("DisplayName");
 
             var image = (object.get("Profile").name())[0].src = object.get("Profile").url();
-
-
 
             if (isChat){
                 appendMessage(username, date, message, image);
@@ -429,6 +429,7 @@ function configureUser(invites) {
                 loadLocation();
                 configureMessages();
                 loadRSVPs();
+               // $('#messageBarDiv').show();
 
             } else {
                 checkRSVP();
@@ -466,6 +467,7 @@ function checkRSVP(){
                         loadLocation();
                         configureMessages();
                         loadRSVPs();
+
 
                     } else {
                         $('#alertDiv').append('<div class="alert alert-info" role="alert">RSVP Pending</div>');

@@ -20,27 +20,12 @@
 </head>
 <body>
 
-<nav id="navBar" class="navbar navbar-default navbar-fixed-top" hidden = "yes">
-    <a class="navbar-brand" href="/about">
-        <img alt="Hiikey">
+<nav id="navBar" class="navbar navbar-default navbar-fixed-top">
+    <a class="navbar-brand" href="/home">
+        <img alt="EXIT">
     </a>
-    <div class="container-fluid">
-        <ul id="ya" class="nav nav-pills">
 
-            <li  role="presentation"> <a href="/home"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
-            </li>
-
-            <li role="presentation"><a href="/search"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
-            </li>
-
-            <li role="presentation"><a href="/create"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
-
-            </li>
-            <li role="presentation"><a href="/profile"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
-            </li>
-
-        </ul>
-    </div>
+    <h4><%= user %>'s Events </h4>
 </nav>
 
 </br>
@@ -66,5 +51,5 @@
 </body>
 </html>
 
-<script src="/javascripts/myEventBundle.js"></script>
-<script src="/javascripts/myEventScripts.js"></script>
+<script src="/javascripts/userBundle.js"></script>
+<script src="/javascripts/userScripts.js"></script>
