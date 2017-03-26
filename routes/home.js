@@ -12,31 +12,9 @@ parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF",
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('home',{});
-   /* var query = new parse.Query(parse.Installation);
-    query.equalTo('userId', 'ios');
-    parse.Push.send({
-        where: query,
-        data: {
-            alert: 'Test',
-            badge: 1,
-            sound: 'default'
-        }
-    }, {
-        useMasterKey: true,
-        success: function () {
-            console.log("asdf");
-        },
-        error: function (error) {
-            // There was a problem :(
-            console.log(error);
-        }
+    res.render('myEvent',{});
 
-    });*/
 });
 
-/*router.get('/:id', function(req, res, next) {
-    //res.send(req.params.id)
-});*/
 
 module.exports = router;
