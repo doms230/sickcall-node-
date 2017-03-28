@@ -71,7 +71,6 @@ $(function(){
         $('#navBar').append('<a class="navbar-brand" href="/about">' +
             '<img alt="Hiikey | ">' +
             '</a>' + '<p class=" navbar-text">  Welcome! <a href="/logins" class="navbar-link">Sign In / Sign Up</a></p>');
-
     }
 
     /*if (navigator.geolocation) {
