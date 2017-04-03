@@ -20,7 +20,6 @@ $(function(){
 
     if (!href.toString().includes("?e=")){
         $('#navBar').show();
-
     }
 
     $('#digits-sdk').load(function () {
@@ -43,8 +42,7 @@ $(function(){
         '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
    ' <strong>Linking your Facebook allows hosts verify your identity before they give you access to their events.</strong></div>  <fb:login-button data-auto-logout-link="true" data-size="large" scope="public_profile,email" onlogin="checkLoginState();">' +
         '</fb:login-button>  </br> </br>  <button id="updateInfo" class="btn btn-lg btn-default btn-block" type="submit">Update Info</button>');
-
-
+    
     // $('#updatePhoto').click(function () {
         $(":file").change(function () {
             if (this.files && this.files[0]) {
@@ -170,7 +168,6 @@ function onLoginButtonClick(event) {
     Digits.logIn().done(onLogin).fail(onLoginFailure);
 }
 
-
 /**
  * Handle the login once the user has completed the sign in with Digits.
  * We must POST these headers to the server to safely invoke the Digits API
@@ -184,7 +181,7 @@ function onLogin(loginResponse) {
     //setDigitsButton('Signing In…');
     $.ajax({
         type: 'POST',
-        url: '/digits/digits',
+        url: 'https://www.hiikey.com/digits/digits',
         data: oAuthHeaders,
         success: onDigitsSuccess
     });
@@ -195,8 +192,7 @@ function onLogin(loginResponse) {
  */
 function onLoginFailure(loginResponse) {
     console.log('Digits login failed.');
-    setDigitsButton('Sign In with Phone');
-    alert("fail");
+    alert(loginResponse);
     document.getElementById('inputNumber').value = " ";
     verifiedNumber = " ";
 }
@@ -226,16 +222,6 @@ function parseOAuthHeaders(oAuthEchoHeaders) {
         apiUrl: apiUrl,
         credentials: credentials
     };
-}
-
-// Set the Digits button label (and make sure it is not disabled).
-function setDigitsButton(text) {
-    $('.digits-button').text(text).removeAttr('disabled');
-}
-
-// Set the Digits phone number (and disable the button).
-function setDigitsNumber(phoneNumber) {
-    $('.digits-button').text(phoneNumber).attr('disabled', 'disabled');
 }
 
 //facebook stuff
