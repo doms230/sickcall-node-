@@ -27,7 +27,7 @@ var isCurrentUser = false;
         var eventCode = req.query.id;
         //loadEvent(res, eventCode, true);
 
-        res.render('event', {objectId: eventCode});
+        loadEvent(res, eventCode);
 
     });
 
@@ -47,40 +47,11 @@ function loadEvent(res, eventCode){
 
                 var userId = object.get('userId');
                 var title = object.get('title');
-
-                var startDate = object.get('startTime');
-                var startJaunt = momenttz.tz(startDate, "America/Chicago").format("ddd, MMM Do YYYY, h:mm a");
-
-                var endDate = new Date(object.get('endTime'));
-                var endJaunt = momenttz.tz(endDate, "America/Chicago").format("ddd, MMM Do YYYY, h:mm a");
-
-                var description = object.get('description');
-                var imageURL = object.get('eventImage');
                 var imageSRC = (object.get("eventImage").name())[0].src;
                 var address = object.get('address');
-                var eventCode = object.get('code');
-                var eventLocation = object.get('location');
-                var coordinates = eventLocation.latitude + "," + eventLocation.longitude;
-
-                //maybe try to find current location
-                /*if (object.id == "bOmzOucpQE") {
-                 startDate = "Fri, Jan 27th 2017, 10:00 pm";
-                 endDate = "Sat, Jan 28th 2017, 1:00 am";
-                 }*/
-
-                /*
-
-                 // generate a string that only has the time portion
-                 var strWithoutTimezone = moment(localEquivalent).format("YYYY-MM-DDTHH:mm:ss")
-                 // extract out the site's timezone identifier (DateWithTimezone.getTimezone() stores the site's timezone)
-                 var timezone = moment.tz(DateWithTimezone.getTimezone()).format("Z")
-                 // create a moment in the site's timezone and use it to initialize a <span style="font-family: 'courier new', courier;">DateWithTimezone</span>
-                 return new DateWithTimezone(moment(strWithoutTimezone + timezone))
-                 */
-                //load User
-                //loadUser(res, userId, title, startJaunt, endJaunt, description, imageSRC, imageURL, address, eventCode, coordinates);
 
 
+                res.render('event', {objectId: eventCode, image: imageSRC, title: title});
             }
         },
         error: function(error) {

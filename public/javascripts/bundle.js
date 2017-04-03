@@ -18009,6 +18009,8 @@ function loadEventUser(userId, title, image, code, description, startDate, endDa
 
             }
 
+            $('#flyerDiv').hide();
+
             $('#eventInfoDiv').append(
                 '<h1>' + title + '</h1>' +
                // '<h4>' + displayName + '- <small>' + description + '</small></h4>' +
