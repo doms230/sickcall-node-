@@ -25,11 +25,13 @@ router.get('/', function(req, res, next) {
     //http://localhost:3000/invites?phoneNumbers=+16095027269&names=Dom&hostname=Dominic&eventName=Ya&code=hey-d_innovator&eventDate=3/27/17
 
     if (req.query.id != null){
+        console.log("id not null");
         for (var i = 0; i < phoneNumbers.length; i++) {
-            sendInvite(phoneNumbers[i], names[i], req.query.hostname, req.query.eventName, objectId, req.query.eventDate);
+            sendInvite(phoneNumbers[i], names[i], req.query.hostname, req.query.eventName, req.query.id, req.query.eventDate);
         }
 
     } else {
+        console.log("id null");
         var Posts = parse.Object.extend('Event');
         var query = new parse.Query(Posts);
         // query.equalTo("code", eventCode);
