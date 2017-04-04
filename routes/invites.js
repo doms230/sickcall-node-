@@ -24,27 +24,29 @@ router.get('/', function(req, res, next) {
 
     //http://localhost:3000/invites?phoneNumbers=+16095027269&names=Dom&hostname=Dominic&eventName=Ya&code=hey-d_innovator&eventDate=3/27/17
 
-    var Posts = parse.Object.extend('Event');
-    var query = new parse.Query(Posts);
-    // query.equalTo("code", eventCode);
-    query.equalTo("code", req.query.code);
-    query.first({
-        success: function(object) {
-
-            var objectId = object.id;
-            for (i = 0; i < phoneNumbers.length; i++) {
-                sendInvite(phoneNumbers[i], names[i], req.query.hostname, req.query.eventName, objectId, req.query.eventDate);
-            }
-        },
-        error: function(error) {
-            alert("Error: " + error.code + " " + error.message);
+    if (req.query.id != null){
+        for (var i = 0; i < phoneNumbers.length; i++) {
+            sendInvite(phoneNumbers[i], names[i], req.query.hostname, req.query.eventName, objectId, req.query.eventDate);
         }
-    });
 
+    } else {
+        var Posts = parse.Object.extend('Event');
+        var query = new parse.Query(Posts);
+        // query.equalTo("code", eventCode);
+        query.equalTo("code", req.query.code);
+        query.first({
+            success: function(object) {
 
-
-    //sendInvite("+16095027269", "Teaonna", "Dom Smith", "Coachella", "123456", "1/2/17")
-
+                var objectId = object.id;
+                for (var i = 0; i < phoneNumbers.length; i++) {
+                    sendInvite(phoneNumbers[i], names[i], req.query.hostname, req.query.eventName, objectId, req.query.eventDate);
+                }
+            },
+            error: function(error) {
+                alert("Error: " + error.code + " " + error.message);
+            }
+        });
+    }
 });
 
 function sendInvite(phoneNumber, guestName, hostName, eventName, code, date) {
