@@ -96,7 +96,7 @@ $(function(){
     });
 
     $('#signup').click(function(){
-        window.location.href = "https://www.hiikey.com/logins?e=LU31SRksFm" ;
+        window.location.href = "https://www.hiikey.com/logins?e=" + ya[1] ;
     });
 
     $('#sendmsg').click(function (e) {
@@ -115,7 +115,6 @@ $(function(){
             error: function (gameScore, error) {
                 // Execute any logic that should take place if the save fails.
                 // error is a Parse.Error with an error code and message.
-
             }
         });
     });
@@ -174,7 +173,6 @@ function loadEventInfo(objectId){
                 invites = object.get('invites');
 
                 loadEventUser(eventHostId,eventTitle,image,code,description,startDate,endDate);
-
             }
         },
         error: function(error) {
@@ -350,8 +348,6 @@ function loadRSVPs(){
             res.send("Error: " + error.code + " " + error.message);
         }
     });
-
-
 }
 
 function appendRSVP(image, username, displayName) {
