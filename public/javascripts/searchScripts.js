@@ -9,15 +9,19 @@ var currentUser = parse.User.current();
 
 var moment = require("moment");
 
-
+//                             <li class="active"><a href="#">Home</a></li>
+//<li><a href="#">Features</a></li>
+//<li><a href="#">Contact</a></li>
 
 //watchify public/javascripts/searchScripts.js -o public/javascripts/searchBundle.js -v
 
 $(function(){
 
+
+
     $('#searchButton').click(function(){
         $('#noEventsGroup').hide();
-        $('#welcomeGroup').hide();
+       // $('#welcomeGroup').hide();
         var searchValue =  document.getElementById('searchValue').value;
         //alert(searchValue);
         geoCode(searchValue);
@@ -25,7 +29,8 @@ $(function(){
 
     $('#closeEventsButton').click(function(){
         $('#noEventsGroup').hide();
-        $('#welcomeGroup').hide();
+
+       // $('#welcomeGroup').hide();
         if (navigator.geolocation) {
             $('#progress').show();
             navigator.geolocation.getCurrentPosition(showPosition);
@@ -47,30 +52,22 @@ $(function(){
     });
 
     if (currentUser){
-        $("#navBar").append(    '<a class="navbar-brand" href="/about">' +
-            '<img alt="Hiikey">' +
-        '</a>' +
-        '<div class="container-fluid">' +
-            '<ul class="nav nav-pills">'+
+        $("#navBar").append(' <li role="presentation"> <a href="/home"><span class="  glyphicon glyphicon-home" aria-hidden="true"></a>' +
+            '</li>' +
 
-               ' <li role="presentation"> <a href="/home"><span class="  glyphicon glyphicon-home" aria-hidden="true"></span></a>' +
-                '</li>' +
+            '<li  class="active" role="presentation"><a href="/search"><span class="  glyphicon glyphicon-search" aria-hidden="true"></span></a>' +
+            '</li>' +
 
-               ' <li role="presentation"><a href="/search"><span class="  glyphicon glyphicon-search" aria-hidden="true"></span></a>' +
-                '</li>' +
+            '<li role="presentation"><a href="/create"><span class="  glyphicon glyphicon-plus" aria-hidden="true"></span></a>' +
+            '</li>' +
 
-                '<li role="presentation"><a href="/create"><span class="  glyphicon glyphicon-plus" aria-hidden="true"></span></a>' +
-                '</li>' +
-
-                '<li role="presentation"><a href="/profile"><span class=" glyphicon glyphicon-user" aria-hidden="true"></span></a>' +
-                '</li>' +
-            '</ul>' +
-        '</div>' );
+            '<li role="presentation"><a href="/profile"><span class=" glyphicon glyphicon-user" aria-hidden="true"></span></a>' +
+            '</li>'  );
 
     } else {
         $('#navBar').append('<a class="navbar-brand" href="/about">' +
-            '<img alt="Hiikey | ">' +
-            '</a>' + '<p class=" navbar-text">  Welcome! <a href="/logins" class="navbar-link">Sign In / Sign Up</a></p>');
+
+            '</a>' + '<p class=" navbar-text">  <a class="learnMore" href="/logins" class="navbar-link">Sign In / Sign Up</a></p>');
     }
 
     /*if (navigator.geolocation) {

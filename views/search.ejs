@@ -17,16 +17,90 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
-    <link href="/stylesheets/everythingStyle.css" rel="stylesheet">
+   <!-- <link href="/stylesheets/everythingStyle.css" rel="stylesheet"> -->
+    <link href="/stylesheets/search.css" rel="stylesheet">
 </head>
 <body>
 
- <nav id="navBar" class="navbar navbar-default navbar-fixed-top">
+ <!--<nav id="navBar" class="navbar navbar-default navbar-fixed-top">
 
-</nav>
+</nav> -->
+ <div id="welcomeGroup" class="site-wrapper">
 
- </br>
- </br>
+     <div class="site-wrapper-inner">
+
+         <div class="cover-container">
+
+             <div class="masthead clearfix">
+                 <div class="inner">
+                     <h3 class="masthead-brand">H I I K E Y</h3>
+                     <nav>
+                         <ul id="navBar" class="nav masthead-nav">
+
+                         </ul>
+                     </nav>
+                 </div>
+             </div>
+
+             <div class="inner cover">
+                 <h3>Hiikey is the simplest way to organize and discover secret events. <small><a href="/about" class="navbar-link learnMore" >Learn More</a></small> </h3>
+
+             </div>
+
+             </br>
+             </br>
+
+             <p class="lead">
+                 <a id="closeEventsButton" class="btn  btn-default">Find Events Near Me</a>
+             </p>
+
+             <h6>OR</h6>
+
+             <div id="searchGroup" class="container-fluid" >
+                 <div  class="input-group" >
+                     <input id="searchValue" type="text" class="form-control" placeholder="City" aria-label="...">
+                     <div class="input-group-btn">
+                         <button id="searchButton" class="btn btn-default" type="button">Search</button>
+
+                     </div>
+                 </div>
+             </div>
+
+
+             <div id="progress" class="container-fluid" >
+                 <div class="progress" hidden="yes">
+                     <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                         <span class="sr-only">100% Complete</span>
+                     </div>
+                 </div>
+             </div>
+
+
+             <!-- <div class="mastfoot">
+                 <div class="inner">
+                     <p> © 2017 SocialGroupe, Inc. | <a class="learnMore" href="/about">About </a> |  <a class="learnMore" href="/terms">Terms & Conditions</a> </p>
+                 </div>
+             </div> -->
+
+         </div>
+
+     </div>
+
+ </div>
+
+
+
+ <!--<div id="welcomeGroup"  class="container-fluid">
+     <h3>Hiikey is the simplest way to organize and discover secret events. <small><a href="/about" class="navbar-link">Learn More</a></small> </h3>
+     <h4>Hiikey uses your location to find events near you. </h4>
+     <button id="closeEventsButton" class="btn btn-default" type="button">Find Events</button>
+ </div>
+
+ <div id="noEventsGroup"  class="container-fluid" hidden="yes">
+     <h4>We couldn't find any events</h4>
+     <button id="noEventsButton" class="btn btn-default" type="button">Find events near me</button>
+ </div>
+
  </br>
  </br>
 
@@ -36,28 +110,17 @@
          <div class="input-group-btn">
              <button id="searchButton" class="btn btn-default" type="button">Search</button>
 
-         </div><!-- /btn-group -->
-     </div><!-- /input-group -->
- </div>
+         </div> /btn-group
+     </div> /input-group
+ </div> -->
 
- <div id="progress" class="container-fluid" >
+ <!--<div id="progress" class="container-fluid" >
      <div class="progress" hidden="yes">
          <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
              <span class="sr-only">100% Complete</span>
          </div>
      </div>
- </div>
-
- <div id="welcomeGroup"  class="container-fluid">
-     <h3>Hiikey is the simplest way to organize and discover secret events. <small><a href="/about" class="navbar-link">Learn More</a></small> </h3>
-     <p>Hiikey uses your location to find events near you. </p>
-     <button id="closeEventsButton" class="btn btn-default" type="button">Find Events</button>
- </div>
-
- <div id="noEventsGroup"  class="container-fluid" hidden="yes">
-     <h4>We couldn't find any events</h4>
-     <button id="noEventsButton" class="btn btn-default" type="button">Find events near me</button>
- </div>
+ </div> -->
 
 <div  id="eventdiv" class="container-fluid" >
 
@@ -65,6 +128,9 @@
 
 </body>
 </html>
+
+
+
 
 <script src="/javascripts/searchBundle.js"></script>
 <script src="/javascripts/searchScripts.js"></script>

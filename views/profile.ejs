@@ -37,25 +37,28 @@
 
 <h6 id="objectId" hidden="yes" > <%= objectId %>   </h6>
 
-<nav id="navBar" class="navbar navbar-default navbar-fixed-top" hidden="yes">
-    <div class="container-fluid">
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">H I I K E Y</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li ><a href="home">Home</a></li>
+                <li><a href="search">Search</a></li>
+                <li><a href="create">Create Event</a></li>
+                <li  class="active"> <a href="profile">Profile</a></li>
 
-        <a class="navbar-brand" href="/about">
-            <img alt="Hiikey">
-        </a>
-        <ul class="nav nav-pills">
-            <li role="presentation"> <a href="/home"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
-            </li>
+            </ul>
 
-            <li role="presentation"><a href="/search"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
-            </li>
-
-            <li role="presentation"><a href="/create"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
-            </li>
-            <li role="presentation"><a href="/profile"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
-            </li>
-
-        </ul>
+        </div><!--/.nav-collapse -->
     </div>
 </nav>
 
