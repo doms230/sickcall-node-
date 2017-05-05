@@ -47,11 +47,30 @@ var AdaptableController = exports.AdaptableController = function () {
   }, {
     key: "validateAdapter",
     value: function validateAdapter(adapter) {
+      AdaptableController.validateAdapter(adapter, this);
+    }
+  }, {
+    key: "adapter",
+    set: function set(adapter) {
+      this.validateAdapter(adapter);
+      this[_adapter] = adapter;
+    },
+    get: function get() {
+      return this[_adapter];
+    }
+  }, {
+    key: "config",
+    get: function get() {
+      return new _Config2.default(this.appId);
+    }
+  }], [{
+    key: "validateAdapter",
+    value: function validateAdapter(adapter, self, ExpectedType) {
       if (!adapter) {
         throw new Error(this.constructor.name + " requires an adapter");
       }
 
-      var Type = this.expectedAdapterType();
+      var Type = ExpectedType || self.expectedAdapterType();
       // Allow skipping for testing
       if (!Type) {
         return;
@@ -73,20 +92,6 @@ var AdaptableController = exports.AdaptableController = function () {
       if (Object.keys(mismatches).length > 0) {
         throw new Error("Adapter prototype don't match expected prototype", adapter, mismatches);
       }
-    }
-  }, {
-    key: "adapter",
-    set: function set(adapter) {
-      this.validateAdapter(adapter);
-      this[_adapter] = adapter;
-    },
-    get: function get() {
-      return this[_adapter];
-    }
-  }, {
-    key: "config",
-    get: function get() {
-      return new _Config2.default(this.appId);
     }
   }]);
 

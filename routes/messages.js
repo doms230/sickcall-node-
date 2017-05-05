@@ -12,11 +12,11 @@ var momenttz = require('moment-timezone');
 var jstz = require("jstz");
 var parse = require("parse/node").Parse;
 //var $ = require("jquery");
-var jsdom = require('jsdom');
+//var jsdom = require('jsdom');
 
-var document = jsdom.jsdom('<html></html>');
-var window = document.defaultView;
-var $ = require('jquery')(window);
+//var document = jsdom.jsdom('<html></html>');
+//var window = document.defaultView;
+//var $ = require('jquery')(window);
 
 //messages
 var messages;

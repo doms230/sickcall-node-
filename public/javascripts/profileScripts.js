@@ -12,14 +12,30 @@ var parseFile;
 var facebook = "";
 var verifiedNumber = "";
 
+//event stuff
+var eventId;
+var eventHostId;
+var eventTitle;
+var invites;
+var isInvited = false;
+
 $(function(){
 
     var objectId = $("#objectId").html();
 
     var href = window.location.href;
+    //alert(href);
+
+    var url = window.location.toString();
+
 
     if (!href.toString().includes("?e=")){
         $('#navBar').show();
+
+    } else {
+        var ya = url.split("e=");
+        //alert(ya[1]);
+        loadEventInfo(ya[1]);
     }
 
     $('#digits-sdk').load(function () {
@@ -75,7 +91,36 @@ $(function(){
                         '<strong>Your profile info has been updated.</strong></div>');
 
                 } else {
-                    window.location.href = "https://www.hiikey.com/events?id=" + objectId ;
+                    //TODO: RSVP for event
+
+                    var NewRSVP = parse.Object.extend("RSVP");
+                    var rsvp = new NewRSVP();
+                    rsvp.set("eventId", eventId);
+                    rsvp.set("userId", currentUser.id);
+                    rsvp.set("eventHostId", eventHostId);
+                    rsvp.set("eventTitle", eventTitle);
+                    rsvp.set("isSubscribed", true);
+                    rsvp.set("isConfirmed", isInvited);
+                    rsvp.set("isRemoved", false);
+                    rsvp.set("isBlocked", false);
+                    rsvp.save(null, {
+                        success: function(gameScore) {
+                            if (isInvited){
+                                sendNotification(eventHostId, currentUser.username + "joined your" + eventTitle + "guest list.");
+
+                            } else {
+                                sendNotification(eventHostId, currentUser.username + "requested access to " + eventTitle + ".");
+                            }
+
+                             window.location.href = "https://www.hiikey.com/events?id=" + eventId ;
+                           // window.location.href = "http://localhost:3000/events?id=" + eventId ;
+                        },
+                        error: function(gameScore, error) {
+                            // Execute any logic that should take place if the save fails.
+                            // error is a Parse.Error with an error code and message.
+                            alert('Failed to create new object, with error code: ' + error.message);
+                        }
+                    });
                 }
 
                 //document.getElementById('image').src
@@ -149,7 +194,6 @@ function loadUserInfo(){
                 if (image != null){
                     document.getElementById('image').src = image;
                 }
-
             },
             error: function(object, error) {
                 // The object was not retrieved successfully.
@@ -207,6 +251,13 @@ function onDigitsSuccess(response) {
     //setDigitsNumber(response.phoneNumber);
     verifiedNumber = response.phoneNumber;
     document.getElementById('inputNumber').value = response.phoneNumber;
+
+    //TODO: Test this
+    for (var o = 0; o < invites.length; o++){
+        if (invites[o] == verifiedNumber){
+            isInvited = true;
+        }
+    }
 }
 
 /**
@@ -272,5 +323,50 @@ function testAPI() {
         console.log('Successful login for: ' + response.name);
         document.getElementById('status').innerHTML =
             'Thanks for logging in, ' + facebook + '!';
+    });
+}
+
+function loadEventInfo(objectId){
+    var Posts = parse.Object.extend('Event');
+    var query = new parse.Query(Posts);
+    query.equalTo("objectId", objectId);
+    query.find({
+        success: function(results) {
+            // Do something with the returned Parse.Object values
+            for (var i = 0; i < results.length; i++) {
+                var object = results[i];
+                eventId = object.id;
+                eventTitle = object.get('title');
+                eventHostId = object.get("userId");
+                invites = object.get("invites");
+            }
+        },
+        error: function(error) {
+            //alert("Error: " + error.code + " " + error.message);
+            //res.send("Error: " + error.code + " " + error.message);
+        }
+    });
+}
+
+function sendNotification(userId, message){
+    $.ajax({
+        url : "https://hiikey.herokuapp.com/notifications",
+        type : 'GET',
+        data : {
+            userId: userId,
+            message : message
+        },
+        async : false,
+        success : function(result) {
+
+            try {
+                //position.lat = result.results[0].geometry.location.lat;
+                //position.lng = result.results[0].geometry.location.lng;
+                //alert(result.results[0].geometry.location.lat);
+
+            } catch(err) {
+                alert(err);
+            }
+        }
     });
 }

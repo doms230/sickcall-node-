@@ -73,7 +73,9 @@ $(function(){
             });
 
         } else {
-            $("#signinDiv").show();
+            //$("#signinDiv").show();
+             window.location.href = "https://www.hiikey.com/logins?e=" + ya[1] ;
+            //window.location.href = "http://localhost:3000/logins?e=" + ya[1] ;
         }
     });
 
@@ -97,6 +99,7 @@ $(function(){
 
     $('#signup').click(function(){
         window.location.href = "https://www.hiikey.com/logins?e=" + ya[1] ;
+        //window.location.href = "http://localhost:3000/logins?e=" + ya[1] ;
     });
 
     $('#sendmsg').click(function (e) {
@@ -140,7 +143,6 @@ $(function(){
     });
 
     //check to se if user is logged in
-
 });
 
 //event info
@@ -222,9 +224,9 @@ function loadEventUser(userId, title, image, code, description, startDate, endDa
             if (currentUser){
                 configureUser(invites);
             } else {
-                $("#signinDiv").show();
+                //$("#signinDiv").show();
+                $('#rsvpButton').show();
             }
-
         },
         error: function(object, error) {
             // The object was not retrieved successfully.
@@ -313,7 +315,6 @@ function appendMessage(name, date, message, image) {
         '</div>' +
         '</br>' +
         '</div>' );
-
 }
 
 //rsvp
@@ -339,7 +340,6 @@ function loadRSVPs(){
 
                     var userId = object.get("userId");
                     loadUserInfo(userId,"","",false);
-
                 }
             }
         },
@@ -465,7 +465,6 @@ function checkRSVP(){
                         loadLocation();
                         configureMessages();
                         loadRSVPs();
-
 
                     } else {
                         $('#alertDiv').append('<div class="alert alert-info" role="alert">RSVP Pending</div>');
