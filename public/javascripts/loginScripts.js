@@ -42,8 +42,6 @@ $(function(){
         });
     });
 
-
-
     $('#signupAction').click(function () {
         var username =  document.getElementById('signupUsername').value;
         var password =  document.getElementById('signupPassword').value;
