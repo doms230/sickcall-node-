@@ -110,10 +110,23 @@ $(function(){
         });
     });
 
+    $('#forgotPasswordAction').click(function () {
+        var emailJaunt = document.getElementById('forgotpasswordEmail').value;
+        parse.User.requestPasswordReset(emailJaunt, {
+            success: function() {
+                $('#registerModal').modal('hide');
+                alert('Check for an email from noreply@hiikey.com for password reset instructions.');
+            },
+            error: function(error) {
+                alert("We couldn't find an account associated with " + emailJaunt );
+            }
+        });
+    });
+
     $('#signinButton').click(function (e) {
         e.preventDefault();
         $(this).tab('show');
-       // alert("asdf");
+        $('#forgotpassword').hide();
         $('#signup').hide();
         $('#signin').show();
     });
@@ -121,8 +134,17 @@ $(function(){
     $('#signupButton').click(function (e) {
         e.preventDefault();
         $(this).tab('show');
+        $('#forgotpassword').hide();
         $('#signin').hide();
         $('#signup').show();
+    });
+
+    $('#forgotPasswordButton').click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+        $('#signin').hide();
+        $('#signup').hide();
+        $('#forgotpassword').show();
     });
 
     //check to se if user is logged in

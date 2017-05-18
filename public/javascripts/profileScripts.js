@@ -21,23 +21,6 @@ var isInvited = false;
 
 $(function(){
 
-    var objectId = $("#objectId").html();
-
-    var href = window.location.href;
-    //alert(href);
-
-    var url = window.location.toString();
-
-
-    if (!href.toString().includes("?e=")){
-        $('#navBar').show();
-
-    } else {
-        var ya = url.split("e=");
-        //alert(ya[1]);
-        loadEventInfo(ya[1]);
-    }
-
     $('#digits-sdk').load(function () {
         // Initialize Digits using the API key.
         Digits.init({ consumerKey: 'IeV33K1YaqjI4ompRDHiDREH3' })
@@ -51,6 +34,23 @@ $(function(){
         // Set a click event listener on the Digits button.
         $('#inputNumber').click(onLoginButtonClick);
     });
+
+
+    var objectId = $("#objectId").html();
+
+    var href = window.location.href;
+    //alert(href);
+
+    var url = window.location.toString();
+
+    if (!href.toString().includes("?e=")){
+        $('#navBar').show();
+
+    } else {
+        var ya = url.split("e=");
+        //alert(ya[1]);
+        loadEventInfo(ya[1]);
+    }
 
    // $('#userInfo').append('');
 

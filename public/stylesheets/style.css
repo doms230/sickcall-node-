@@ -11,3 +11,8 @@
 
  }
 
+ .astericks {
+  color: #EE1848; /* IE8 proofing */
+  color: rgba(238,24,72,10);
+ }
+

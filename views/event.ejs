@@ -6,15 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!--Ajax-->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <!-- Latest compiled and minified CSS-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
     <!-- Latest compiled and minified JavaScript -->
-   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <link href="/stylesheets/style.css" rel="stylesheet">
 
     <!-- Facebook Pixel Code -->
     <script>
@@ -34,29 +37,43 @@
     <!-- Custom styles for this template
     <link href="navbar.css" rel="stylesheet"> -->
 
+    <!-- Bootstrap Date-Picker Plugin -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.0-RC3/js/bootstrap-datepicker.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.0-RC3/css/bootstrap-datepicker.css"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.js"></script>
+
 </head>
 <body>
 
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/home">
-                <img alt="EXIT">
-            </a>
-        </div>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand" >H I I K E Y</a>
 
-        <div id="userInfo" class="media">
-
         </div>
+        <div id="navbar"  class="navbar-collapse collapse">
+
+        </div><!--/.nav-collapse -->
     </div>
 </nav>
+
+</br>
+</br>
 
 <div id="flyerDiv" class="container-fluid">
     <img class="img-responsive" alt="..." src= <%=image%>>
 </div>
 
 <div id="eventInfoDiv" class="container-fluid">
-
 </div>
 
 <!-- tab jaunts -->
@@ -84,7 +101,6 @@
 </div>
 
 <div id="alertDiv" class="page-header" hidden="yes">
-
 </div>
 
 <ul id="messageBarDiv" class=" navbar-fixed-bottom" hidden="yes">
@@ -96,26 +112,211 @@
     </div><!-- /input-group -->
 </ul>
 
-<!-- <div id="signinDiv" class="container" hidden="yes">
+<div id="modelRequests" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"> RSVP Requests</h4>
+            </div>
+            <div id="requestBody" class="modal-body">
 
-    <form class="form-signin">
-        <h3 class="form-signin-heading">RSVP for Location</h3>
-        <h4 class="form-signin-heading">Sign In / Sign Up to RSVP</h4>
-        <input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-        <!-- <div class="checkbox">
-             <label>
-                 <input type="checkbox" value="remember-me"> Remember me
-             </label>
-         </div>
-     </form>
-    <button id="signin" class="btn btn-lg btn-default btn-block" type="submit">Sign In</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
-    </br>
-     <button id="signup" class="btn btn-lg btn-primary btn-block" type="submit"  >Sign up</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
- </div>  -->
+<!-- Edit event modal  -->
+<div id="modalEdit" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Edit Event</h4>
+            </div>
+            <div id="requestBodyEdit" class="modal-body">
+                <img src="#" id="inputImage"  alt="Upload Event Image" class="img-thumbnail" width="100" height="150">
+
+                </br>
+                </br>
+
+                <input type="file" id="editEventImage" />
+
+                <h3>Title <small class="astericks">*</small></h3>
+                <input id="inputTitle" type="title" class="form-control" placeholder="Make it Short">
+
+                </br>
+
+                <h3>Address <small class="astericks">*</small></h3>
+                <input id="inputAddress" type="text" class="form-control" placeholder="Event location">
+
+                <h3>Description</h3>
+                <textarea id="inputDescription" placeholder="Event details, band links, etc." class="form-control" rows="5"></textarea>
+
+                <!-- <input placeholder="start date" id="date" type="text" class="form-control">
+
+                 <input placeholder="start time" id="time" type="text" class="form-control"> -->
+
+                </br>
+
+                <h3>Starts <small class="astericks">*</small></h3>
+
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label class="sr-only" for="exampleInputEmail3">Start Date</label>
+                        <input type="date" class="form-control" id="inputStartDate" placeholder="Start Date">
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="exampleInputPassword3">Start Time</label>
+                        <input type="time" class="form-control" id="inputStartTime" placeholder="Start Time">
+                    </div>
+                </form>
+
+                <h3>Ends <small class="astericks">*</small></h3>
+
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label class="sr-only" for="exampleInputEmail3">Start Date</label>
+                        <input type="date" class="form-control" id="inputEndDate" placeholder="End Date">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="sr-only" for="exampleInputPassword3">Start Time</label>
+                        <input type="time" class="form-control" id="inputEndTime" placeholder="End Time">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="updateEvent" type="button" class="btn btn-default astericks">Update Event Info</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Modal if user isn't logged in -->
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Sign In / Sign Up to RSVP</h4>
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-pills">
+                    <li href="#" id="signupButton" role="presentation" class="active"><a>Sign Up</a></li>
+                    <li href="#" id="signinButton" role="presentation"><a>Sign In</a></li>
+                    <li href="#" id="forgotPasswordButton" role="presentation"><a>Forgot Password</a></li>
+                </ul>
+
+                <div class="container-fluid" id="signin" hidden="yes"  >
+                    <form  class="form-signin" >
+                        <h3 class="form-signin-heading"> Sign In</h3>
+                        <input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
+                        <label for="inputPassword" class="sr-only">Password</label>
+                        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                    </form>
+                    <button  id="signinAction" class="btn btn-lg btn-default btn-block" type="submit">Sign in</button>
+
+                </div>
+
+                <div class="container-fluid" id="signup"  >
+                    <form  class="form-signin">
+                        <h3 class="form-signin-heading">Sign Up</h3>
+                        <input type="text" id="signupUsername" class="form-control" placeholder="Username" required autofocus>
+                        <input type="email" id="signupEmail" class="form-control" placeholder="Email" required autofocus>
+                        <input type="password" id="signupPassword" class="form-control" placeholder="Password" required>
+                    </form>
+                    <button id="signupAction" class="btn btn-lg btn-default btn-block" type="submit">Sign up</button>
+
+                </div>
+                <div class="container-fluid" id="forgotpassword" hidden="yes" >
+                    <form  class="form-signin">
+                        <h3 class="form-signin-heading">Forgot Password</h3>
+                        <input type="email" id="forgotpasswordEmail" class="form-control" placeholder="Email" required autofocus>
+                    </form>
+                    <button id="forgotPasswordAction" class="btn btn-lg btn-default btn-block" type="submit">Reset Password</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- forgot password -->
+
+<div class="modal fade" id="navForgotPasswordModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Forgot Password</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid" id="f" >
+                    <form  class="form-signin">
+                        <input type="email" id="navForgotpasswordEmail" class="form-control" placeholder="Email" required autofocus>
+                    </form>
+                    <button id="navForgotPasswordAction" class="btn btn-lg btn-default btn-block" type="submit">Reset Password</button>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- profile modal  -->
+<div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Last Step! Update Your Profile</h4>
+            </div>
+            <div class="modal-body">
+
+                <div id="fb-root"></div>
+                <div  id="locationDiv" class="page-header" >
+
+                    <div id="userInfo" class="container-fluid">
+                        <img src="#" id="profileImage"  alt="Upload Profile Image" class="img-circle" width="100" height="100">
+
+                        </br>
+                        </br>
+
+                        <input type="file" id="newProfilePhoto" />
+
+                        </br>
+                        </br>
+
+                        <!--<button id="updatePhoto" class="btn btn-sm btn-default" type="submit">Update Profile Picture</button> -->
+
+                        <form class="form-signin">
+                            <h4 id="username" class="form-signin-heading"></h4>
+                            <input type="text" id="inputName" class="form-control" placeholder="Name" required autofocus>
+                            <label for="inputPassword" class="sr-only">Password</label>
+                            <input type="text" id="inputNumber" class="form-control" placeholder="Phone Number" required>
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="updateInfo" class="btn btn-lg btn-default btn-block" type="submit">Update Info</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 
  <script>
 
@@ -139,5 +340,27 @@
 </body>
 </html>
 
+<script>
+    $('#inputStartDate').datepicker({
+    });
+
+    $('#inputStartTime').timepicker({
+        interval: 30,
+        dynamic: true,
+        dropdown: true,
+        scrollbar: true
+    });
+
+    $('#inputEndDate').datepicker({
+    });
+
+    $('#inputEndTime').timepicker({
+        interval: 30,
+        dynamic: true,
+        dropdown: true,
+        scrollbar: true
+    });
+
+</script>
+
 <script src="/javascripts/bundle.js"></script>
-<script src="/javascripts/eventScripts.js"></script>

@@ -13527,6 +13527,21 @@ var isInvited = false;
 
 $(function(){
 
+    $('#digits-sdk').load(function () {
+        // Initialize Digits using the API key.
+        Digits.init({ consumerKey: 'IeV33K1YaqjI4ompRDHiDREH3' })
+            .done(function() {
+                console.log('Digits initialized.');
+            })
+            .fail(function() {
+                console.log('Digits failed to initialize.');
+            });
+
+        // Set a click event listener on the Digits button.
+        $('#inputNumber').click(onLoginButtonClick);
+    });
+
+
     var objectId = $("#objectId").html();
 
     var href = window.location.href;
@@ -13544,19 +13559,7 @@ $(function(){
         loadEventInfo(ya[1]);
     }
 
-    $('#digits-sdk').load(function () {
-        // Initialize Digits using the API key.
-        Digits.init({ consumerKey: 'IeV33K1YaqjI4ompRDHiDREH3' })
-            .done(function() {
-                console.log('Digits initialized.');
-            })
-            .fail(function() {
-                console.log('Digits failed to initialize.');
-            });
 
-        // Set a click event listener on the Digits button.
-        $('#inputNumber').click(onLoginButtonClick);
-    });
 
    // $('#userInfo').append('');
 

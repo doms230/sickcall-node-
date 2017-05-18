@@ -1,5 +1,7 @@
 /**
  * Created by macmini on 5/7/17.
+ *
+ *  watchify public/javascripts/welcomeScripts.js -o public/javascripts/welcomeBundle.js -v
  */
 
 

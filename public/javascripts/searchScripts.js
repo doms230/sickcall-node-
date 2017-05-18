@@ -1,5 +1,7 @@
 /**
  * Created by macmini on 3/17/17.
+ *
+ * watchify public/javascripts/searchScripts.js -o public/javascripts/searchBundle.js -v
  */
 
 
@@ -13,19 +15,18 @@ var moment = require("moment");
 //<li><a href="#">Features</a></li>
 //<li><a href="#">Contact</a></li>
 
-//watchify public/javascripts/searchScripts.js -o public/javascripts/searchBundle.js -v
+//
 
 $(function(){
 
+    if (navigator.geolocation) {
+        $('#progress').show();
+        navigator.geolocation.getCurrentPosition(showPosition);
 
+    } else {
+        $('#welcomeGroup').show();
+    }
 
-    $('#searchButton').click(function(){
-        $('#noEventsGroup').hide();
-       // $('#welcomeGroup').hide();
-        var searchValue =  document.getElementById('searchValue').value;
-        //alert(searchValue);
-        geoCode(searchValue);
-    });
 
     $('#closeEventsButton').click(function(){
         $('#noEventsGroup').hide();
@@ -52,22 +53,68 @@ $(function(){
     });
 
     if (currentUser){
-        $("#navBar").append(' <li role="presentation"> <a href="/home"><span class="  glyphicon glyphicon-home" aria-hidden="true"></a>' +
-            '</li>' +
-
-            '<li  class="active" role="presentation"><a href="/search"><span class="  glyphicon glyphicon-search" aria-hidden="true"></span></a>' +
-            '</li>' +
-
-            '<li role="presentation"><a href="/create"><span class="  glyphicon glyphicon-plus" aria-hidden="true"></span></a>' +
-            '</li>' +
-
-            '<li role="presentation"><a href="/profile"><span class=" glyphicon glyphicon-user" aria-hidden="true"></span></a>' +
-            '</li>'  );
+        $('#navBar').append(
+            '<div class="container">'+
+            '<div class="navbar-header">'+
+            ' <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">'+
+            '<span class="sr-only">Toggle navigation</span>'+
+            '<span class="icon-bar"></span>'+
+            '<span class="icon-bar"></span>'+
+            ' <span class="icon-bar"></span>'+
+            '</button>'+
+            '<a class="navbar-brand" href="#">H I I K E Y</a>'+
+            ' </div>'+
+            ' <div id="navbar" class="navbar-collapse collapse">'+
+            ' <ul class="nav navbar-nav">'+
+            ' <li ><a href="home">Home</a></li>'+
+            ' <li class="active"  ><a href="search">Search</a></li>'+
+            ' <li><a href="create">Create Event</a></li>'+
+            ' <li  > <a href="profile">Profile</a></li>'+
+            ' <form class="navbar-form navbar-right">'+
+            '   <div class="form-group">'+
+            '<input id="searchValue" type="text" class="form-control" placeholder="Search City">'+
+            ' </div>'+
+            ' <button id="searchButton" class="btn btn-default">Search</button>'+
+            ' </form>'+
+            ' </ul>'+
+            ' </div>'+
+            ' </div>'
+        );
 
     } else {
-        $('#navBar').append('<a class="navbar-brand" href="/about">' +
+        $('#navBar').append(
+            '<div class="container">'+
+            '<div class="navbar-header">'+
+            ' <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">'+
+            '<span class="sr-only">Toggle navigation</span>'+
+            '<span class="icon-bar"></span>'+
+            '<span class="icon-bar"></span>'+
+            ' <span class="icon-bar"></span>'+
+            '</button>'+
+            '<a class="navbar-brand" href="/">H I I K E Y</a>'+
+            ' </div>'+
+            ' <div id="navbar" class="navbar-collapse collapse">'+
+            ' <ul class="nav navbar-nav">'+
+            ' <li class="active"  ><a href="search">Search</a></li>'+
+            ' <li><a href="create">Create Event</a></li>'+
+            ' <form class="navbar-form navbar-right">'+
+            '   <div class="form-group">'+
+            '<input id="searchValue" type="text" class="form-control" placeholder="Search City">'+
+            ' </div>'+
+            ' </form>'+
+            ' <button id="searchButton" class="btn btn-default">Search</button>'+
+            ' </ul>'+
+            ' </div>'+
+            ' </div>'
+        );
 
-            '</a>' + '<p class=" navbar-text">  <a class="learnMore" href="/logins" class="navbar-link">Sign In / Sign Up</a></p>');
+        $('#searchButton').click(function(){
+            $('#noEventsGroup').hide();
+            // $('#welcomeGroup').hide();
+            var searchValue =  document.getElementById('searchValue').value;
+            //alert(searchValue);
+            geoCode(searchValue);
+        });
     }
 
     /*if (navigator.geolocation) {
