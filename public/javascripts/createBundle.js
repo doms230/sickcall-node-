@@ -18013,6 +18013,59 @@ var loginErrorMessage;
 
 $(function(){
 
+    if(currentUser){
+        $('#navBar').append(
+            '<div class="container">'+
+            ' <div class="navbar-header">'+
+            '  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">'+
+            ' <span class="sr-only">Toggle navigation</span>'+
+            '           <span class="icon-bar"></span>'+
+            '           <span class="icon-bar"></span>'+
+            '           <span class="icon-bar"></span>'+
+            '       </button>'+
+            '       <a class="navbar-brand" href="#">H I I K E Y</a>'+
+            '   </div>'+
+            '   <div id="navbar" class="navbar-collapse collapse">'+
+            '       <ul class="nav navbar-nav">'+
+            '           <li ><a href="home">Home</a></li>'+
+            '           <li><a href="search">Search</a></li>'+
+            '           <li  class="active" ><a href="create">Create Event</a></li>'+
+            '           <li > <a href="profile">Profile</a></li>'+
+
+            '        </ul>'+
+            '   </div>'+
+            '</div>'
+
+
+        );
+
+    } else {
+
+        $('#navBar').append(
+            '<div class="container">'+
+            ' <div class="navbar-header">'+
+            '  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">'+
+            ' <span class="sr-only">Toggle navigation</span>'+
+            '           <span class="icon-bar"></span>'+
+            '           <span class="icon-bar"></span>'+
+            '           <span class="icon-bar"></span>'+
+            '       </button>'+
+            '       <a class="navbar-brand" href="/">H I I K E Y</a>'+
+            '   </div>'+
+            '   <div id="navbar" class="navbar-collapse collapse">'+
+            '       <ul class="nav navbar-nav">'+
+            '           <li ><a href="home">Home</a></li>'+
+            '<li><a href="search">Search</a></li>'+
+            '           <li  class="active" ><a href="create">Create Event</a></li>'+
+            '        </ul>'+
+            '   </div>'+
+            '</div>'
+
+
+        );
+    }
+
+
     $(":file").change(function () {
         if (this.files && this.files[0]) {
             var reader = new FileReader();
