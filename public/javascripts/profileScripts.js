@@ -21,6 +21,10 @@ var isInvited = false;
 
 $(function(){
 
+    if(!currentUser){
+        window.location.href = "https://www.hiikey.com/logins";
+    }
+
     $('#digits-sdk').load(function () {
         // Initialize Digits using the API key.
         Digits.init({ consumerKey: 'IeV33K1YaqjI4ompRDHiDREH3' })
