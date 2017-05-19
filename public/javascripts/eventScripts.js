@@ -30,6 +30,10 @@ var endTime;
 var eventImage;
 var eventLocation;
 
+//used to notify users who RSVP'd to event
+//see loadRSVPS() and removeEventAction()
+var eventGuestIds = [];
+
 //date and time need to be split up so making values specifically for editing event.
 var editStartDate;
 var editStartTime;
@@ -341,6 +345,32 @@ $('#navForgotPasswordAction').click(function () {
     });
 });
 
+$('#removeEventAction').click(function () {
+    var GameScore = parse.Object.extend("Event");
+    var query = new parse.Query(GameScore);
+    query.get(eventId, {
+        success: function(gameScore) {
+            gameScore.set("isRemoved", true);
+            gameScore.save().then(function() {
+
+                window.location.href = "https://www.hiikey.com/home";
+
+                for (var i=0; i<eventGuestIds.length; i++){
+                    sendNotification(eventGuestIds[i], currentUser.get('username') + " canceled " + eventTitle + ".");
+                }
+                // sendNotification(userId, currentUser.get('username') + "added you to the " + eventTitle + " guest list.");
+            }, function(error) {
+                // The file either could not be read, or could not be saved to Parse.
+                 alert(error);
+            });
+        },
+        error: function(object, error) {
+            // The object was not retrieved successfully.
+            // error is a Parse.Error with an error code and message.
+        }
+    });
+});
+
 /**Profile ish here  **/
 $('#digits-sdk').load(function () {
     // Initialize Digits using the API key.
@@ -604,6 +634,7 @@ function loadRSVPs(){
                     var object = results[i];
 
                     var userId = object.get("userId");
+                    eventGuestIds[i] = userId;
                     loadUserInfo(userId,"","",false);
                 }
             }
@@ -817,6 +848,7 @@ function loadNavBar(isHost){
             ' <li><a href="create">Create Event</a></li>' +
             '<li><a href="profile">Profile</a></li>' +
             '<li><hr class="featurette-divider"></li>' +
+            '<li><a  id="removeEvent" >Remove Event</a></li>' +
             '<li><a  id="editEvent" >Edit Event</a></li>' +
             '<li><a id="eventRequests" >Requests <span id="badgeJaunt" class="badge">0</span></a></li>' +
             '</ul>');
@@ -839,6 +871,11 @@ function loadNavBar(isHost){
             document.getElementById('inputEndTime').value = editEndTime;
             document.getElementById('inputImage').src = eventImage;
             $('#modalEdit').modal('show');
+        });
+
+        $('#removeEvent').click(function(){
+
+            $('#removeEventModal').modal('show');
         });
 
     } else {
@@ -957,7 +994,7 @@ function showRequests(){
                                     rsvpObjectId.save().then(function() {
                                     //    console.log('did that');
                                         //TODO: send notifcation that person is given access.
-                                        sendNotification(userId, currentUser.get('username') + "added you to the " + eventTitle + " guest list.");
+                                        sendNotification(userId, currentUser.get('username') + " added you to the " + eventTitle + " guest list.");
                                     }, function(error) {
                                         // The file either could not be read, or could not be saved to Parse.
                                         // alert(error);
