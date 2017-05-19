@@ -64,8 +64,6 @@ $(function(){
             '        </ul>'+
             '   </div>'+
             '</div>'
-
-
         );
 
     } else {
@@ -89,11 +87,8 @@ $(function(){
             '        </ul>'+
             '   </div>'+
             '</div>'
-
-
         );
     }
-
 
     $(":file").change(function () {
         if (this.files && this.files[0]) {
@@ -223,7 +218,6 @@ $(function(){
                 title = title.replace(/\s+/g, '');
                 code = title + "-" + user.get("username");
                 createEvent(eventImage,endJaunt, code, startJaunt, address, location, title, description, user.id);
-
             },
             error: function(user, error) {
                 alert(error);
