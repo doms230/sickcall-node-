@@ -82,7 +82,7 @@
 
     <form class="form-inline">
 
-        <div class="form-group">
+        <div class="form-group" >
             <label class="sr-only" for="exampleInputEmail3">Start Date</label>
             <input class="form-control" id="startDate" placeholder="Start Date">
         </div>
@@ -221,6 +221,8 @@
 
 <script>
     $('#startDate').datepicker({
+        disableTouchKeyboard: true
+
     });
 
     $('#startTime').timepicker({
@@ -232,6 +234,7 @@
     });
 
     $('#endDate').datepicker({
+        disableTouchKeyboard: true
     });
 
     $('#endTime').timepicker({
