@@ -18084,14 +18084,14 @@ $(function(){
         description = document.getElementById('description').value;
         address = document.getElementById('address').value;
 
-        alert(startTime);
+       // alert(startTime);
 
         /*var ya = $('#startTime').timepicker('getTime', startDate);
         var cha =  new Date(startDate);
 
         console.log(ya);*/
 
-      /*  var url = "https://maps.googleapis.com/maps/api/geocode/json?address=" +
+        var url = "https://maps.googleapis.com/maps/api/geocode/json?address=" +
             address +
             "&key=" +
             "AIzaSyAdnr849aDFzuYIJBTqyzdapF_7aR8AikI";
@@ -18111,7 +18111,7 @@ $(function(){
 
         } else {
             alert(errorMessage);
-        }*/
+        }
     });
 
     /**user ish here **/
