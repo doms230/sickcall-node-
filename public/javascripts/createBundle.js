@@ -18075,6 +18075,7 @@ $(function(){
         endJaunt = $('#endTime').timepicker('getTime', endDate);
 
         startTime = document.getElementById('startTime').value;
+
         startDate = document.getElementById('startDate').value;
         startJaunt = $('#startTime').timepicker('getTime', startDate);
 
@@ -18083,12 +18084,14 @@ $(function(){
         description = document.getElementById('description').value;
         address = document.getElementById('address').value;
 
+        alert(startTime);
+
         /*var ya = $('#startTime').timepicker('getTime', startDate);
         var cha =  new Date(startDate);
 
         console.log(ya);*/
 
-        var url = "https://maps.googleapis.com/maps/api/geocode/json?address=" +
+      /*  var url = "https://maps.googleapis.com/maps/api/geocode/json?address=" +
             address +
             "&key=" +
             "AIzaSyAdnr849aDFzuYIJBTqyzdapF_7aR8AikI";
@@ -18097,7 +18100,6 @@ $(function(){
        // alert("asdf");
        // alert(location);
         if (validateDetails(title, startDate, startTime, startJaunt, endDate, endTime, endJaunt, address)){
-
             if (currentUser){
                 title = title.replace(/\s+/g, '');
                 code = title + "-" + currentUser.get("username");
@@ -18109,7 +18111,7 @@ $(function(){
 
         } else {
             alert(errorMessage);
-        }
+        }*/
     });
 
     /**user ish here **/
@@ -18216,7 +18218,6 @@ $(function(){
         var query = new parse.Query(User);
         query.get(userId, {
             success: function(object) {
-
                 object.set("DisplayName", document.getElementById('inputName').value);
                 // var image = (object.get("Profile").name())[0].src = object.get("Profile").url();
                 object.set("phoneNumber", document.getElementById('inputNumber').value);
@@ -18277,7 +18278,7 @@ function imageIsLoaded(e) {
     // document.getElementById('image').src = e.target.result
 }
 
-function createEvent(eventImage, endTime, code, startTime, address, location, title, description, user){
+function createEvent(eventImage, endTime, code, startTime, address, location, title, description, user) {
     var newEvent = parse.Object.extend("Event");
     var event = new newEvent();
     event.set("eventImage", eventImage);
@@ -18293,12 +18294,11 @@ function createEvent(eventImage, endTime, code, startTime, address, location, ti
     event.set("description", description);
     event.set("invites", []);
     event.save(null, {
-        success: function(gameScore) {
-
+        success: function (gameScore) {
             window.location.href = "https://www.hiikey.com/home";
             //window.location.href = "http://localhost:3000/home";
         },
-        error: function(gameScore, error) {
+        error: function (gameScore, error) {
             // Execute any logic that should take place if the save fails.
             // error is a Parse.Error with an error code and message.
             alert('Failed to create new object, with error code: ' + error.message);
@@ -18327,7 +18327,6 @@ function geocodeAddress(url){
                     var lat = result.results[i].geometry.location.lat;
                     var long = result.results[i].geometry.location.lng;
                     alert(myAddress);
-
                 }*/
                 //alert(result.results[0].geometry.location.lat);
                 lat = result.results[0].geometry.location.lat;
@@ -18357,19 +18356,19 @@ function validateDetails(title, startDate, startTime, startJaunt, endDate, endTi
         return false;
     }
 
-    if (startDate == "" ){
+    if (startDate == " " ){
         errorMessage = "Start Date is required.";
         return false;
 
-    } else if (startTime == ""){
+    } else if (startTime == " "){
         errorMessage = "Start Time is required.";
         return false;
 
-    } else if (endDate == ""){
+    } else if (endDate == " "){
         errorMessage = "End Date is required.";
         return false;
 
-    } else if (endTime == ""){
+    } else if (endTime == " "){
         errorMessage = "End Time is required. ";
         return false;
 
@@ -18396,7 +18395,6 @@ function validateSignup(username, email){
     if (email == ""){
         loginErrorMessage = "email required";
         return false;
-
     }
 
     return true;
@@ -18471,12 +18469,12 @@ function onLoginFailure(loginResponse) {
  * We must POST these headers to the server to safely invoke the Digits API
  * and get the logged-in user's data.
  */
+
 function onDigitsSuccess(response) {
     console.log('Digits phone number retrieved.');
     //setDigitsNumber(response.phoneNumber);
     verifiedNumber = response.phoneNumber;
     document.getElementById('inputNumber').value = response.phoneNumber;
-
 }
 },{"moment":126,"parse":127}],171:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
