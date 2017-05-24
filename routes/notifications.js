@@ -1,30 +1,37 @@
 /**
  * Created by macmini on 8/12/16.
+ * http://localhost:5000/notifications?userId=wcbsnOpMwH&message=Heyyeyyasdfasdf
+ *
  */
 
 var express = require('express');
 var router = express.Router();
 var http = require('http');
 
+//sendgrid stuff
+var helper = require('sendgrid').mail;
+var sg = require('sendgrid')('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');
+
+//parse
 var parse = require("parse/node").Parse;
 parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF",
     "bctRQbnLCvxRIHaJTkv3gqhlwSzxjiMesjx8kEwo");
 
-var api_key = 'key-931116e92b651622b653efef865d7a66';
-var domain = 'reset.hiikey.com';
-var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
-var mailcomposer = require('mailcomposer');
-
+//twilio
+var client = require('twilio')('AC847fa672cc0a2207e0dd2938d15483c4', '90c2990bc7ea56d541f537adb40c3617');
 /* GET home page. */
 router.get('/', function(req, res, next) {
+    var message = req.query.message;
+    var user = req.query.userId;
+    var eventId = req.query.eventId;
 
     var query = new parse.Query(parse.Installation);
-    query.equalTo('userId', req.query.userId);
+    query.equalTo('userId', user);
 
     parse.Push.send({
         where: query,
         data: {
-            alert: req.query.message,
+            alert: message,
             badge: 1,
             sound: 'default'
         }
@@ -39,42 +46,77 @@ router.get('/', function(req, res, next) {
         }
     });
 
-    /*var data = {
-        from: 'noreply@hiikey.com',
-        to: 'dom@hiikey.com',
-        subject: 'Hello',
-        text: 'still send some text to be on the safe side',
-        html:"<h1> What's up </h1>" +
-        "<button href=https://www.hiikey.com > Go Now </button>"
-    };
+    var User = parse.Object.extend("_User");
+    var emailQuery = new parse.Query(User);
+    emailQuery.get(user, {
+        useMasterKey:true,
+        success: function(object) {
+            //   console.log(object);
+            var userEmail = object.get('email');
+            var username = object.get('username');
+            var phoneNumber = object.get('phoneNumber');
 
-    mailgun.messages().send(data, function (error, body) {
-        console.log(body);
+            sendEmail(userEmail, message, eventId, username);
+            sendText(phoneNumber, message, eventId);
 
-    });*/
+        },
+        error: function(object, error) {
+            // The object was not retrieved successfully.
+            // error is a Parse.Error with an error code and message.
+        }
+    });
+});
 
-   /* var mail = mailcomposer({
-        from: 'noreply@hiikey.com',
-        to: 'dom@hiikey.com',
-        subject: 'Test email subject',
-        body: 'Test email text'
+function sendEmail(toEmail, notification, eventId, username){
+
+    var from_email = new helper.Email('noreply@hiikey.com');
+    var to_email = new helper.Email(toEmail);
+    var subject = 'Hiikey Alert';
+    var content = new helper.Content(
+        'text/html', 'I\'m replacing the <strong>body tag</strong>');
+    var mail = new helper.Mail(from_email, subject, to_email, content);
+    mail.personalizations[0].addSubstitution(
+        new helper.Substitution('-notification-', notification));
+    mail.personalizations[0].addSubstitution(
+        new helper.Substitution('-eventId-', eventId));
+    mail.personalizations[0].addSubstitution(
+        new helper.Substitution('-username-', username));
+    mail.setTemplateId('332a0c9a-c948-4a7d-9bac-e69ef41f5714');
+
+    var request = sg.emptyRequest({
+        method: 'POST',
+        path: '/v3/mail/send',
+        body: mail.toJSON()
     });
 
-    mail.build(function(mailBuildError, message) {
+    sg.API(request, function(error, response) {
+        console.log(response.statusCode);
+        console.log(response.body);
+        console.log(response.headers);
+    });
+}
 
-        var dataToSend = {
-            to: 'dom@hiikey.com',
-            message: '/Users/macmini/WebstormProjects/hiikeynode/views/test.html'
-        };
+function sendText(phoneNumber, message, eventId) {
+    client.sendMessage({
 
-        mailgun.messages().sendMime(dataToSend, function (sendError, body) {
-            if (sendError) {
-                console.log(sendError);
-                return;
-            }
-        });
-    });*/
+        to: phoneNumber, // Any number Twilio can deliver to
+        from: '+18562194216 ', // A number you bought from Twilio and can use for outbound communication
+        body: "Hiikey alert: " + message + '\n\n' + 'Event link: ' + 'https://www.hiikey.com/events?id=' + eventId
+        // body of the SMS message
 
-});
+    }, function(err, responseData) { //this function is executed when a response is received from Twilio
+
+        if (!err) { // "err" is an error received during the request, if any
+
+            // "responseData" is a JavaScript object containing data received from Twilio.
+            // A sample response from sending an SMS message is here (click "JSON" to see how the data appears in JavaScript):
+            // http://www.twilio.com/docs/api/rest/sending-sms#example-1
+
+            console.log(responseData.from); // outputs "+14506667788"
+            console.log(responseData.body); // outputs "word to your mother."
+
+        }
+    });
+}
 
 module.exports = router;

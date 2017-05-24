@@ -25,19 +25,18 @@
     "morgan": "~1.8.1",
     "parse": "1.9.2",
     "parse-cloud-express": "~1.2.0",
-    "parse-server": "2.3.8",
+    "parse-server": "2.4.1",
     "serve-favicon": "~2.4.2",
     "authy": "1.2.0",
     "twilio": "2.11.1",
     "moment-timezone": "0.5.13",
     "jstz": "1.0.9",
-    "parse-dashboard": "1.0.25",
+    "parse-dashboard": "1.0.26",
     "jsdom":"10.1.0",
     "browserify": "14.3.0",
     "watchify":"3.9.0",
     "nconf": "0.8.4",
     "auth-header": "0.3.1",
-    "mailgun-js": "0.10.1",
-    "mailcomposer": "4.0.2"
+    "sendgrid": "5.1.0"
   }
 }

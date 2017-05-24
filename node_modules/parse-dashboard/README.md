@@ -1,6 +1,6 @@
 # Parse Dashboard
 
-[![Build Status](https://img.shields.io/travis/ParsePlatform/parse-dashboard/master.svg?style=flat)](https://travis-ci.org/ParsePlatform/parse-dashboard)
+[![Build Status](https://img.shields.io/travis/parse-community/parse-dashboard/master.svg?style=flat)](https://travis-ci.org/parse-community/parse-dashboard)
 [![npm version](https://img.shields.io/npm/v/parse-dashboard.svg?style=flat)](https://www.npmjs.com/package/parse-dashboard)
 
 Parse Dashboard is a standalone dashboard for managing your Parse apps. You can use it to manage your [Parse Server](https://github.com/ParsePlatform/parse-server) apps and your apps that are running on [Parse.com](https://Parse.com).
@@ -310,3 +310,7 @@ If you are not familiar with Docker, ``--port 8080`` will be passed in as argume
 # Contributing
 
 We really want Parse to be yours, to see it grow and thrive in the open source community. Please see the [Contributing to Parse Dashboard guide](CONTRIBUTING.md).
+
+-----
+
+As of April 5, 2017, Parse, LLC has transferred this code to the parse-community organization, and will no longer be contributing to or distributing this code.
