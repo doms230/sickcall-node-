@@ -18060,11 +18060,11 @@ $(function(){
                         configureMessages();
                         loadRSVPs();
 
-                        sendNotification(eventHostId, currentUser.get('username') + "joined your " + eventTitle + " guest list.");
+                        sendNotification(eventHostId, currentUser.get('username') + " joined " + eventTitle + ".");
 
                     } else {
                         $('#rsvpButton').hide();
-                        $('#alertDiv').append('<div class="alert alert-info" role="alert">RSVP Pending</div>');
+                        $('#alertDiv').append('<div class="alert alert-info" role="alert">Access Pending</div>');
                         $('#alertDiv').show();
 
                         sendNotification(eventHostId, currentUser.get('username') + " requested access to " + eventTitle + ".");
@@ -18756,9 +18756,10 @@ function sendNotification(userId, message){
         type : 'GET',
         data : {
             userId: userId,
-            message : message
+            message : message,
+            eventId: eventId
            },
-        async : false,
+        async : true,
         success : function(result) {
 
             try {
@@ -19161,7 +19162,7 @@ function newRSVP(user, username){
         success: function(gameScore) {
 
             if (isInvited){
-                sendNotification(eventHostId, username + " joined your" + eventTitle + "guest list.");
+                sendNotification(eventHostId, username + " joined " + eventTitle + ".");
 
             } else {
                 sendNotification(eventHostId, username + " requested access to " + eventTitle + ".");
@@ -19173,7 +19174,7 @@ function newRSVP(user, username){
         error: function(gameScore, error) {
             // Execute any logic that should take place if the save fails.
             // error is a Parse.Error with an error code and message.
-            alert('Failed to create new RSVP: ' + error.message);
+            alert('Problem with joining: ' + error.message);
         }
     });
 }
