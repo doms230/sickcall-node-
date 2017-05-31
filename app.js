@@ -73,6 +73,7 @@ var api = new ParseServer({
   }
 });
 
+
 var dashboard = new ParseDashboard({
   "apps": [{
     "serverURL": 'https://hiikey.herokuapp.com/parse', // Not localhost
@@ -88,7 +89,9 @@ var dashboard = new ParseDashboard({
       "pass":"Letscre@tE1!"
     }
   ],
-  "iconsFolder": "./public/images"
+  "iconsFolder": "./public/images",
+  "trustProxy": 1
+
 });
 
 // view engine setup
