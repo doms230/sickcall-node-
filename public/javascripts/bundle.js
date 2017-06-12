@@ -18813,48 +18813,10 @@ function loadNavBar(isHost){
             $('#navForgotPasswordModal').modal('show');
         });
 
-    } else if (isHost){
-        $("#navbar").append('<ul   class="nav navbar-nav">'+
-            '<li> <a href="home">Home</a></li>'+
-            '<li><a href="search">Search</a></li>' +
-            ' <li><a href="create">Create Event</a></li>' +
-            '<li><a href="profile">Profile</a></li>' +
-            '<li><hr class="featurette-divider"></li>' +
-            '<li><a  id="removeEvent" >Remove Event</a></li>' +
-            '<li><a  id="editEvent" >Edit Event</a></li>' +
-            '<li><a id="eventRequests" >Requests <span id="badgeJaunt" class="badge">0</span></a></li>' +
-            '</ul>');
-
-        /*$('#editEvent').click(function () {
-
-        });*/
-
-        $('#eventRequests').click(function(){
-            $('#modelRequests').modal('show');
-        });
-
-        $('#editEvent').click(function(){
-            document.getElementById('inputTitle').value = eventTitle;
-            document.getElementById('inputAddress').value = address;
-            document.getElementById('inputDescription').value = description;
-            document.getElementById('inputStartDate').value = editStartDate;
-            document.getElementById('inputStartTime').value = editStartTime;
-            document.getElementById('inputEndDate').value = editEndDate;
-            document.getElementById('inputEndTime').value = editEndTime;
-            document.getElementById('inputImage').src = eventImage;
-            $('#modalEdit').modal('show');
-        });
-
-        $('#removeEvent').click(function(){
-
-            $('#removeEventModal').modal('show');
-        });
-
     } else {
         $("#navbar").append('<ul   class="nav navbar-nav">'+
             '<li> <a href="home">Home</a></li>'+
             '<li><a href="search">Search</a></li>' +
-            '<li><a href="create">Create Event</a></li>' +
             '<li><a href="profile">Profile</a></li>');
     }
 }

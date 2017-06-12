@@ -58,7 +58,6 @@ $(function(){
             '       <ul class="nav navbar-nav">'+
             '           <li ><a href="home">Home</a></li>'+
             '           <li><a href="search">Search</a></li>'+
-            '           <li  class="active" ><a href="create">Create Event</a></li>'+
             '           <li > <a href="profile">Profile</a></li>'+
 
             '        </ul>'+
@@ -83,7 +82,6 @@ $(function(){
             '       <ul class="nav navbar-nav">'+
             '           <li ><a href="home">Home</a></li>'+
             '<li><a href="search">Search</a></li>'+
-            '           <li  class="active" ><a href="create">Create Event</a></li>'+
             '        </ul>'+
             '   </div>'+
             '</div>'

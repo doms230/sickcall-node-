@@ -18039,7 +18039,6 @@ $(function(){
             ' <ul class="nav navbar-nav">'+
             ' <li ><a href="home">Home</a></li>'+
             ' <li class="active"  ><a href="search">Search</a></li>'+
-            ' <li><a href="create">Create Event</a></li>'+
             ' <li  > <a href="profile">Profile</a></li>'+
             ' <form class="navbar-form navbar-right">'+
             '   <div class="form-group">'+
@@ -18067,7 +18066,6 @@ $(function(){
             ' <div id="navbar" class="navbar-collapse collapse">'+
             ' <ul class="nav navbar-nav">'+
             ' <li class="active"  ><a href="search">Search</a></li>'+
-            ' <li><a href="create">Create Event</a></li>'+
             ' <form class="navbar-form navbar-right">'+
             '   <div class="form-group">'+
             '<input id="searchValue" type="text" class="form-control" placeholder="Search City">'+
