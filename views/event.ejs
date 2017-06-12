@@ -94,16 +94,12 @@
 <div id="rsvpDiv" class="page-header" hidden="yes">
 </div>
 
-<div id="rsvpButton" class="page-header" hidden="yes" >
-    <div class="container-fluid">
-        <button  type="button" class="btn btn-danger btn-lg btn-block">JOIN</button>
-    </div>
-</div>
+
 
 <div id="alertDiv" class="page-header" hidden="yes">
 </div>
 
-<ul id="messageBarDiv" class=" navbar-fixed-bottom" hidden="yes">
+<!-- <ul id="messageBarDiv" class=" navbar-fixed-bottom" hidden="yes">
     <div class="input-group">
         <input id="usermsg" type="text" class="form-control" placeholder= "Message"  >
       <span class="input-group-btn">
@@ -111,7 +107,24 @@
       </span>
     </div>
 
-</ul>
+</ul> -->
+
+<nav class="navbar navbar-default navbar-fixed-bottom" >
+    <div id="messageBarDiv"  class="container-fluid" hidden="yes" >
+        <div class="input-group messageBar">
+            <input id="usermsg" type="text" class="form-control" placeholder= "Message"  >
+      <span class="input-group-btn">
+        <button id="sendmsg" class="btn btn-default" type="button">Send</button>
+      </span>
+        </div>
+    </div>
+
+    <div id="rsvpButton" class="container-fluid" hidden="yes">
+        <button  type="button" class="btn btn-danger btn-lg btn-block">JOIN</button>
+    </div>
+
+</nav>
+
 
 
 <div id="modelRequests" class="modal fade" tabindex="-1" role="dialog">
