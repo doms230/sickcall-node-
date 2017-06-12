@@ -57,7 +57,7 @@ router.get('/', function(req, res, next) {
             var phoneNumber = object.get('phoneNumber');
 
             sendEmail(userEmail, message, eventId, username);
-            sendText(phoneNumber, message, eventId);
+           // sendText(phoneNumber, message, eventId);
 
         },
         error: function(object, error) {
