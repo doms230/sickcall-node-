@@ -18479,7 +18479,7 @@ function loadEventUser(userId, title, image, code, description, startDate, endDa
                // '<h4>' + displayName + '- <small>' + description + '</small></h4>' +
                 '<h4> Date - <small>' + startDate +  ' - ' +  endDate + '</small></h4>' +
                 '<a class="thumbnail">' +
-                '<img alt="..." src=' + image + '>' +
+                '<img  alt="..." src=' + image + '>' +
                 '</a>' +
                 '<h4>event code: <span class="label label-danger">' + code + '</span> </h4> '+
                 '<nav aria-label="...">'+
