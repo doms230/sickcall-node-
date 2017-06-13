@@ -13506,17 +13506,21 @@ function traverse(obj, encountered, shouldThrow, allowDeepUnsaved) {
 },{"./ParseFile":140,"./ParseObject":144,"./ParseRelation":148,"babel-runtime/helpers/typeof":19}],169:[function(require,module,exports){
 /**
  * Created by macmini on 5/7/17.
+ *
+ *  watchify public/javascripts/welcomeScripts.js -o public/javascripts/welcomeBundle.js -v
  */
-
 
 var parse = require("parse").Parse;
 parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF"); parse.serverURL = 'https://hiikey.herokuapp.com/parse';
 var currentUser = parse.User.current();
 
 $(function(){
-    if (currentUser){
+    /*if (currentUser){
         window.location.href = "https://www.hiikey.com/home";
-    }
+    }*/
+
+    console.log(window.location.href);
+    console.log(window.location);
 });
 },{"parse":126}],170:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
