@@ -16,77 +16,80 @@ router.get('/', function(req, res, next) {
     res.render('welcome',{});
 });
 
-router.get('/:id', function(req, res, next) {
+/*router.get('/:id', function(req, res, next) {
 
     id = req.params.id;
 
+    if (id != 'events'){
+        switch (id){
+            case 'home':
+                res.redirect("https://www.hiikey.com/search");
+                break;
+
+            case 'about':
+                res.redirect("https://www.hiikey.com/about");
+                break;
+
+            case 'profile':
+                res.redirect("https://www.hiikey.com/profile");
+                break;
+
+            case 'logins':
+                res.redirect("https://www.hiikey.com/logins");
+                break;
+
+            case 'terms':
+                res.redirect("https://www.hiikey.com/terms");
+                break;
+
+            /*case 'events':
+             res.redirect('https://www.hiikey.com' + req.originalUrl);
+             //console.log('https://www.hiikey.com' + req.originalUrl);
+             break;*/
+
+            default:
+                /*var User = parse.Object.extend("_User");
+                 var query = new parse.Query(User);
+                 query.get(id, {
+                 useMasterKey:true,
+                 success: function(object) {
+
+                 loadEvent(object.id, res);
+
+                 },
+                 error: function(object, error) {
+                 console.log(object + "error: " + error);
+                 // The object was not retrieved successfully.
+                 // error is a Parse.Error with an error code and message.
+                 }
+                 });*/
+
+                var GameScore = parse.Object.extend("_User");
+                var query = new parse.Query(GameScore);
+                query.equalTo("username", id);
+                query.first({
+                    success: function(object) {
+                        if (object == null){
+                            res.redirect('https://www.hiikey.com');
+
+                        } else {
+                            loadEvent(object.id, res);
+                        }
+                    },
+                    error: function(error) {
+                        res.send('asdfasdf');
+                        console.log(error.code + "" + error.message);
+                        // alert("Error: " + error.code + " " + error.message);
+                    }
+                });
+
+                break;
+        }
+    }
+
     console.log(id);
 
-    switch (id){
-        case 'home':
-            res.redirect("https://www.hiikey.com/search");
-            break;
-
-        case 'about':
-            res.redirect("https://www.hiikey.com/about");
-            break;
-
-        case 'profile':
-            res.redirect("https://www.hiikey.com/profile");
-            break;
-
-        case 'logins':
-            res.redirect("https://www.hiikey.com/logins");
-            break;
-
-        case 'terms':
-            res.redirect("https://www.hiikey.com/terms");
-            break;
-
-        case 'events':
-            res.redirect('https://www.hiikey.com' + req.originalUrl);
-            console.log('https://www.hiikey.com' + req.originalUrl);
-            break;
-
-        default:
-            /*var User = parse.Object.extend("_User");
-            var query = new parse.Query(User);
-            query.get(id, {
-                useMasterKey:true,
-                success: function(object) {
-
-                loadEvent(object.id, res);
-
-                },
-                error: function(object, error) {
-                    console.log(object + "error: " + error);
-                    // The object was not retrieved successfully.
-                    // error is a Parse.Error with an error code and message.
-                }
-            });*/
-
-            var GameScore = parse.Object.extend("_User");
-            var query = new parse.Query(GameScore);
-            query.equalTo("username", id);
-            query.first({
-                success: function(object) {
-                    if (object == null){
-                        res.redirect('https://www.hiikey.com');
-
-                    } else {
-                        loadEvent(object.id, res);
-                    }
-                },
-                error: function(error) {
-                    res.send('asdfasdf');
-                    console.log(error.code + "" + error.message);
-                    // alert("Error: " + error.code + " " + error.message);
-                }
-            });
-
-            break;
-    }
-});
+});*/
 
 function loadEvent(user, res){
 
