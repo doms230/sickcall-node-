@@ -42,27 +42,13 @@ router.get('/', function(req, res, next) {
                 res.redirect("https://www.hiikey.com/terms");
                 break;
 
-            /*case 'events':
-             res.redirect('https://www.hiikey.com' + req.originalUrl);
-             //console.log('https://www.hiikey.com' + req.originalUrl);
-             break;*/
+          //  case 'events':
+           //  res.redirect('https://www.hiikey.com' + req.originalUrl);
+            / //console.log('https://www.hiikey.com' + req.originalUrl);
+             //break;
 
             default:
-                /*var User = parse.Object.extend("_User");
-                 var query = new parse.Query(User);
-                 query.get(id, {
-                 useMasterKey:true,
-                 success: function(object) {
 
-                 loadEvent(object.id, res);
-
-                 },
-                 error: function(object, error) {
-                 console.log(object + "error: " + error);
-                 // The object was not retrieved successfully.
-                 // error is a Parse.Error with an error code and message.
-                 }
-                 });*/
 
                 var GameScore = parse.Object.extend("_User");
                 var query = new parse.Query(GameScore);
@@ -89,7 +75,7 @@ router.get('/', function(req, res, next) {
 
     console.log(id);
 
-});*/
+});
 
 function loadEvent(user, res){
 
@@ -124,7 +110,7 @@ function loadEvent(user, res){
         }
     });
 
-   /* var User = parse.Object.extend("Event");
+    var User = parse.Object.extend("Event");
     var query = new parse.Query(User);
     query.equalTo("userId", user);
     query.get(user, {
@@ -139,7 +125,7 @@ function loadEvent(user, res){
             // error is a Parse.Error with an error code and message.
             console.log(error);
         }
-    });*/
-}
+    });
+}*/
 
 module.exports = router;
