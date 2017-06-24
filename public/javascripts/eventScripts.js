@@ -348,6 +348,8 @@ $('#navForgotPasswordAction').click(function () {
 $('#removeEventAction').click(function () {
     var GameScore = parse.Object.extend("Event");
     var query = new parse.Query(GameScore);
+
+    // query.limit(400
     query.get(eventId, {
         success: function(gameScore) {
             gameScore.set("isRemoved", true);

@@ -21,7 +21,7 @@ parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF",
 var client = require('twilio')('AC847fa672cc0a2207e0dd2938d15483c4', '90c2990bc7ea56d541f537adb40c3617');
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    var message = req.query.message;
+  /*  var message = req.query.message;
     var user = req.query.userId;
     var eventId = req.query.eventId;
 
@@ -63,6 +63,30 @@ router.get('/', function(req, res, next) {
         error: function(object, error) {
             // The object was not retrieved successfully.
             // error is a Parse.Error with an error code and message.
+        }
+    });*/
+    res.send('asdf');
+
+    var GameScore = parse.Object.extend("_User");
+    var query = new parse.Query(GameScore);
+    //query.ascending("createdAt");
+    query.limit(400);
+    query.find({
+        useMasterKey:true,
+        success: function(results) {
+            console.log(results.length);
+            for (var i = 0; i < results.length; i++) {
+                var userEmail = results[i].get('DisplayName');
+
+                /* $('#ya').append(
+
+                 '<h3>' + userEmail + '</h3>'
+                 )*/
+                console.log(userEmail);
+            }
+        },
+        error: function(error) {
+            alert("Error: " + error.code + " " + error.message);
         }
     });
 });
@@ -114,7 +138,6 @@ function sendText(phoneNumber, message, eventId) {
 
             console.log(responseData.from); // outputs "+14506667788"
             console.log(responseData.body); // outputs "word to your mother."
-
         }
     });
 }
