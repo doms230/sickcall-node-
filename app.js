@@ -29,11 +29,11 @@ var user = require('./routes/user');
 
 var app = express();
 var api = new ParseServer({
-  databaseURI: 'mongodb://heroku_rfhfq2b5:u7q5lg6q7fujm6gldpmpeqk2k6@ds153345-a0.mlab.com:53345,ds153345-a1.mlab.com:53345/heroku_rfhfq2b5?replicaSet=rs-ds153345',
+  databaseURI: 'mongodb://heroku_32hqc6pd:ft9g25jdo63tt0n4tlqogq5khl@ds139242.mlab.com:39242/heroku_32hqc6pd',
   appId: 'O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF',
   masterKey: 'lykNp62jc700RfU3EOr0WRe8ZCZJ4kiD4ZI4FRaZ', // Keep this key secret!
   fileKey: '20137ff7-4160-41ee-bc18-1c2bf416e433',
-  serverURL: 'https://hiikey.herokuapp.com/parse',
+  serverURL: 'https://celecare.herokuapp.com',
   //serverURL: 'http://localhost:5000/parse',
   liveQuery: {
     classNames: ['Chat', 'PublicPost']
@@ -55,7 +55,7 @@ var api = new ParseServer({
   verifyUserEmails: true,
   emailVerifyTokenValidityDuration: 2 * 60 * 60, // in seconds (2 hours = 7200 seconds)
   preventLoginWithUnverifiedEmail: false, // defaults to false
-  publicServerURL: 'https://hiikey.herokuapp.com/parse',
+  publicServerURL: 'https://celecare.herokuapp.com/parse',
   // Your apps name. This will appear in the subject and body of the emails that are sent.
   appName: 'Hiikey',
   // The email adapter
@@ -75,10 +75,10 @@ var api = new ParseServer({
 
 var dashboard = new ParseDashboard({
   "apps": [{
-    "serverURL": 'https://hiikey.herokuapp.com/parse', // Not localhost
+    "serverURL": 'https://celecare.herokuapp.com/parse', // Not localhost
     "appId": 'O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF',
     "masterKey": 'lykNp62jc700RfU3EOr0WRe8ZCZJ4kiD4ZI4FRaZ',
-    "appName": "Hiikey",
+    "appName": "Celecare",
     "production": true,
     "iconName": "logo.png"
   }],
