@@ -11,21 +11,25 @@ var ParseServer = require('parse-server').ParseServer;
 var ParseDashboard = require('parse-dashboard');
 var mongoose = require('mongoose');
 
-var routes = require('./routes/home');
-var test = require('./routes/test');
-var terms = require('./routes/terms');
-var notifications = require('./routes/notifications');
-var invites = require('./routes/invites');
-var events = require('./routes/events');
-var about = require('./routes/about');
-var login = require('./routes/logins');
-var messages = require('./routes/messages');
-var profiles = require('./routes/profiles');
-var myEvents = require ('./routes/myEvents');
-var search = require('./routes/search');
-var digits = require('./routes/digits');
-var iosapp = require('./routes/ios-app');
-var user = require('./routes/user');
+var routes = require('./routes/hiikey/home');
+var test = require('./routes/hiikey/test');
+var terms = require('./routes/hiikey/terms');
+var notifications = require('./routes/hiikey/notifications');
+var invites = require('./routes/hiikey/invites');
+var events = require('./routes/hiikey/events');
+var about = require('./routes/hiikey/about');
+var login = require('./routes/hiikey/logins');
+var messages = require('./routes/hiikey/messages');
+var profiles = require('./routes/hiikey/profiles');
+var myEvents = require ('./routes/hiikey/myEvents');
+var search = require('./routes/hiikey/search');
+var digits = require('./routes/hiikey/digits');
+var iosapp = require('./routes/hiikey/ios-app');
+var user = require('./routes/hiikey/user');
+
+
+//celecare
+var payments = require('./routes/celecare/payments');
 
 var app = express();
 var api = new ParseServer({
@@ -106,12 +110,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/test', test);
+//app.use('/test', test);
 app.use('/terms', terms);
 app.use('/notifications', notifications);
 app.use('/parse', api);
 app.use('/dashboard', dashboard);
-app.use('/invites',invites);
+/*app.use('/invites',invites);
 app.use('/events', events);
 app.use('/about', about );
 app.use('/logins', login);
@@ -121,7 +125,9 @@ app.use('/home', myEvents);
 app.use('/search', search);
 app.use('/digits', digits);
 app.use('/app',iosapp);
-app.use('/u', user);
+app.use('/u', user);*/
+
+app.use('/payments', payments);
 
 //app.use('/chat', chats);
 //scripts

@@ -37,6 +37,7 @@
     "watchify":"3.9.0",
     "nconf": "0.8.4",
     "auth-header": "0.3.1",
-    "sendgrid": "5.1.0"
+    "sendgrid": "5.1.0",
+    "stripe": "4.23.1"
   }
 }
