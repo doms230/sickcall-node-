@@ -92,7 +92,7 @@ router.post('/addCard',function(req,res,next){
 router.post('/addCustomer', function(req, res, next){
 
     stripe.customers.create({
-        email: req.params.email
+        email: req.query.email
     }).then(function(customer){
 
         res.send(customer);
