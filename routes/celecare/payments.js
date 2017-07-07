@@ -104,6 +104,25 @@ router.post('/addCustomer', function(req, res, next){
 
 });
 
+//stripe stuff
+router.post('/ephemeral_keys', (req, res) => {
+    const stripe_version = req.query.api_version;
+    if (!stripe_version) {
+        res.status(400).end();
+        return;
+    }
+    // This function assumes that some previous middleware has determined the
+    // correct customerId for the session and saved it on the request object.
+    stripe.ephemeralKeys.create(
+        {customer: req.query.customerId},
+        {stripe_version: stripe_version}
+    ).then((key) => {
+        res.status(200).json(key);
+    }).catch((err) => {
+        res.status(500).end();
+    });
+});
+
 
 
 /*function createCustomer( email, exp_month, exp_year, number, cvc, res){
