@@ -19,11 +19,6 @@ router.get('/', function(req, res, next) {
 
 router.post('/addCard',function(req,res,next){
 
-    //boolean
-    var isCustomer = req.params.isCustomer;
-    //string
-    var email = req.params.email;
-
     //int
     var exp_month = req.params.exp_month;
     //int
@@ -32,6 +27,26 @@ router.post('/addCard',function(req,res,next){
     var number = req.params.number;
     //int
     var cvc = req.params.cvc;
+
+    stripe.customers.createSource(
+        req.params.customerId,
+        {
+            source: {
+                object: 'card',
+                exp_month: exp_month,
+                exp_year: exp_year,
+                number: number,
+                cvc: cvc
+            } },
+        function(err, card) {
+            if(err == null){
+                res.send(err);
+
+            } else {
+                res.send(card);
+            }
+        }
+    );
 
    /* //boolean
     var isCustomer = true;
@@ -47,7 +62,7 @@ router.post('/addCard',function(req,res,next){
     //int
     var cvc = 100;*/
 
-    if (isCustomer == true){
+    /*if (isCustomer == true){
         stripe.customers.createSource(
             req.params.customerId,
             {
@@ -70,32 +85,28 @@ router.post('/addCard',function(req,res,next){
 
     } else {
         createCustomer( email, exp_month, exp_year, number, cvc, res);
-    }
+    }*/
 
 });
 
-function createCustomer( email, exp_month, exp_year, number, cvc, res){
+router.post('/addCustomer', function(req, res, next){
+
     stripe.customers.create({
-        email: email
+        email: req.params.email
     }).then(function(customer){
-        return stripe.customers.createSource(customer.id, {
-            source: {
-                object: 'card',
-                exp_month: exp_month,
-                exp_year: exp_year,
-                number: number,
-                cvc: cvc
-            }
-        });
 
-    }).then(function(source){
-
-        res.send(source);
+        res.send(customer);
         //saveCustomerId(userId, source.customer);
 
     }).catch(function(err) {
         res.send(err);
     });
-}
+
+});
+
+
+
+/*function createCustomer( email, exp_month, exp_year, number, cvc, res){
+}*/
 
 module.exports = router;
