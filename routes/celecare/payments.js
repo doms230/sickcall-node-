@@ -25,7 +25,8 @@ router.post('/pay', function(req, res, next){
         currency: "usd",
         description: req.body.description,
         source: req.body.token,
-        customer: req.body.customer
+      //  customer: req.body.customer,
+        receipt_email: req.body.email
     }, function(err, charge) {
         if (err == null){
             res.send(charge);
