@@ -30,6 +30,7 @@ var user = require('./routes/hiikey/user');
 
 //celecare
 var payments = require('./routes/celecare/payments');
+var posts = require('./routes/celecare/posts');
 
 var app = express();
 var api = new ParseServer({
@@ -37,10 +38,10 @@ var api = new ParseServer({
   appId: 'O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF',
   masterKey: 'lykNp62jc700RfU3EOr0WRe8ZCZJ4kiD4ZI4FRaZ', // Keep this key secret!
   fileKey: '20137ff7-4160-41ee-bc18-1c2bf416e433',
-  serverURL: 'https://celecare.herokuapp.com',
-  //serverURL: 'http://localhost:5000/parse',
+  //serverURL: 'https://celecare.herokuapp.com/parse',
+  serverURL: 'http://localhost:5000/parse',
   liveQuery: {
-    classNames: ['Chat', 'PublicPost']
+    classNames: ['Post']
   },
   push: {
     ios: [
@@ -76,7 +77,6 @@ var api = new ParseServer({
   }
 });
 
-
 var dashboard = new ParseDashboard({
   "apps": [{
     "serverURL": 'https://celecare.herokuapp.com/parse', // Not localhost
@@ -104,7 +104,7 @@ app.set('view engine', 'ejs');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
-//app.use(bodyParser.json());
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -128,7 +128,7 @@ app.use('/app',iosapp);
 app.use('/u', user);*/
 
 app.use('/payments', payments);
-
+app.use('/posts', posts);
 //app.use('/chat', chats);
 //scripts
 

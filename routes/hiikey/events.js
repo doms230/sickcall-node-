@@ -50,7 +50,6 @@ function loadEvent(res, eventCode){
                 var imageSRC = (object.get("eventImage").name())[0].src;
                 var address = object.get('address');
 
-
                 res.render('event', {objectId: eventCode, image: imageSRC, title: title});
             }
         },

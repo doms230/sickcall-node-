@@ -6,16 +6,40 @@
 
 var express = require('express');
 var router = express.Router();
-var http = require('http');
+//var http = require('http');
 
 var stripe = require("stripe")(
     "sk_test_XjgzLWe3uty249H9iZ6YtzId"
 );
 
-router.get('/', function(req, res, next) {
+router.post('/', function(req, res, next) {
 
 
 });
+
+router.post('/pay', function(req, res, next){
+
+
+    var charge = stripe.charges.create({
+        amount: req.body.amount,
+        currency: "usd",
+        description: req.body.description,
+        source: req.body.token,
+        customer: req.body.customer
+    }, function(err, charge) {
+        if (err == null){
+            res.send(charge);
+            console.log(charge);
+        } else {
+            res.send(err);
+            console.log(err);
+        }
+        // asynchronously called
+    });
+
+});
+
+
 
 router.post('/addCard',function(req,res,next){
 
@@ -90,12 +114,14 @@ router.post('/addCard',function(req,res,next){
 });
 
 router.post('/addCustomer', function(req, res, next){
+    console.log("email: " + req.query.email);
 
     stripe.customers.create({
         email: req.query.email
     }).then(function(customer){
 
         res.send(customer);
+
         //saveCustomerId(userId, source.customer);
 
     }).catch(function(err) {
@@ -122,8 +148,6 @@ router.post('/ephemeral_keys', (req, res) => {
         res.status(500).end();
     });
 });
-
-
 
 /*function createCustomer( email, exp_month, exp_year, number, cvc, res){
 }*/
