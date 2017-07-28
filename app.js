@@ -60,9 +60,10 @@ var api = new ParseServer({
   verifyUserEmails: true,
   emailVerifyTokenValidityDuration: 2 * 60 * 60, // in seconds (2 hours = 7200 seconds)
   preventLoginWithUnverifiedEmail: false, // defaults to false
-  publicServerURL: 'https://celecare.herokuapp.com/parse',
+  //publicServerURL: 'https://celecare.herokuapp.com/parse',
+  publicServerURL: 'http://localhost:5000/parse',
   // Your apps name. This will appear in the subject and body of the emails that are sent.
-  appName: 'Hiikey',
+  appName: 'Celecare',
   // The email adapter
   emailAdapter: {
     module: 'parse-server-simple-mailgun-adapter',
