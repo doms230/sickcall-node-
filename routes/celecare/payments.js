@@ -19,7 +19,7 @@ router.post('/', function(req, res, next) {
 
 router.post('/pay', function(req, res, next){
 
-
+    
     var charge = stripe.charges.create({
         amount: req.body.amount,
         currency: "usd",
