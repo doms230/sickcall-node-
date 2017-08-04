@@ -99,7 +99,7 @@ router.post('/newAccount', function(req, res){
 
 router.post('/updatePersonalInfo', function(req, res, next){
     var accountId = req.body.account_Id;
-    stripe.accounts.update({accountId}, {
+    stripe.accounts.update(accountId, {
          legal_entity: {
             personal_id_number: req.body.personal_id_number,
             ssn_last_4: req.body.ssn_last_4,
@@ -133,7 +133,7 @@ router.post('/updatePersonalInfo', function(req, res, next){
 
 router.post('/updateBankInfo', function(req, res, next){
 var accountId = req.body.account_Id;
-    stripe.accounts.update({accountId}, {
+    stripe.accounts.update(accountId, {
          external_account:{
             object: "bank_account",
             account_number: req.body.account_number,
