@@ -44,7 +44,6 @@ router.post('/newAccount', function(req, res){
     var date = new Date();
     var timeStamp = Math.floor(date/1000);
 
-
     stripe.accounts.create({
         type: 'custom',
         country: 'US',
@@ -98,8 +97,62 @@ router.post('/newAccount', function(req, res){
 
 });
 
+router.post('/updatePersonalInfo', function(req, res, next){
+    var accountId = req.body.account_Id;
+    stripe.accounts.update({accountId}, {
+         legal_entity: {
+            personal_id_number: req.body.personal_id_number,
+            ssn_last_4: req.body.ssn_last_4,
+            address:{
+                city: req.body.city,
+                line1: req.body.line1,
+                line2: req.body.line2,
+                postal_code: req.body.postal_code,
+                state: req.body.state
+            },
+            dob: {
+                day:req.body.day,
+                month: req.body.month,
+                year: req.body.year
+            },
+            first_name: req.body.first_name,
+            last_name: req.body.last_name,
+            type: "individual"
+        }
+  
+    }, function(error, account){
+        if (error == null){
+            res.send(account);
 
+        } else {
+            res.send(error);
+        }
+        
+    });    
+});
 
+router.post('/updateBankInfo', function(req, res, next){
+var accountId = req.body.account_Id;
+    stripe.accounts.update({accountId}, {
+         external_account:{
+            object: "bank_account",
+            account_number: req.body.account_number,
+            country: "us",
+            currency: "usd",
+            routing_number: req.body.routing_number
+        }
+  
+    }, function(error, account){
+        if (error == null){
+            res.send(account);
+
+        } else {
+            res.send(error);
+        }
+        
+    }); 
+
+});
 
 router.post('/addCard',function(req,res,next){
 
