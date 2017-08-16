@@ -6,14 +6,15 @@
 
 var express = require('express');
 var router = express.Router();
-//var http = require('http');
+var http = require('http');
 
 var stripe = require("stripe")(
     "sk_test_XjgzLWe3uty249H9iZ6YtzId"
 );
 
-router.post('/', function(req, res, next) {
 
+router.get('/', function(req, res, next) {
+res.send('hey');
 
 });
 
@@ -131,15 +132,15 @@ router.post('/updatePersonalInfo', function(req, res, next){
     });    
 });
 
-router.post('/updateBankInfo', function(req, res, next){
-var accountId = req.body.account_Id;
+router.get('/updateBankInfo', function(req, res, next){
+var accountId = req.query.account_Id
     stripe.accounts.update(accountId, {
          external_account:{
             object: "bank_account",
-            account_number: req.body.account_number,
+            account_number: req.query.account_number,
             country: "us",
             currency: "usd",
-            routing_number: req.body.routing_number
+            routing_number: req.query.routing_number
         }
   
     }, function(error, account){
