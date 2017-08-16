@@ -1,8 +1,6 @@
 /**
  * Created by macmini on 7/4/17.
- *
- * http://localhost:5000/payments/addCard?isCustomer=false&email=doms230@live.com
- */
+  */
 
 var express = require('express');
 var router = express.Router();
@@ -14,8 +12,7 @@ var stripe = require("stripe")(
 
 
 router.get('/', function(req, res, next) {
-res.send('hey');
-
+    
 });
 
 router.post('/pay', function(req, res, next){
@@ -102,8 +99,8 @@ router.post('/updatePersonalInfo', function(req, res, next){
     var accountId = req.body.account_Id;
     stripe.accounts.update(accountId, {
          legal_entity: {
-            personal_id_number: req.body.personal_id_number,
-            ssn_last_4: req.body.ssn_last_4,
+            //personal_id_number: req.body.personal_id_number,
+            //ssn_last_4: req.body.ssn_last_4,
             address:{
                 city: req.body.city,
                 line1: req.body.line1,
@@ -111,14 +108,14 @@ router.post('/updatePersonalInfo', function(req, res, next){
                 postal_code: req.body.postal_code,
                 state: req.body.state
             },
-            dob: {
+           /* dob: {
                 day:req.body.day,
                 month: req.body.month,
                 year: req.body.year
             },
             first_name: req.body.first_name,
             last_name: req.body.last_name,
-            type: "individual"
+            type: "individual"*/
         }
   
     }, function(error, account){
