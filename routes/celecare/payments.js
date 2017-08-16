@@ -12,12 +12,10 @@ var stripe = require("stripe")(
 
 
 router.get('/', function(req, res, next) {
-    
+
 });
 
-router.post('/pay', function(req, res, next){
-
-    
+router.post('/pay', function(req, res, next){    
     var charge = stripe.charges.create({
         amount: req.body.amount,
         currency: "usd",
@@ -35,7 +33,6 @@ router.post('/pay', function(req, res, next){
         }
         // asynchronously called
     });
-
 });
 
 router.post('/newAccount', function(req, res){
@@ -129,15 +126,30 @@ router.post('/updatePersonalInfo', function(req, res, next){
     });    
 });
 
-router.get('/updateBankInfo', function(req, res, next){
-var accountId = req.query.account_Id
+router.get('/getPersonalInfo', function(req, res, next){
+    var accountId = req.query.account_Id;
+    stripe.accounts.retrieve(
+        accountId,
+        function(err, account) {
+            if (err == null){
+                res.send(account);
+
+            } else {
+                res.send(err);
+            }
+        }
+    );
+});
+
+router.post('/updateBankInfo', function(req, res, next){
+var accountId = req.body.account_Id
     stripe.accounts.update(accountId, {
          external_account:{
             object: "bank_account",
-            account_number: req.query.account_number,
+            account_number: req.body.account_number,
             country: "us",
             currency: "usd",
-            routing_number: req.query.routing_number
+            routing_number: req.body.routing_number
         }
   
     }, function(error, account){
