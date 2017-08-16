@@ -92,7 +92,22 @@ router.post('/newAccount', function(req, res){
 
 });
 
-router.post('/updatePersonalInfo', function(req, res, next){
+router.get('/account', function(req, res, next){
+    var accountId = req.query.account_Id;
+    stripe.accounts.retrieve(
+        accountId,
+        function(err, account) {
+            if (err == null){
+                res.send(account);
+
+            } else {
+                res.send(err);
+            }
+        }
+    );
+});
+
+router.post('/address', function(req, res, next){
     var accountId = req.body.account_Id;
     stripe.accounts.update(accountId, {
          legal_entity: {
@@ -126,22 +141,7 @@ router.post('/updatePersonalInfo', function(req, res, next){
     });    
 });
 
-router.get('/getPersonalInfo', function(req, res, next){
-    var accountId = req.query.account_Id;
-    stripe.accounts.retrieve(
-        accountId,
-        function(err, account) {
-            if (err == null){
-                res.send(account);
-
-            } else {
-                res.send(err);
-            }
-        }
-    );
-});
-
-router.post('/updateBankInfo', function(req, res, next){
+router.post('/bank', function(req, res, next){
 var accountId = req.body.account_Id
     stripe.accounts.update(accountId, {
          external_account:{
