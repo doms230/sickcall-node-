@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/nextAdvisor', function(req, res, next){
     var postObjectId = req.body.id;
-
+    var date = new Date();
     var Posts = parse.Object.extend('_User');
     var query = new parse.Query(Posts);
     query.equalTo("isOnline", true);
@@ -27,7 +27,12 @@ router.post('/nextAdvisor', function(req, res, next){
         useMasterKey: true,
         success: function(object) {
             console.log("got user: " + object.id);
-            sendQuestion(postObjectId, object.id, res);
+            object.set("questionQueue", date);
+            object.save( null, {
+                success: function(gameScore) {
+                    sendQuestion(postObjectId, object.id, res);
+                }
+            });
         },
         error: function(error) {
             //alert("Error: " + error.code + " " + error.message);
