@@ -12,7 +12,7 @@ var stripe = require("stripe")(
 
 
 router.get('/', function(req, res, next) {
-
+    res.send("asdf");
 });
 
 router.post('/pay', function(req, res, next){    

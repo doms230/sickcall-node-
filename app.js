@@ -39,6 +39,7 @@ var api = new ParseServer({
   masterKey: 'lykNp62jc700RfU3EOr0WRe8ZCZJ4kiD4ZI4FRaZ', // Keep this key secret!
   fileKey: '20137ff7-4160-41ee-bc18-1c2bf416e433',
   serverURL: 'https://celecare.herokuapp.com/parse',
+  //serverURL: 'http://localhost:5000/parse',
   liveQuery: {
     classNames: ['Post']
   },

@@ -13,12 +13,13 @@ parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF", "bctRQbnLCvxRIHaJTk
 router.get('/', function(req, res, next) {
    // var query = new parse.Query('Post');
    // var subscription = query.subscribe();
+   res.send("asdf");
 });
 
-router.post('/nextAdvisor', function(req, res, next){
+router.post('/assignQuestion', function(req, res, next){
     var postObjectId = req.body.id;
     var date = new Date();
-    var Posts = parse.Object.extend('_User');
+    var Posts = parse.Object.extend('Advisor');
     var query = new parse.Query(Posts);
     query.equalTo("isOnline", true);
     query.equalTo("isActive", true);
@@ -26,11 +27,18 @@ router.post('/nextAdvisor', function(req, res, next){
     query.first({
         useMasterKey: true,
         success: function(object) {
-            console.log("got user: " + object.id);
+            let user = object.get("userId");
+            console.log("got user: " + user);
             object.set("questionQueue", date);
             object.save( null, {
                 success: function(gameScore) {
-                    sendQuestion(postObjectId, object.id, res);
+                    sendQuestion(postObjectId, user, res);
+                    //res.send("success");
+                },
+                error: function(gameScore, error) {
+                // Execute any logic that should take place if the save fails.
+                // error is a Parse.Error with an error code and message.
+                    res.send('Failed to create new object, with error code: ' + error.message);
                 }
             });
         },
