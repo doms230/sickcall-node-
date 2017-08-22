@@ -13,19 +13,21 @@ parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF", "bctRQbnLCvxRIHaJTk
 router.get('/', function(req, res, next) {
    // var query = new parse.Query('Post');
    // var subscription = query.subscribe();
+});
 
-    var postObjectId = req.params.id;
+router.post('/nextAdvisor', function(req, res, next){
+    var postObjectId = req.body.id;
+
     var Posts = parse.Object.extend('_User');
     var query = new parse.Query(Posts);
-     query.equalTo("isOnline", true);
-    query.equalTo("isAdvisor", true);
-    query.equalTo("hasQuestion", false);
-     query.ascending("questionQueue");
+    query.equalTo("isOnline", true);
+    query.equalTo("isActive", true);
+    query.ascending("questionQueue");
     query.first({
         useMasterKey: true,
         success: function(object) {
             console.log("got user: " + object.id);
-            sendQuestion(object.id, res);
+            sendQuestion(postObjectId, object.id, res);
         },
         error: function(error) {
             //alert("Error: " + error.code + " " + error.message);
@@ -34,11 +36,10 @@ router.get('/', function(req, res, next) {
     });
 });
 
-function sendQuestion(userId, res){
-
+function sendQuestion(postId, userId, res){
     var Posts = parse.Object.extend('Post');
     var query = new parse.Query(Posts);
-    query.equalTo("objectId", "VvVjmIvgbv");
+    query.equalTo("objectId", postId);
     query.first({
         useMasterKey: true,
         success: function(result) {
