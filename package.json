@@ -5,10 +5,12 @@
   "scripts": {
     "start": "node ./bin/www"
   },
-
   "dependencies": {
+    "auth-header": "0.3.1",
+    "authy": "1.2.0",
     "body-parser": "^1.16.0",
     "bootstrap": "~3.3.7",
+    "browserify": "14.3.0",
     "connect": "~3.6.1",
     "cookie-parser": "~1.4.3",
     "cookie-session": "2.0.0-beta.1",
@@ -17,27 +19,27 @@
     "express": "^4.15.2",
     "express-session": "~1.15.2",
     "jquery": "3.2.1",
+    "jsdom": "10.1.0",
+    "jstz": "1.0.9",
     "kerberos": "0.0.23",
     "moment": "^2.18.1",
+    "moment-timezone": "0.5.13",
     "mongodb": "~2.2.26",
     "mongodb-runner": "3.4.0",
     "mongoose": "~4.9.7",
     "morgan": "~1.8.1",
+    "nconf": "0.8.4",
+    "node-schedule": "^1.2.4",
     "parse": "1.9.2",
     "parse-cloud-express": "~1.2.0",
-    "parse-server": "2.4.1",
-    "serve-favicon": "~2.4.2",
-    "authy": "1.2.0",
-    "twilio": "2.11.1",
-    "moment-timezone": "0.5.13",
-    "jstz": "1.0.9",
     "parse-dashboard": "1.0.26",
-    "jsdom":"10.1.0",
-    "browserify": "14.3.0",
-    "watchify":"3.9.0",
-    "nconf": "0.8.4",
-    "auth-header": "0.3.1",
+    "parse-server": "2.4.1",
     "sendgrid": "5.1.0",
-    "stripe": "4.23.1"
+    "serve-favicon": "~2.4.2",
+    "socket.io": "^2.0.3",
+    "stripe": "4.23.1",
+    "timer-stopwatch": "^0.2.0",
+    "twilio": "2.11.1",
+    "watchify": "3.9.0"
   }
 }

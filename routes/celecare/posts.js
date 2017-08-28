@@ -1,5 +1,6 @@
 /**
  * Created by macmini on 7/18/17.
+ * HealthE
  */
 
 
@@ -10,14 +11,26 @@ var http = require('http');
 var parse = require("parse/node").Parse;
 parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF", "bctRQbnLCvxRIHaJTkv3gqhlwSzxjiMesjx8kEwo");
 
+var schedule = require('node-schedule');
+//var io = require('socket.io')('5000');
+
+
 router.get('/', function(req, res, next) {
    // var query = new parse.Query('Post');
    // var subscription = query.subscribe();
-   res.send("asdf");
+   //res.send("asdf");
+
+    // A new countdown timer with 60 seconds 
+   //var socket = io.connect('http://localhost:5000');
+    //res.send("asdf");
+   /* io.on('counter', function(count){
+       console.log(count);
+      });*/
+
 });
 
-router.post('/assignQuestion', function(req, res, next){
-    var postObjectId = req.body.id;
+router.get('/assignQuestion', function(req, res, next){
+    var postObjectId = req.query.id;
     var date = new Date();
     var Posts = parse.Object.extend('Advisor');
     var query = new parse.Query(Posts);
@@ -60,7 +73,9 @@ function sendQuestion(postId, userId, res){
             result.set("advisorUserId", userId);
             result.save( null, {
                 success: function(gameScore) {
-                    res.send("success");
+                    console.log("timer started");
+                    //res.send("success");
+                    startTimer(res);
                     //send notification to patient that so and so will be answering their question
                     //send notification to advisor that they have a question waiting for them
                 }
@@ -72,5 +87,6 @@ function sendQuestion(postId, userId, res){
         }
     });
 }
+
 
 module.exports = router;

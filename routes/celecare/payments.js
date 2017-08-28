@@ -15,10 +15,11 @@ router.get('/', function(req, res, next) {
     res.send("asdf");
 });
 
-router.post('/pay', function(req, res, next){    
+router.post('/createCharge', function(req, res, next){    
     var charge = stripe.charges.create({
         amount: req.body.amount,
         currency: "usd",
+        capture: false,
         description: req.body.description,
         source: req.body.token,
       //  customer: req.body.customer,
