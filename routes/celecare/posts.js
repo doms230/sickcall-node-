@@ -11,9 +11,6 @@ var http = require('http');
 var parse = require("parse/node").Parse;
 parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF", "bctRQbnLCvxRIHaJTkv3gqhlwSzxjiMesjx8kEwo");
 
-var schedule = require('node-schedule');
-//var io = require('socket.io')('5000');
-
 
 router.get('/', function(req, res, next) {
    // var query = new parse.Query('Post');
