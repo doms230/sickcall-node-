@@ -29,8 +29,10 @@ router.get('/', function(req, res, next) {
 
 });
 
-router.post('/assignQuestion', function(req, res, next){
-    var postObjectId = req.body.id;
+router.get('/assignQuestion', function(req, res, next){
+    res.send("ya");
+    
+    var postObjectId = req.query.id;
     var date = new Date();
     var Posts = parse.Object.extend('Advisor');
     var query = new parse.Query(Posts);
