@@ -29,10 +29,9 @@ router.get('/', function(req, res, next) {
 
 });
 
-router.get('/assignQuestion', function(req, res, next){
+router.post('/assignQuestion', function(req, res, next){
     res.send("ya");
-    
-    var postObjectId = req.query.id;
+    var postObjectId = req.body.id;
     var date = new Date();
     var Posts = parse.Object.extend('Advisor');
     var query = new parse.Query(Posts);
@@ -76,6 +75,7 @@ function sendQuestion(postId, userId, res){
             result.save( null, {
                 success: function(gameScore) {
                     console.log("timer started");
+                    
                     //res.send("success");
                     //startTimer(res);
                     //send notification to patient that so and so will be answering their question
