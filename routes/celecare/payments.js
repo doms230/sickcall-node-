@@ -36,22 +36,37 @@ router.post('/createCharge', function(req, res, next){
 });
 
 router.post('/captureCharge', function(req, res, next){
-    stripe.charges.capture(req.body.charge, 
-        {
-            destination: {
-                account: req.body.connectId,
-                ammount: 500
-              }
-        },
-    function(err, charge) {
-        if (err == null){
-            res.send(charge);
+    var chargeId = req.body.charge; 
+    var connectId = req.body.connectId; 
+
+    stripe.charges.capture(chargeId, function(err, charge) {
+        if (err != null){
+            res.send(err);
 
         } else {
-            //do something to alert operations that charge was not captured 
-            res.send(err);
+            transferFunds(chargeId, connectId, res);
         }
       });
+});
+
+function transferFunds(charge, account, res){
+    stripe.transfers.create({
+        amount: 500,
+        currency: "usd",
+        source_transaction: charge,
+        destination: account,
+      }).then(function(err,transfer) {
+        if (err != null){
+            res.send(err);
+
+        } else {
+            res.send(transfer);
+        }
+      });
+}
+
+router.get('/transferFunds', function(req, res, next){
+
 });
 
 router.post('/newAccount', function(req, res){
