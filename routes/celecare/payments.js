@@ -10,14 +10,13 @@ var stripe = require("stripe")(
     "sk_test_XjgzLWe3uty249H9iZ6YtzId"
 );
 
-
 router.get('/', function(req, res, next) {
     res.send("asdf");
 });
 
 router.post('/createCharge', function(req, res, next){    
     var charge = stripe.charges.create({
-        amount: 670,
+        amount: 700,
         currency: "usd",
         capture: false,
         description: req.body.description,
