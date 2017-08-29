@@ -75,7 +75,7 @@ function sendQuestion(postId, userId, res){
                 success: function(gameScore) {
                     console.log("timer started");
                     //res.send("success");
-                    startTimer(res);
+                    //startTimer(res);
                     //send notification to patient that so and so will be answering their question
                     //send notification to advisor that they have a question waiting for them
                 }
