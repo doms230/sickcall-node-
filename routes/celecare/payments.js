@@ -65,10 +65,6 @@ function transferFunds(charge, account, res){
       });
 }
 
-router.get('/transferFunds', function(req, res, next){
-
-});
-
 router.post('/newAccount', function(req, res){
     var date = new Date();
     var timeStamp = Math.floor(date/1000);
@@ -139,6 +135,21 @@ router.get('/account', function(req, res, next){
             }
         }
     );
+});
+
+router.get('/transfers', function(req, res, next){
+    stripe.transfers.list({
+         destination: req.query.account
+         },
+        function(err, transfers) {
+            if (err != null){
+                res.send(err);
+
+            } else {
+                res.send(transfers);
+            }
+        }
+      );
 });
 
 router.post('/address', function(req, res, next){

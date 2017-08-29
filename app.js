@@ -14,7 +14,7 @@ var mongoose = require('mongoose');
 var routes = require('./routes/hiikey/home');
 var test = require('./routes/hiikey/test');
 var terms = require('./routes/hiikey/terms');
-var notifications = require('./routes/hiikey/notifications');
+//var notifications = require('./routes/hiikey/notifications');
 var invites = require('./routes/hiikey/invites');
 var events = require('./routes/hiikey/events');
 var about = require('./routes/hiikey/about');
@@ -31,6 +31,7 @@ var user = require('./routes/hiikey/user');
 //celecare
 var payments = require('./routes/celecare/payments');
 var posts = require('./routes/celecare/posts');
+var notifications = require('./routes/celecare/notifications');
 
 var app = express();
 var api = new ParseServer({
