@@ -49,13 +49,13 @@ var api = new ParseServer({
       {
        // pfx:'productionPushCert-aug11-16.p12',
        cert: 'pushProd.pem',
-        bundleId: 'com.sickcall.sickcall',
+        topic: 'com.sickcall.sickcall',
         production: true
       },
       {
        // pfx:'pushDevCert-Aug11-16.p12',
        cert: 'pushDev.pem',
-        bundleId: 'com.sickcall.sickcall',
+        topic: 'com.sickcall.sickcall',
         production: false
       }
     ]
