@@ -47,13 +47,15 @@ var api = new ParseServer({
   push: {
     ios: [
       {
-        pfx:'productionPushCert-aug11-16.p12',
-        bundleId: 'com.socialgroupe.hiikey',
+       // pfx:'productionPushCert-aug11-16.p12',
+       cert: 'pushProd.pem',
+        bundleId: 'com.sickcall.sickcall',
         production: true
       },
       {
-        pfx:'pushDevCert-Aug11-16.p12',
-        bundleId: 'com.socialgroupe.hiikey',
+       // pfx:'pushDevCert-Aug11-16.p12',
+       cert: 'pushDev.pem',
+        bundleId: 'com.sickcall.sickcall',
         production: false
       }
     ]
@@ -62,6 +64,7 @@ var api = new ParseServer({
   emailVerifyTokenValidityDuration: 2 * 60 * 60, // in seconds (2 hours = 7200 seconds)
   preventLoginWithUnverifiedEmail: false, // defaults to false
   publicServerURL: 'https://celecare.herokuapp.com/parse',
+  //publicServerURL: 'http://localhost:5000/parse',
   // Your apps name. This will appear in the subject and body of the emails that are sent.
   appName: 'Celecare',
   // The email adapter
@@ -75,15 +78,28 @@ var api = new ParseServer({
       // Your API key from mailgun.com
       apiKey: 'key-931116e92b651622b653efef865d7a66'
     }
+  },
+    passwordPolicy: {
+    // Two optional settings to enforce strong passwords. Either one or both can be specified. 
+    // If both are specified, both checks must pass to accept the password
+    // 1. a RegExp object or a regex string representing the pattern to enforce 
+    validatorPattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/, // enforce password with at least 8 char with at least 1 lower case, 1 upper case and 1 digit
+    // 2. a callback function to be invoked to validate the password  
+    validatorCallback: (password) => { return validatePassword(password) }, 
+    doNotAllowUsername: true, // optional setting to disallow username in passwords
+    maxPasswordHistory: 5, // optional setting to prevent reuse of previous n passwords. Maximum value that can be specified is 20. Not specifying it or specifying 0 will not enforce history.
+    //optional setting to set a validity duration for password reset links (in seconds)
+    resetTokenValidityDuration: 24*60*60, // expire after 24 hours
   }
 });
 
 var dashboard = new ParseDashboard({
   "apps": [{
     "serverURL": 'https://celecare.herokuapp.com/parse', // Not localhost
+   //"serverURL": 'http://localhost:5000/parse',
     "appId": 'O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF',
     "masterKey": 'lykNp62jc700RfU3EOr0WRe8ZCZJ4kiD4ZI4FRaZ',
-    "appName": "Celecare",
+    "appName": "Sickcall",
     "production": true,
     "iconName": "logo.png"
   }],
