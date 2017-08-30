@@ -1,7 +1,8 @@
 /**
  * Created by macmini on 8/12/16.
  * http://localhost:5000/notifications?userId=wcbsnOpMwH&message=Heyyeyyasdfasdf
- *
+ *    //depracted: see https://www.npmjs.com/org/sendgrid
+
  */
 
 var express = require('express');

@@ -32,7 +32,6 @@
     "parse-cloud-express": "~1.2.0",
     "parse-dashboard": "1.1.0",
     "parse-server": "2.5.3",
-    //depracted: see https://www.npmjs.com/org/sendgrid
     "sendgrid": "5.2.3",
     "serve-favicon": "~2.4.2",
     "stripe": "4.24.1",
