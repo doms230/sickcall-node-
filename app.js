@@ -11,27 +11,14 @@ var ParseServer = require('parse-server').ParseServer;
 var ParseDashboard = require('parse-dashboard');
 var mongoose = require('mongoose');
 
-var routes = require('./routes/hiikey/home');
-var test = require('./routes/hiikey/test');
-var terms = require('./routes/hiikey/terms');
-//var notifications = require('./routes/hiikey/notifications');
-var invites = require('./routes/hiikey/invites');
-var events = require('./routes/hiikey/events');
-var about = require('./routes/hiikey/about');
-var login = require('./routes/hiikey/logins');
-var messages = require('./routes/hiikey/messages');
-var profiles = require('./routes/hiikey/profiles');
-var myEvents = require ('./routes/hiikey/myEvents');
-var search = require('./routes/hiikey/search');
-var digits = require('./routes/hiikey/digits');
-var iosapp = require('./routes/hiikey/ios-app');
-var user = require('./routes/hiikey/user');
+var routes = require('./routes/home');
+var terms = require('./routes/terms');
+//var iosapp = require('./routes/ios-app');
 
-
-//celecare
-var payments = require('./routes/celecare/payments');
-var posts = require('./routes/celecare/posts');
-var notifications = require('./routes/celecare/notifications');
+var payments = require('./routes/payments');
+var posts = require('./routes/posts');
+var notifications = require('./routes/notifications');
+var webhooks = require('./routes/webhooks');
 
 var app = express();
 var api = new ParseServer({
@@ -39,34 +26,36 @@ var api = new ParseServer({
   appId: 'O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF',
   masterKey: 'lykNp62jc700RfU3EOr0WRe8ZCZJ4kiD4ZI4FRaZ', // Keep this key secret!
   fileKey: '20137ff7-4160-41ee-bc18-1c2bf416e433',
-  serverURL: 'https://celecare.herokuapp.com/parse',
-  //serverURL: 'http://localhost:5000/parse',
+  //serverURL: 'https://celecare.herokuapp.com/parse',
+  serverURL: 'http://localhost:5000/parse',
   liveQuery: {
     classNames: ['Post']
   },
-  push: {
+ /*push: {
     ios: [
       {
        // pfx:'productionPushCert-aug11-16.p12',
        cert: 'pushProd.pem',
+       //key: 'pushProd.pem',
         topic: 'com.sickcall.sickcall',
         production: true
       },
       {
        // pfx:'pushDevCert-Aug11-16.p12',
        cert: 'pushDev.pem',
+       //key:'pushDev.pem',
         topic: 'com.sickcall.sickcall',
         production: false
       }
     ]
-  },
+  },*/
   verifyUserEmails: true,
   emailVerifyTokenValidityDuration: 2 * 60 * 60, // in seconds (2 hours = 7200 seconds)
   preventLoginWithUnverifiedEmail: false, // defaults to false
-  publicServerURL: 'https://celecare.herokuapp.com/parse',
-  //publicServerURL: 'http://localhost:5000/parse',
+  //publicServerURL: 'https://celecare.herokuapp.com/parse',
+  publicServerURL: 'http://localhost:5000/parse',
   // Your apps name. This will appear in the subject and body of the emails that are sent.
-  appName: 'Celecare',
+  appName: 'Sickcall',
   // The email adapter
   emailAdapter: {
     module: 'parse-server-simple-mailgun-adapter',
@@ -95,8 +84,8 @@ var api = new ParseServer({
 
 var dashboard = new ParseDashboard({
   "apps": [{
-    "serverURL": 'https://celecare.herokuapp.com/parse', // Not localhost
-   //"serverURL": 'http://localhost:5000/parse',
+    //"serverURL": 'https://celecare.herokuapp.com/parse', // Not localhost
+   "serverURL": 'http://localhost:5000/parse',
     "appId": 'O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF',
     "masterKey": 'lykNp62jc700RfU3EOr0WRe8ZCZJ4kiD4ZI4FRaZ',
     "appName": "Sickcall",
@@ -123,30 +112,20 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+//used for verifying signatures from stripe webhooks
+//app.use(bodyParser.raw({type: "*/*"}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-//app.use('/test', test);
 app.use('/terms', terms);
 app.use('/notifications', notifications);
 app.use('/parse', api);
 app.use('/dashboard', dashboard);
-/*app.use('/invites',invites);
-app.use('/events', events);
-app.use('/about', about );
-app.use('/logins', login);
-app.use('/messages', messages);
-app.use('/profile', profiles);
-app.use('/home', myEvents);
-app.use('/search', search);
-app.use('/digits', digits);
-app.use('/app',iosapp);
-app.use('/u', user);*/
-
+//app.use('/app',iosapp);
 app.use('/payments', payments);
 app.use('/posts', posts);
-//app.use('/chat', chats);
+app.use('/webhooks', webhooks);
 //scripts
 
 /*app.use(cookieSession({

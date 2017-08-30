@@ -27,7 +27,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/assignQuestion', function(req, res, next){
-    res.send("ya");
+    res.send(200);
     var postObjectId = req.body.id;
     var date = new Date();
     var Posts = parse.Object.extend('Advisor');
