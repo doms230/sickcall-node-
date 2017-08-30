@@ -4,13 +4,13 @@ var http = require('http');
 
 var stripe = require("stripe")("sk_test_XjgzLWe3uty249H9iZ6YtzId");
 
-const endpointSecret = "whsec_hXJoQxpyCuEzpqaoLFVcCDGAyCIzdLNE";
+var endpointSecret = "whsec_hXJoQxpyCuEzpqaoLFVcCDGAyCIzdLNE";
 
 router.get('/', function(req, res, next) {
  
  });
 
- router.post('/stripe', function(req, res, next){
+router.post('/stripe', function(req, res, next){
 
     let sig = req.headers["stripe-signature"];
     let event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);

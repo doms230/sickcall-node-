@@ -9,7 +9,6 @@
     "auth-header": "0.3.1",
     "authy": "1.2.0",
     "body-parser": "^1.17.2",
-    "bootstrap": "~3.3.7",
     "browserify": "14.4.0",
     "connect": "~3.6.1",
     "cookie-parser": "~1.4.3",
@@ -33,6 +32,7 @@
     "parse-cloud-express": "~1.2.0",
     "parse-dashboard": "1.1.0",
     "parse-server": "2.5.3",
+    //depracted: see https://www.npmjs.com/org/sendgrid
     "sendgrid": "5.2.3",
     "serve-favicon": "~2.4.2",
     "stripe": "4.24.1",
