@@ -12,13 +12,13 @@ router.get('/', function(req, res, next) {
 
 router.post('/stripe', function(req, res, next){
 
-    let sig = req.headers["stripe-signature"];
+   /* let sig = req.headers["stripe-signature"];
     let event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
     console.log(event);
     /*var event_json = JSON.parse(req.body);
-    res.send(200);*/
+    res.send(200);
 
-    res.json({received: true});
+    res.json({received: true});*/
 
  });
 
