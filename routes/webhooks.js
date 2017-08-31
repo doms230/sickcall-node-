@@ -5,7 +5,7 @@ var http = require('http');
 var stripe = require("stripe")("sk_test_XjgzLWe3uty249H9iZ6YtzId");
 
 const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+sgMail.setApiKey("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");
 
 var event_json; 
 var subject; 
