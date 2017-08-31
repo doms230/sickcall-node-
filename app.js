@@ -73,7 +73,7 @@ var api = new ParseServer({
       // Your API key from mailgun.com
       apiKey: 'key-931116e92b651622b653efef865d7a66'
     }
-  },
+  }/*,
     passwordPolicy: {
     // Two optional settings to enforce strong passwords. Either one or both can be specified. 
     // If both are specified, both checks must pass to accept the password
@@ -85,7 +85,7 @@ var api = new ParseServer({
     maxPasswordHistory: 5, // optional setting to prevent reuse of previous n passwords. Maximum value that can be specified is 20. Not specifying it or specifying 0 will not enforce history.
     //optional setting to set a validity duration for password reset links (in seconds)
     resetTokenValidityDuration: 24*60*60, // expire after 24 hours
-  }
+    }*/
 });
 
 var dashboard = new ParseDashboard({
