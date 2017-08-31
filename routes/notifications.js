@@ -10,8 +10,8 @@ var router = express.Router();
 var http = require('http');
 
 //sendgrid stuff
-var helper = require('sendgrid').mail;
-var sg = require('sendgrid')('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');
+//var helper = require('sendgrid').mail;
+//var sg = require('sendgrid')('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');
 
 //parse
 var parse = require("parse/node").Parse;
@@ -71,7 +71,7 @@ router.get('/', function(req, res, next) {
 
 function sendEmail(toEmail, notification, eventId, username){
 
-    var from_email = new helper.Email('noreply@hiikey.com');
+    /*var from_email = new helper.Email('noreply@hiikey.com');
     var to_email = new helper.Email(toEmail);
     var subject = 'Hiikey Alert';
     var content = new helper.Content(
@@ -95,7 +95,7 @@ function sendEmail(toEmail, notification, eventId, username){
         console.log(response.statusCode);
         console.log(response.body);
         console.log(response.headers);
-    });
+    });*/
 }
 
 function sendText(phoneNumber, message, eventId) {

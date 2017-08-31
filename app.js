@@ -1,5 +1,11 @@
 //Go to Parse-Dashboard/config.json for app crendtions with the dashboard jaunt
 
+/* used to create config files 
+echo "export SENDGRID_API_KEY='YOUR_API_KEY'" > sendgrid.env
+echo "sendgrid.env" >> .gitignore
+source ./sendgrid.env
+*/
+
 var express = require('express');
 var path = require('path');
 var logger = require('morgan');
@@ -61,9 +67,9 @@ var api = new ParseServer({
     module: 'parse-server-simple-mailgun-adapter',
     options: {
       // The address that your emails come from
-      fromAddress: 'noreply@hiikey.com',
+      fromAddress: 'noreply@sickcallhealth.com',
       // Your domain from mailgun.com
-      domain: 'reset.hiikey.com',
+      domain: 'reset.sickcallhealth.com',
       // Your API key from mailgun.com
       apiKey: 'key-931116e92b651622b653efef865d7a66'
     }
