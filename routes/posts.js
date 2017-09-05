@@ -12,9 +12,10 @@ var parse = require("parse/node").Parse;
 parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF", "bctRQbnLCvxRIHaJTkv3gqhlwSzxjiMesjx8kEwo");
 
 var CronJob = require('cron').CronJob;
+var i = 0;
 
 router.get('/', function(req, res, next) {
-
+//startTimer();
 
 });
 
@@ -79,15 +80,11 @@ function sendQuestion(postId, userId, res){
     });
 }
 
-function startTimer(res){
-     new CronJob('* 1 * * * *', function(error) {
+function startTimer(){
+     new CronJob('* * * * * *', function() {
         //res.send('You will see this message every second');
-        if (error == null){
-            res.send("donbe");
-
-        } else {
-            res.send(error);
-        }
+        i+=1
+        console.log(i);
         
       }, null, true, 'America/Los_Angeles');
       //job.stop();

@@ -1,22 +1,29 @@
 
 
 
- body {
-
- font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
- }
 
  a {
- color: #ee1848;
+ color: #159373;
 
  }
+
 
  .astericks {
-  color: #EE1848; /* IE8 proofing */
-  color: rgba(238,24,72,10);
+     padding-top: 50px;
+    font: 50px "Aileron Heavy", Helvetica, Arial, sans-serif;
+    color: #159373; /* IE8 proofing */
+    color: rgb(21, 147, 115);
  }
 
- .messageBar{
-  margin-top: 8px;
+ .paragraph{
+    font: 30px "Aileron Regular", Helvetica, Arial, sans-serif;
  }
+
+ .jumbo{
+     color: #ffffff;
+ }
+
+ 
+
+
 
