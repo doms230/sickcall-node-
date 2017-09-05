@@ -37,24 +37,26 @@ var api = new ParseServer({
   liveQuery: {
     classNames: ['Post']
   },
- /*push: {
+ push: {
     ios: [
       {
-       // pfx:'productionPushCert-aug11-16.p12',
-       cert: 'pushProd.pem',
+        pfx:'productionPush.p12',
+        passphrase: "Letscre@tE1!",
+       //cert: 'pushProd.pem',
        //key: 'pushProd.pem',
-        topic: 'com.sickcall.sickcall',
+       topic: 'com.sickcall.sickcall',
         production: true
       },
       {
-       // pfx:'pushDevCert-Aug11-16.p12',
-       cert: 'pushDev.pem',
+      pfx:'devPush.p12',
+      passphrase: "Letscre@tE1!",
+       //cert: 'pushDev.pem',
        //key:'pushDev.pem',
         topic: 'com.sickcall.sickcall',
         production: false
       }
     ]
-  },*/
+  },
   verifyUserEmails: true,
   emailVerifyTokenValidityDuration: 2 * 60 * 60, // in seconds (2 hours = 7200 seconds)
   preventLoginWithUnverifiedEmail: false, // defaults to false
@@ -96,7 +98,7 @@ var dashboard = new ParseDashboard({
     "masterKey": 'lykNp62jc700RfU3EOr0WRe8ZCZJ4kiD4ZI4FRaZ',
     "appName": "Sickcall",
     "production": true,
-    "iconName": "logo.png"
+    "iconName": "1080-noback.png"
   }],
   "users": [
     {
@@ -104,9 +106,8 @@ var dashboard = new ParseDashboard({
       "pass":"Letscre@tE1!"
     }
   ],
-  "iconsFolder": "./public/images",
+  "iconsFolder": "./public/images/",
   "trustProxy": 1
-
 });
 
 // view engine setup

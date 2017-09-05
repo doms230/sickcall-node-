@@ -38,8 +38,9 @@ router.get('/', function(req, res, next) {
         }
     }, {
         useMasterKey: true,
-        success: function () {
-            res.send("yeahah")
+        success: function (object) {
+            res.send(object);
+           // res.sendStatus(200);
         },
         error: function (error) {
             // There was a problem :(
