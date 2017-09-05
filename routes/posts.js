@@ -11,18 +11,10 @@ var http = require('http');
 var parse = require("parse/node").Parse;
 parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF", "bctRQbnLCvxRIHaJTkv3gqhlwSzxjiMesjx8kEwo");
 
+var CronJob = require('cron').CronJob;
 
 router.get('/', function(req, res, next) {
-   // var query = new parse.Query('Post');
-   // var subscription = query.subscribe();
-   //res.send("asdf");
 
-    // A new countdown timer with 60 seconds 
-   //var socket = io.connect('http://localhost:5000');
-    //res.send("asdf");
-   /* io.on('counter', function(count){
-       console.log(count);
-      });*/
 
 });
 
@@ -72,7 +64,7 @@ function sendQuestion(postId, userId, res){
             result.save( null, {
                 success: function(gameScore) {
                     console.log("timer started");
-                    
+                    //startTimer(res);
                     //res.send("success");
                     //startTimer(res);
                     //send notification to patient that so and so will be answering their question
@@ -85,6 +77,20 @@ function sendQuestion(postId, userId, res){
             res.send("Error: " + error.code + " " + error.message);
         }
     });
+}
+
+function startTimer(res){
+     new CronJob('* 1 * * * *', function(error) {
+        //res.send('You will see this message every second');
+        if (error == null){
+            res.send("donbe");
+
+        } else {
+            res.send(error);
+        }
+        
+      }, null, true, 'America/Los_Angeles');
+      //job.stop();
 }
 
 
