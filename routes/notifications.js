@@ -21,8 +21,32 @@ parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF",
 //twilio
 var client = require('twilio')('AC847fa672cc0a2207e0dd2938d15483c4', '90c2990bc7ea56d541f537adb40c3617');
 /* GET home page. */
-router.post('/', function(req, res, next) {
-   var message = req.body.message;
+router.get('/', function(req, res, next) {
+
+    /*var User = parse.Object.extend("_User");
+    var emailQuery = new parse.Query(User);
+    emailQuery.get(user, {
+        useMasterKey:true,
+        success: function(object) {
+            //   console.log(object);
+            var userEmail = object.get('email');
+            var username = object.get('username');
+            var phoneNumber = object.get('phoneNumber');
+
+            sendEmail(userEmail, message, eventId, username);
+           // sendText(phoneNumber, message, eventId);
+
+        },
+        error: function(object, error) {
+            // The object was not retrieved successfully.
+            // error is a Parse.Error with an error code and message.
+        }
+    });*/
+
+});
+
+router.post('/send', function(req, res, next){
+    var message = req.body.message;
     var user = req.body.userId;
 
     var query = new parse.Query(parse.Installation);
@@ -46,26 +70,6 @@ router.post('/', function(req, res, next) {
             res.send(error);
         }
     });
-
-    /*var User = parse.Object.extend("_User");
-    var emailQuery = new parse.Query(User);
-    emailQuery.get(user, {
-        useMasterKey:true,
-        success: function(object) {
-            //   console.log(object);
-            var userEmail = object.get('email');
-            var username = object.get('username');
-            var phoneNumber = object.get('phoneNumber');
-
-            sendEmail(userEmail, message, eventId, username);
-           // sendText(phoneNumber, message, eventId);
-
-        },
-        error: function(object, error) {
-            // The object was not retrieved successfully.
-            // error is a Parse.Error with an error code and message.
-        }
-    });*/
 
 });
 
