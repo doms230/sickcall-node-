@@ -10,6 +10,9 @@ var stripe = require("stripe")(
     "sk_test_XjgzLWe3uty249H9iZ6YtzId"
 );
 
+var parse = require("parse/node").Parse;
+parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF", "bctRQbnLCvxRIHaJTkv3gqhlwSzxjiMesjx8kEwo");
+
 router.get('/', function(req, res, next) {
     res.send("asdf");
 });
