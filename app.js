@@ -32,15 +32,15 @@ var api = new ParseServer({
   appId: 'O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF',
   masterKey: 'lykNp62jc700RfU3EOr0WRe8ZCZJ4kiD4ZI4FRaZ', // Keep this key secret!
   fileKey: '20137ff7-4160-41ee-bc18-1c2bf416e433',
-  serverURL: 'https://celecare.herokuapp.com/parse',
-  //serverURL: 'http://localhost:5000/parse',
+  //serverURL: 'https://celecare.herokuapp.com/parse',
+  serverURL: 'http://localhost:5000/parse',
   liveQuery: {
     classNames: ['Post']
   },
  push: {
     ios: [
       {
-        pfx:'productionPush.p12',
+        pfx:'push.p12',
         passphrase: "Letscre@tE1!",
        //cert: 'pushProd.pem',
        //key: 'pushProd.pem',
@@ -48,7 +48,7 @@ var api = new ParseServer({
         production: true
       },
       {
-      pfx:'devPush.p12',
+      pfx:'push.p12',
       passphrase: "Letscre@tE1!",
        //cert: 'pushDev.pem',
        //key:'pushDev.pem',
@@ -60,8 +60,8 @@ var api = new ParseServer({
   verifyUserEmails: true,
   emailVerifyTokenValidityDuration: 2 * 60 * 60, // in seconds (2 hours = 7200 seconds)
   preventLoginWithUnverifiedEmail: false, // defaults to false
-  publicServerURL: 'https://celecare.herokuapp.com/parse',
-  //publicServerURL: 'http://localhost:5000/parse',
+  //publicServerURL: 'https://celecare.herokuapp.com/parse',
+  publicServerURL: 'http://localhost:5000/parse',
   // Your apps name. This will appear in the subject and body of the emails that are sent.
   appName: 'Sickcall',
   // The email adapter
@@ -92,12 +92,12 @@ var api = new ParseServer({
 
 var dashboard = new ParseDashboard({
   "apps": [{
-    "serverURL": 'https://celecare.herokuapp.com/parse', // Not localhost
-   //"serverURL": 'http://localhost:5000/parse',
+    //"serverURL": 'https://celecare.herokuapp.com/parse', // Not localhost
+   "serverURL": 'http://localhost:5000/parse',
     "appId": 'O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF',
     "masterKey": 'lykNp62jc700RfU3EOr0WRe8ZCZJ4kiD4ZI4FRaZ',
     "appName": "Sickcall",
-    "production": true,
+    "production": false,
     "iconName": "1080-noback.png"
   }],
   "users": [
