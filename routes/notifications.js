@@ -23,6 +23,31 @@ var client = require('twilio')('AC847fa672cc0a2207e0dd2938d15483c4', '90c2990bc7
 /* GET home page. */
 router.get('/', function(req, res, next) {
 
+    var message = req.get.message;
+    var user = req.get.userId;
+
+    var query = new parse.Query(parse.Installation);
+    query.equalTo('userId', user);
+
+    parse.Push.send({
+        where: query,
+        data: {
+            alert: message,
+            badge: 1,
+            sound: 'default'
+        }
+    }, {
+        useMasterKey: true,
+        success: function (object) {
+            //res.send(object);
+            res.sendStatus(200);
+        },
+        error: function (error) {
+            // There was a problem :(
+            res.send(error);
+        }
+    });
+
     /*var User = parse.Object.extend("_User");
     var emailQuery = new parse.Query(User);
     emailQuery.get(user, {
