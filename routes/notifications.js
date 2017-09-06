@@ -21,10 +21,9 @@ parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF",
 //twilio
 var client = require('twilio')('AC847fa672cc0a2207e0dd2938d15483c4', '90c2990bc7ea56d541f537adb40c3617');
 /* GET home page. */
-router.get('/', function(req, res, next) {
-   var message = req.query.message;
-    var user = req.query.userId;
-    var postId = req.query.eventId;
+router.post('/', function(req, res, next) {
+   var message = req.body.message;
+    var user = req.body.userId;
 
     var query = new parse.Query(parse.Installation);
     query.equalTo('userId', user);
@@ -39,8 +38,8 @@ router.get('/', function(req, res, next) {
     }, {
         useMasterKey: true,
         success: function (object) {
-            res.send(object);
-           // res.sendStatus(200);
+            //res.send(object);
+            res.sendStatus(200);
         },
         error: function (error) {
             // There was a problem :(
