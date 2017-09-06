@@ -70,7 +70,6 @@ router.post('/send', function(req, res, next){
             res.send(error);
         }
     });
-
 });
 
 function sendEmail(toEmail, notification, eventId, username){

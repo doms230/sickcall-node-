@@ -38,6 +38,7 @@ router.post('/createCharge', function(req, res, next){
 router.post('/captureCharge', function(req, res, next){
     var chargeId = req.body.charge; 
     var connectId = req.body.connectId; 
+    var userId = req.body.user;
 
     stripe.charges.capture(chargeId, function(err, charge) {
         if (err != null){
@@ -45,6 +46,7 @@ router.post('/captureCharge', function(req, res, next){
 
         } else {
             transferFunds(chargeId, connectId, res);
+            sendNotification(userId);
         }
       });
 });
@@ -137,21 +139,6 @@ router.get('/account', function(req, res, next){
     );
 });
 
-router.get('/transfers', function(req, res, next){
-    stripe.transfers.list({
-         destination: req.query.account
-         },
-        function(err, transfers) {
-            if (err != null){
-                res.send(err);
-
-            } else {
-                res.send(transfers);
-            }
-        }
-      );
-});
-
 router.post('/address', function(req, res, next){
     var accountId = req.body.account_Id;
     stripe.accounts.update(accountId, {
@@ -208,6 +195,32 @@ var accountId = req.body.account_Id
     }); 
 
 });
+
+function sendNotification(user){
+    var message = "You're health concern has been answered."
+
+    var query = new parse.Query(parse.Installation);
+    query.equalTo('userId', user);
+
+    parse.Push.send({
+        where: query,
+        data: {
+            alert: message,
+            badge: 1,
+            sound: 'default'
+        }
+    }, {
+        useMasterKey: true,
+        success: function (object) {
+            //res.send(object);
+            res.sendStatus(200);
+        },
+        error: function (error) {
+            // There was a problem :(
+            res.send(error);
+        }
+    });
+}
 
 
 

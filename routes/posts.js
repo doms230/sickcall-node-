@@ -64,12 +64,8 @@ function sendQuestion(postId, userId, res){
             result.set("advisorUserId", userId);
             result.save( null, {
                 success: function(gameScore) {
-                    console.log("timer started");
-                    //startTimer(res);
-                    //res.send("success");
-                    //startTimer(res);
-                    //send notification to patient that so and so will be answering their question
-                    //send notification to advisor that they have a question waiting for them
+                    //console.log("timer started");
+                    sendNotification(userId);
                 }
             });
         },
@@ -88,6 +84,32 @@ function startTimer(){
         
       }, null, true, 'America/Los_Angeles');
       //job.stop();
+}
+
+function sendNotification(user){
+    var message = "Hey, you've received a new health concern. You have 5 minutes to reply."
+
+    var query = new parse.Query(parse.Installation);
+    query.equalTo('userId', user);
+
+    parse.Push.send({
+        where: query,
+        data: {
+            alert: message,
+            badge: 1,
+            sound: 'default'
+        }
+    }, {
+        useMasterKey: true,
+        success: function (object) {
+            //res.send(object);
+            res.sendStatus(200);
+        },
+        error: function (error) {
+            // There was a problem :(
+            res.send(error);
+        }
+    });
 }
 
 
