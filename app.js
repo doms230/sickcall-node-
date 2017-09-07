@@ -97,7 +97,7 @@ var dashboard = new ParseDashboard({
     "appId": 'O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF',
     "masterKey": 'lykNp62jc700RfU3EOr0WRe8ZCZJ4kiD4ZI4FRaZ',
     "appName": "Sickcall",
-    "production": false,
+    "production": true,
     "iconName": "1080-noback.png"
   }],
   "users": [
