@@ -6,9 +6,7 @@ var express = require('express');
 var router = express.Router();
 var http = require('http');
 
-var stripe = require("stripe")(
-    "sk_test_XjgzLWe3uty249H9iZ6YtzId"
-);
+var stripe = require("stripe")("sk_live_i757TXWOABq1CfpbtQVsZZAv");
 
 var parse = require("parse/node").Parse;
 parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF", "bctRQbnLCvxRIHaJTkv3gqhlwSzxjiMesjx8kEwo");
@@ -70,7 +68,7 @@ function transferFunds(charge, account, res){
       });
 }
 
-router.post('/newAccount', function(req, res){
+router.get('/newAccount', function(req, res){
     var date = new Date();
     var timeStamp = Math.floor(date/1000);
 
@@ -79,7 +77,6 @@ router.post('/newAccount', function(req, res){
         country: 'US',
         email: req.body.email,
         legal_entity: {
-            personal_id_number: req.body.personal_id_number,
             ssn_last_4: req.body.ssn_last_4,
             address:{
                 city: req.body.city,
@@ -96,14 +93,6 @@ router.post('/newAccount', function(req, res){
             first_name: req.body.first_name,
             last_name: req.body.last_name,
             type: "individual"
-        },
-
-        external_account:{
-            object: "bank_account",
-            account_number: req.body.account_number,
-            country: "us",
-            currency: "usd",
-            routing_number: req.body.routing_number
         },
 
         payout_schedule: {
@@ -124,7 +113,6 @@ router.post('/newAccount', function(req, res){
             res.send(err);
         }
     });
-
 });
 
 router.get('/account', function(req, res, next){
