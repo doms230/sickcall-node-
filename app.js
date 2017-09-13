@@ -19,6 +19,7 @@ var mongoose = require('mongoose');
 
 var routes = require('./routes/home');
 var terms = require('./routes/terms');
+var advisor = require('./routes/advisor');
 //var iosapp = require('./routes/ios-app');
 
 var payments = require('./routes/payments');
@@ -133,6 +134,7 @@ app.use('/dashboard', dashboard);
 app.use('/payments', payments);
 app.use('/posts', posts);
 app.use('/webhooks', webhooks);
+app.use('/advisor', advisor);
 //scripts
 
 /*app.use(cookieSession({
