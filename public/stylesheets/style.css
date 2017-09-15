@@ -8,11 +8,30 @@
  }
 
 
- .astericks {
-    font: 50px "Aileron Heavy", Helvetica, Arial, sans-serif;
+ .title {
+    font: 30px "Aileron Heavy", Helvetica, Arial, sans-serif;
     color: #159373; /* IE8 proofing */
     color: rgb(21, 147, 115);
  }
+
+ .follow{
+    font: 25px "Aileron Heavy", Helvetica, Arial, sans-serif;
+    color: #180D22; /* IE8 proofing */
+    color: rgb(24, 13, 34);
+ }
+
+ .title1 {
+    font: 25px "Aileron Heavy", Helvetica, Arial, sans-serif;
+    color: #159373; /* IE8 proofing */
+    color: rgb(21, 147, 115);
+ }
+
+ .follow1{
+    font: 20px "Aileron Heavy", Helvetica, Arial, sans-serif;
+    color: #180D22; /* IE8 proofing */
+    color: rgb(24, 13, 34);
+ }
+
 
  .paragraph{
     font: 30px "Aileron Regular", Helvetica, Arial, sans-serif;

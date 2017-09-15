@@ -36,6 +36,7 @@ router.post('/stripe', function(req, res, next){
     /*var event_json = JSON.parse(req.body);
     res.send(200);*/
     //console.log(event_json);
+
     var msg = {
         to: 'dom@sickcallhealth.com',
         from: 'noreply@sickcallhealth.com',
@@ -48,5 +49,24 @@ router.post('/stripe', function(req, res, next){
     res.sendStatus(200);
 
  });
+
+ router.post('/advisor', function(req, res, next){
+  var first_name = req.body.first_name;
+  var last_name = req.body.last_name;
+  var email = req.body.email;
+
+  var msg = {
+    to: 'dom@sickcallhealth.com',
+    from: 'noreply@sickcallhealth.com',
+    subject: "New Advisor Submission",
+    text: "First Name : " + first_name + " ," +
+          "last_name: " + last_name + " ," +
+          "email: " + email
+  };
+  sgMail.send(msg);
+
+//res.json({received: true});
+res.sendStatus(200);
+ })
 
  module.exports = router;

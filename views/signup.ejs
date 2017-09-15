@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Sign up | Sickcall</title>
+    <link rel="icon" href="images/32-noback.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--Ajax-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    <link href="stylesheets/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" >
+                  <img src="images/1080-noback.png" width="32" height="32" alt="">  
+                  
+                </a>
+       
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    
+                    <div class="navbar-nav">
+                      <a class="nav-item nav-link" href="/">Home</a>
+                    </div>
+
+                    <div class="navbar-nav">
+                            <a class="nav-item nav-link" href="/advisor">Advisor</a>
+                          </div>
+                  </div>
+          </nav> 
+
+          <br>
+        <div class="container-fluid">
+                <div class="row">
+                        <div class="col-lg-4">
+                                <h4 class="title1">Answer questions with Sickcall</h4> 
+                                <p class="follow1" >On your schedule</p>
+                        </div><!-- /.col-lg-4 -->
+
+                        <div class="col-lg-2">
+                        </div>
+    
+                        <div class="col-lg-4">
+                            <br>
+
+                            <div class="jumbotron">
+                                <h4> Sign up </h3>
+                                <br>
+                                    <form>
+                                            <div class="row">
+                                                    <div class="col">
+                                                            
+                                                      <input id="inputFirstName" type="text" class="form-control" placeholder="First name">
+                                                    </div>
+                                                    <div class="col">
+                                                      <input id="inputLastName" type="text" class="form-control" placeholder="Last name">
+                                                    </div>
+                                            </div>
+                                            <br>
+                                            <div class="form-group">
+                                              <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email">
+                                              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                                            </div>
+                                            
+                                            
+                                    </form> 
+                                    
+                                    <button id="submitButton" type="submit" class="btn btn-primary">Submit</button>
+                                    
+                                                                                                 
+                            </div>
+
+    
+                            </div><!-- /.col-lg-4 -->
+                      </div><!-- /.row -->
+                      <hr class="featurette-divider">
+                      <footer>
+                            <p>&copy; 2017 Sickcall &middot; <a href="/">Home</a> &middot; <a href="/terms">Terms</a> </p>
+                          </footer>
+              </div>
+</body>
+</html>
+
+<script>
+    var firstname = $('#inputFirstName').val();
+    var lastName = $('#inputLastName').val();
+    var email = $('#inputEmail').val();
+
+        $("#submitButton").click(function(){
+            $.post( "https://celecare.herokuapp.com/webhooks/advisor", { first_name: firstname, last_name: lastName, email: email })
+            .done(function( data ) {
+              alert( "Thank you! A representive will be in contact.");
+            })
+
+            .error(function(error){
+                alert(error);
+        });
+        }); 
+</script>
+
+
+
+    
