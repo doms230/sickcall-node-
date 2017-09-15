@@ -40,7 +40,7 @@
           </nav> 
 
           <br>
-        <div class="container-fluid">
+        <div id="signFlow" class="container-fluid">
                 <div class="row">
                         <div class="col-lg-4">
                                 <h4 class="title1">Answer questions with Sickcall</h4> 
@@ -80,6 +80,8 @@
                                                                                                  
                             </div>
 
+                            
+
     
                             </div><!-- /.col-lg-4 -->
                       </div><!-- /.row -->
@@ -92,19 +94,23 @@
 </html>
 
 <script>
-    var firstname = $('#inputFirstName').val();
-    var lastName = $('#inputLastName').val();
-    var email = $('#inputEmail').val();
+    var firstname = document.getElementById('inputFirstName').value;
+    var lastName = document.getElementById('inputLastName').value;
+    var email = document.getElementById('inputEmail').value;
 
         $("#submitButton").click(function(){
             $.post( "https://celecare.herokuapp.com/webhooks/advisor", { first_name: firstname, last_name: lastName, email: email })
             .done(function( data ) {
-              alert( "Thank you! A representive will be in contact.");
+
+                alert('Thank you! A representative will reach out.');
             })
 
             .error(function(error){
-                alert(error);
+                alert('Thank you! A representative will reach out.');
         });
+        document.getElementById('inputFirstName').value = "";
+            document.getElementById('inputLastName').value = "";
+            document.getElementById('inputEmail').value = "";
         }); 
 </script>
 
