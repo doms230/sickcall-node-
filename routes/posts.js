@@ -22,6 +22,43 @@ router.get('/', function(req, res, next) {
 router.post('/assignQuestion', function(req, res, next){
     res.sendStatus(200);
     var postObjectId = req.body.id;
+    //assignQuestion(postObjectId, res);
+    generateAnswer(postObjectId, res);
+});
+
+
+//generateAnswer
+function generateAnswer(postObjectId, res){
+    var date = new Date();
+    var Posts = parse.Object.extend('Post');
+    var query = new parse.Query(Posts);
+    query.equalTo("objectId", postObjectId  );
+    query.first({
+        useMasterKey: true,
+        success: function(object) {
+            object.set("isAnswered", true);
+            object.set("level", "low");
+            object.set("comment", "Thanks for testing Sickcall! This is an example response to your health concern.");
+            object.set("advisorUserId", "6Qb4plmxvq");
+            object.save( null, {
+                success: function(gameScore) {
+                    
+                    
+                },
+                error: function(gameScore, error) {
+                    res.send('Failed to create new object, with error code: ' + error.message);
+                }
+            });
+        },
+        error: function(error) {
+            //alert("Error: " + error.code + " " + error.message);
+            res.send("Error: " + error.code + " " + error.message);
+        }
+    });
+}
+
+//assignQuestion
+function assignQuestion(postObjectId, res){
     var date = new Date();
     var Posts = parse.Object.extend('Advisor');
     var query = new parse.Query(Posts);
@@ -51,8 +88,9 @@ router.post('/assignQuestion', function(req, res, next){
             res.send("Error: " + error.code + " " + error.message);
         }
     });
-});
+}
 
+//send question
 function sendQuestion(postId, userId, res){
     var Posts = parse.Object.extend('Post');
     var query = new parse.Query(Posts);
@@ -76,15 +114,8 @@ function sendQuestion(postId, userId, res){
     });
 }
 
-function startTimer(){
-     new CronJob('* * * * * *', function() {
-        //res.send('You will see this message every second');
-        i+=1
-        console.log(i);
-        
-      }, null, true, 'America/Los_Angeles');
-      //job.stop();
-}
+
+//notification
 
 function sendNotification(user){
     var message = "Hey, you've received a new health concern. You have 5 minutes to reply."

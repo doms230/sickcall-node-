@@ -16,8 +16,9 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/createCharge', function(req, res, next){    
-    var charge = stripe.charges.create({
-        amount: 400,
+   /* var charge = stripe.charges.create({
+      //  amount: 400,
+      amount: 50,
         currency: "usd",
         capture: false,
         description: req.body.description,
@@ -26,15 +27,19 @@ router.post('/createCharge', function(req, res, next){
         receipt_email: req.body.email
     }, function(err, charge) {
         if (err == null){
+            //success
             res.send(charge);
-            console.log(charge);
         } else {
             res.send(err);
-            console.log(err);
         }
         // asynchronously called
-    });
+    });*/
+    res.json({ id: "test" });
 });
+
+ function refundCharge(charge){
+
+ }
 
 router.post('/captureCharge', function(req, res, next){
     var chargeId = req.body.charge; 
