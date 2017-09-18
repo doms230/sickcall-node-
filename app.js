@@ -136,7 +136,7 @@ app.use('/payments', payments);
 app.use('/posts', posts);
 app.use('/webhooks', webhooks);
 app.use('/advisor', advisor);
-app.use('/signup', signup);
+//app.use('/signup', signup);
 //scripts
 
 /*app.use(cookieSession({
