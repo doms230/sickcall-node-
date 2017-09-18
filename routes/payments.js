@@ -17,8 +17,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/createCharge', function(req, res, next){    
    /* var charge = stripe.charges.create({
-      //  amount: 400,
-      amount: 50,
+        amount: 400,
         currency: "usd",
         capture: false,
         description: req.body.description,
