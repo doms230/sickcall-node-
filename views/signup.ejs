@@ -39,81 +39,24 @@
                   </div>
           </nav> 
 
-          <br>
-        <div id="signFlow" class="container-fluid">
-                <div class="row">
-                        <div class="col-lg-4">
-                                <h4 class="title1">Answer questions with Sickcall</h4> 
-                                <p class="follow1" >On your time</p>
-                        </div><!-- /.col-lg-4 -->
+          <div class="embed-responsive embed-responsive-1by1 ">
+                        <embed class="embed-responsive-item" src="https://docs.google.com/forms/d/e/1FAIpQLScQHdvC_MeIGhIY3-H1FFbaIWd6NBrUhD06Y1orjS8TcSslYQ/viewform?embedded=true" >Loading...</embed>
+                        
+         </div>
 
-                        <div class="col-lg-2">
-                        </div>
-    
-                        <div class="col-lg-4">
-                            <br>
+         <div class="container">
+                <hr class="featurette-divider">
 
-                            <div class="jumbotron">
-                                <h4> Sign up </h3>
-                                <br>
-                                    <form>
-                                            <div class="row">
-                                                    <div class="col">
-                                                            
-                                                      <input id="inputFirstName" type="text" class="form-control" placeholder="First name">
-                                                    </div>
-                                                    <div class="col">
-                                                      <input id="inputLastName" type="text" class="form-control" placeholder="Last name">
-                                                    </div>
-                                            </div>
-                                            <br>
-                                            <div class="form-group">
-                                              <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email">
-                                              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                                            </div>
-                                            
-                                            
-                                    </form> 
-                                    
-                                    <button id="submitButton" type="submit" class="btn btn-primary">Submit</button>
-                                    
-                                                                                                 
-                            </div>
-
-                            
-
-    
-                            </div><!-- /.col-lg-4 -->
-                      </div><!-- /.row -->
-                      <hr class="featurette-divider">
-                      <footer>
-                            <p>&copy; 2017 Sickcall &middot; <a href="/">Home</a> &middot; <a href="/terms">Terms</a> </p>
-                          </footer>
-              </div>
+                        <footer>
+                                <p class="float-right"><a href="#">Back to top</a></p>
+                                <p>&copy; 2017 Sickcall &middot; <a href="/">Home</a> &middot; <a href="/advisor">Advisor</a> &middot; <a href="/terms">Terms & Privacy Policy</a>  </p>
+                        </footer>
+         </div>
+        
 </body>
 </html>
 
-<script>
-    var firstname = document.getElementById('inputFirstName').value;
-    var lastName = document.getElementById('inputLastName').value;
-    var email = document.getElementById('inputEmail').value;
-
-        $("#submitButton").click(function(){
-            $.post( "https://celecare.herokuapp.com/webhooks/advisor", { first_name: firstname, last_name: lastName, email: email })
-            .done(function( data ) {
-
-                alert('Thank you! A representative will reach out.');
-            })
-
-            .error(function(error){
-                alert('Thank you! A representative will reach out.');
-        });
-        /*document.getElementById('inputFirstName').value = "";
-            document.getElementById('inputLastName').value = "";
-            document.getElementById('inputEmail').value = "";*/
-        }); 
-</script>
-
+<script> </script> 
 
 
     
