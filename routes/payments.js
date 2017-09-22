@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/createCharge', function(req, res, next){    
    /* var charge = stripe.charges.create({
-        amount: 400,
+        amount: 700,
         currency: "usd",
         capture: false,
         description: req.body.description,
@@ -58,7 +58,7 @@ router.post('/captureCharge', function(req, res, next){
 
 function transferFunds(charge, account, res){
     stripe.transfers.create({
-        amount: 250,
+        amount: 500,
         currency: "usd",
         source_transaction: charge,
         destination: account,
