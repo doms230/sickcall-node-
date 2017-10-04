@@ -27,6 +27,7 @@ var posts = require('./routes/posts');
 var notifications = require('./routes/notifications');
 var webhooks = require('./routes/webhooks');
 var signup = require('./routes/signup');
+var nurses = require('./routes/nurses');
 
 var app = express();
 var api = new ParseServer({
@@ -137,6 +138,7 @@ app.use('/posts', posts);
 app.use('/webhooks', webhooks);
 app.use('/advisor', advisor);
 app.use('/signup', signup);
+app.use('/nurse', nurses);
 //scripts
 
 /*app.use(cookieSession({

@@ -22,8 +22,8 @@ router.get('/', function(req, res, next) {
 router.post('/assignQuestion', function(req, res, next){
     res.sendStatus(200);
     var postObjectId = req.body.id;
-    //assignQuestion(postObjectId, res);
-    generateAnswer(postObjectId, res);
+    assignQuestion(postObjectId, res);
+    //generateAnswer(postObjectId, res);
 });
 
 
@@ -99,7 +99,8 @@ function sendQuestion(postId, userId, res){
         useMasterKey: true,
         success: function(result) {
             console.log("userId: " + userId);
-            result.set("advisorUserId", userId);
+            //result.set("advisorUserId", userId);
+            result.set("advisorUserId", "D9W37sOaeR");
             result.save( null, {
                 success: function(gameScore) {
                     //console.log("timer started");
