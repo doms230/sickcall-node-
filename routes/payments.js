@@ -73,23 +73,21 @@ function transferFunds(charge, account, res){
 }
 
 router.post('/newAccount', function(req, res){
-    var date = new Date();
-    var timeStamp = Math.floor(date/1000);
 
     stripe.accounts.create({
         type: 'custom',
         country: 'US',
         email: req.body.email,
         legal_entity: {
-            //ssn_last_4: req.body.ssn_last_4,
+            ssn_last_4: req.body.ssn_last_4,
             personal_id_number: req.body.personal_id_number,
-           /* address:{
+            address:{
                 city: req.body.city,
                 line1: req.body.line1,
                 line2: req.body.line2,
                 postal_code: req.body.postal_code,
                 state: req.body.state
-            },*/
+            },
             "dob": {
                 day:req.body.day,
                 month: req.body.month,
@@ -113,8 +111,8 @@ router.post('/newAccount', function(req, res){
             weekly_anchor: "wednesday"
         },
         tos_acceptance: {
-            date: timeStamp,
-            ip: req.body.ip
+            date: Math.floor(Date()/1000),
+            ip: req.connection.remoteAddress
         }
 
     }, function(err, account) {
