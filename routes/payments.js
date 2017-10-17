@@ -72,7 +72,7 @@ function transferFunds(charge, account, res){
       });
 }
 
-router.get('/newAccount', function(req, res){
+router.post('/newAccount', function(req, res){
     var date = new Date();
     var timeStamp = Math.floor(date/1000);
 
@@ -81,14 +81,15 @@ router.get('/newAccount', function(req, res){
         country: 'US',
         email: req.body.email,
         legal_entity: {
-            ssn_last_4: req.body.ssn_last_4,
-            address:{
+            //ssn_last_4: req.body.ssn_last_4,
+            personal_id_number: req.body.personal_id_number,
+           /* address:{
                 city: req.body.city,
                 line1: req.body.line1,
                 line2: req.body.line2,
                 postal_code: req.body.postal_code,
                 state: req.body.state
-            },
+            },*/
             "dob": {
                 day:req.body.day,
                 month: req.body.month,
@@ -99,13 +100,21 @@ router.get('/newAccount', function(req, res){
             type: "individual"
         },
 
+        external_account:{
+            object: "bank_account",
+            account_number: req.body.account_number,
+            country: "us",
+            currency: "usd",
+            routing_number: req.body.routing_number
+        },
+
         payout_schedule: {
             interval: "weekly",
             weekly_anchor: "wednesday"
         },
         tos_acceptance: {
             date: timeStamp,
-            ip: "192.168.1.75"
+            ip: req.body.ip
         }
 
     }, function(err, account) {
