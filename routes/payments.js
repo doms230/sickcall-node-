@@ -73,7 +73,8 @@ function transferFunds(charge, account, res){
 }
 
 router.post('/newAccount', function(req, res){
-
+    var date = new Date();
+    var timeStamp = Math.floor(date/1000);
     stripe.accounts.create({
         type: 'custom',
         country: 'US',
@@ -111,7 +112,7 @@ router.post('/newAccount', function(req, res){
             weekly_anchor: "wednesday"
         },
         tos_acceptance: {
-            date: Math.floor(Date()/1000),
+            date: timeStamp,
             ip: req.connection.remoteAddress
         }
 
