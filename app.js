@@ -28,6 +28,8 @@ var notifications = require('./routes/notifications');
 var webhooks = require('./routes/webhooks');
 var signup = require('./routes/signup');
 var nurses = require('./routes/nurses');
+var ask = require('./routes/ask');
+var about = require('./routes/about');
 
 var app = express();
 var api = new ParseServer({
@@ -139,6 +141,8 @@ app.use('/webhooks', webhooks);
 app.use('/advisor', advisor);
 app.use('/signup', signup);
 app.use('/nurse', nurses);
+app.use('/ask', ask);
+app.use('/about', about);
 //scripts
 
 /*app.use(cookieSession({
