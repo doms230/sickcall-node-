@@ -30,6 +30,7 @@ var signup = require('./routes/signup');
 var nurses = require('./routes/nurses');
 var ask = require('./routes/ask');
 var about = require('./routes/about');
+var stats = require('./routes/stats');
 
 var app = express();
 var api = new ParseServer({
@@ -45,19 +46,35 @@ var api = new ParseServer({
  push: {
     ios: [
       {
-        pfx:'push.p12',
+        pfx:'push-sickcall.p12',
         passphrase: "Letscre@tE1!",
        //cert: 'pushProd.pem',
        //key: 'pushProd.pem',
-       topic: 'com.sickcall.sickcall',
+       topic: 'com.sickcallc.sickcall',
         production: true
       },
       {
-      pfx:'push.p12',
+      pfx:'push-sickcall.p12',
       passphrase: "Letscre@tE1!",
        //cert: 'pushDev.pem',
        //key:'pushDev.pem',
-        topic: 'com.sickcall.sickcall',
+        topic: 'com.sickcallc.sickcall',
+        production: false
+      },
+      {
+        pfx:'push-advisor.p12',
+        passphrase: "Letscre@tE1!",
+       //cert: 'pushProd.pem',
+       //key: 'pushProd.pem',
+       topic: 'com.sickcallc.sickcalladvisor',
+        production: true
+      },
+      {
+      pfx:'push-advisor.p12',
+      passphrase: "Letscre@tE1!",
+       //cert: 'pushDev.pem',
+       //key:'pushDev.pem',
+        topic: 'com.sickcallc.sickcalladvisor',
         production: false
       }
     ]
@@ -143,6 +160,7 @@ app.use('/signup', signup);
 app.use('/nurse', nurses);
 app.use('/ask', ask);
 app.use('/about', about);
+app.use('/stats', stats);
 //scripts
 
 /*app.use(cookieSession({
