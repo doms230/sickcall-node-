@@ -20,7 +20,7 @@ var mongoose = require('mongoose');
 var routes = require('./routes/home');
 var terms = require('./routes/terms');
 var advisor = require('./routes/advisor');
-//var iosapp = require('./routes/ios-app');
+var iosapp = require('./routes/ios-app');
 
 var payments = require('./routes/payments');
 var posts = require('./routes/posts');
@@ -31,7 +31,7 @@ var nurses = require('./routes/nurses');
 var ask = require('./routes/ask');
 var about = require('./routes/about');
 var stats = require('./routes/stats');
-
+var support = require('./routes/support');
 var app = express();
 var api = new ParseServer({
   databaseURI: 'mongodb://heroku_32hqc6pd:ft9g25jdo63tt0n4tlqogq5khl@ds139242.mlab.com:39242/heroku_32hqc6pd',
@@ -151,7 +151,7 @@ app.use('/terms', terms);
 app.use('/notifications', notifications);
 app.use('/parse', api);
 app.use('/dashboard', dashboard);
-//app.use('/app',iosapp);
+app.use('/app',iosapp);
 app.use('/payments', payments);
 app.use('/posts', posts);
 app.use('/webhooks', webhooks);
@@ -161,6 +161,7 @@ app.use('/nurse', nurses);
 app.use('/ask', ask);
 app.use('/about', about);
 app.use('/stats', stats);
+app.use('/support', support);
 //scripts
 
 /*app.use(cookieSession({

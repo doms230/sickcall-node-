@@ -11,6 +11,10 @@ router.get('/', function(req, res, next) {
     res.render('advisor',{});
 });
 
+router.get('/app', function(req, res, next){
+    res.redirect("https://itunes.apple.com/us/app/sickcall-adv/id1303793448?ls=1&mt=8");
+});
+
 
 
 module.exports = router;
