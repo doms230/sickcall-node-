@@ -15,9 +15,10 @@ router.get('/', function(req, res, next) {
     res.send("asdf");
 });
 
-router.post('/createCharge', function(req, res, next){    
-   /* var charge = stripe.charges.create({
-        amount: 700,
+router.post('/createCharge', function(req, res, next){   
+    //live  
+    var charge = stripe.charges.create({
+        amount: 1299,
         currency: "usd",
         capture: false,
         description: req.body.description,
@@ -32,8 +33,10 @@ router.post('/createCharge', function(req, res, next){
             res.send(err);
         }
         // asynchronously called
-    });*/
-    res.json({ id: "test" });
+    });
+
+    //test 
+    //res.json({ id: "test" });
 });
 
  function refundCharge(charge){
@@ -200,7 +203,7 @@ var accountId = req.body.account_Id
 });
 
 function sendNotification(user){
-    var message = "You're health concern has been answered."
+    var message = "Your Sickcall has been answered!"
 
     var query = new parse.Query(parse.Installation);
     query.equalTo('userId', user);

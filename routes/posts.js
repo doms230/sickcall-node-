@@ -22,10 +22,9 @@ router.get('/', function(req, res, next) {
 router.post('/assignQuestion', function(req, res, next){
     res.sendStatus(200);
     var postObjectId = req.body.id;
-    //assignQuestion(postObjectId, res);
-    generateAnswer(postObjectId, res);
+    assignQuestion(postObjectId, res);
+    //generateAnswer(postObjectId, res);
 });
-
 
 //generateAnswer
 function generateAnswer(postObjectId, res){
@@ -114,11 +113,10 @@ function sendQuestion(postId, userId, res){
     });
 }
 
-
 //notification
 
 function sendNotification(user){
-    var message = "Hey, you've received a new health concern. You have 5 minutes to reply."
+    var message = "You have a Sickcall!"
 
     var query = new parse.Query(parse.Installation);
     query.equalTo('userId', user);
