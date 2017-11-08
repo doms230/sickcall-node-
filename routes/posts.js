@@ -11,19 +11,27 @@ var http = require('http');
 var parse = require("parse/node").Parse;
 parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF", "bctRQbnLCvxRIHaJTkv3gqhlwSzxjiMesjx8kEwo");
 
-var CronJob = require('cron').CronJob;
-var i = 0;
+var sgMail = require('@sendgrid/mail');
+sgMail.setApiKey("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");
 
 router.get('/', function(req, res, next) {
-//startTimer();
 
 });
 
 router.post('/assignQuestion', function(req, res, next){
     res.sendStatus(200);
     var postObjectId = req.body.id;
+
     assignQuestion(postObjectId, res);
-    //generateAnswer(postObjectId, res);
+
+    //notify me of post
+    var msg = {
+        to: 'dom@sickcallhealth.com',
+        from: 'noreply@sickcallhealth.com',
+        subject: 'New Post',
+        text: 'objectId: ' + postObjectId 
+      };
+      sgMail.send(msg);
 });
 
 //generateAnswer
@@ -84,7 +92,7 @@ function assignQuestion(postObjectId, res){
         },
         error: function(error) {
             //alert("Error: " + error.code + " " + error.message);
-            res.send("Error: " + error.code + " " + error.message);
+
         }
     });
 }
