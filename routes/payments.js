@@ -12,7 +12,7 @@ var parse = require("parse/node").Parse;
 parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF", "bctRQbnLCvxRIHaJTkv3gqhlwSzxjiMesjx8kEwo");
 
 router.get('/', function(req, res, next) {
-    res.send("asdf");
+    res.json({ price: "$6.99" });
 });
 
 router.post('/createCharge', function(req, res, next){   
