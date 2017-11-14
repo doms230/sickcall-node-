@@ -13,9 +13,9 @@ parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF", "bctRQbnLCvxRIHaJTk
 
 router.get('/', function(req, res, next) {
     res.json({ 
-        booking_fee: "$1.99",
-        advisor_fee: "$5.00",
-        promo: true
+        booking_fee: 199,
+        advisor_fee: 500,
+=        promo: true
     });
 });
 
