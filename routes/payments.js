@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
     res.json({ 
         booking_fee: 199,
         advisor_fee: 500,
-=        promo: true
+        promo: true
     });
 });
 
