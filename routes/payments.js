@@ -12,13 +12,13 @@ var parse = require("parse/node").Parse;
 parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF", "bctRQbnLCvxRIHaJTkv3gqhlwSzxjiMesjx8kEwo");
 
 router.get('/', function(req, res, next) {
-    res.json({ price: "$6.99" });
+    res.json({ price: "$12.99" });
 });
 
 router.post('/createCharge', function(req, res, next){   
     //live  
     var charge = stripe.charges.create({
-        amount: 699,
+        amount: 1299,
         currency: "usd",
         capture: false,
         description: req.body.description,
