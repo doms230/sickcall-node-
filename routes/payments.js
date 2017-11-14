@@ -23,7 +23,7 @@ router.get('/', function(req, res, next) {
 router.post('/createCharge', function(req, res, next){   
     //live  
     var charge = stripe.charges.create({
-        amount: 699,
+        amount: req.body.total,
         currency: "usd",
         capture: false,
         description: req.body.description,
