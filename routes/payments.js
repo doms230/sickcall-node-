@@ -12,7 +12,11 @@ var parse = require("parse/node").Parse;
 parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF", "bctRQbnLCvxRIHaJTkv3gqhlwSzxjiMesjx8kEwo");
 
 router.get('/', function(req, res, next) {
-    res.json({ price: "$12.99" });
+    res.json({ 
+        booking_fee: "$1.99",
+        advisor_fee: "$5.00",
+        promo: true
+    });
 });
 
 router.post('/createCharge', function(req, res, next){   
