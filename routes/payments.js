@@ -47,7 +47,7 @@ router.post('/createCharge', function(req, res, next){
 
 router.post('/createTestCharge', function(req, res, next){
     //Test  
-    var charge = stripe.charges.create({
+    var charge = testStripe.charges.create({
         amount: req.body.total,
         currency: "usd",
         capture: true,
