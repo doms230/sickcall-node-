@@ -7,6 +7,7 @@ var router = express.Router();
 var http = require('http');
 
 var stripe = require("stripe")("sk_live_i757TXWOABq1CfpbtQVsZZAv");
+var testStripe = require("stripe")("sk_test_XjgzLWe3uty249H9iZ6YtzId");
 
 var parse = require("parse/node").Parse;
 parse.initialize("O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF", "bctRQbnLCvxRIHaJTkv3gqhlwSzxjiMesjx8kEwo");
@@ -42,6 +43,28 @@ router.post('/createCharge', function(req, res, next){
 
     //test 
     //res.json({ id: "test" });
+});
+
+router.post('/createTestCharge', function(req, res, next){
+    //Test  
+    var charge = stripe.charges.create({
+        amount: req.body.total,
+        currency: "usd",
+        capture: true,
+        description: req.body.description,
+        source: req.body.token,
+      //  customer: req.body.customer,
+        receipt_email: req.body.email
+    }, function(err, charge) {
+        if (err == null){
+            //success
+            res.send(charge);
+        } else {
+            res.send(err);
+        }
+        // asynchronously called
+    });
+
 });
 
  function refundCharge(charge){
