@@ -34,10 +34,10 @@ var stats = require('./routes/stats');
 var support = require('./routes/support');
 var app = express();
 var api = new ParseServer({
-  databaseURI: 'mongodb://heroku_32hqc6pd:ft9g25jdo63tt0n4tlqogq5khl@ds139242.mlab.com:39242/heroku_32hqc6pd',
-  appId: 'O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF',
-  masterKey: 'lykNp62jc700RfU3EOr0WRe8ZCZJ4kiD4ZI4FRaZ', // Keep this key secret!
-  fileKey: '20137ff7-4160-41ee-bc18-1c2bf416e433',
+  databaseURI: [Database URI],
+  appId: [App id],
+  masterKey: [master key], // Keep this key secret!
+  fileKey: [file key],
   serverURL: 'https://celecare.herokuapp.com/parse',
   //serverURL: 'http://localhost:5000/parse',
   liveQuery: {
@@ -47,7 +47,7 @@ var api = new ParseServer({
     ios: [
       {
         pfx:'push-sickcall.p12',
-        passphrase: "Letscre@tE1!",
+        passphrase:[password],
        //cert: 'pushProd.pem',
        //key: 'pushProd.pem',
        topic: 'com.sickcallc.sickcall',
@@ -55,7 +55,7 @@ var api = new ParseServer({
       },
       {
       pfx:'push-sickcall.p12',
-      passphrase: "Letscre@tE1!",
+      passphrase: [password],
        //cert: 'pushDev.pem',
        //key:'pushDev.pem',
         topic: 'com.sickcallc.sickcall',
@@ -63,7 +63,7 @@ var api = new ParseServer({
       },
       {
         pfx:'push-advisor.p12',
-        passphrase: "Letscre@tE1!",
+        passphrase:[password],
        //cert: 'pushProd.pem',
        //key: 'pushProd.pem',
        topic: 'com.sickcallc.sickcalladvisor',
@@ -71,7 +71,7 @@ var api = new ParseServer({
       },
       {
       pfx:'push-advisor.p12',
-      passphrase: "Letscre@tE1!",
+      passphrase: [password],
        //cert: 'pushDev.pem',
        //key:'pushDev.pem',
         topic: 'com.sickcallc.sickcalladvisor',
@@ -95,7 +95,7 @@ var api = new ParseServer({
       // Your domain from mailgun.com
       domain: 'reset.sickcallhealth.com',
       // Your API key from mailgun.com
-      apiKey: 'key-931116e92b651622b653efef865d7a66'
+      apiKey: [api-key]
     }
   }/*,
     passwordPolicy: {
@@ -116,8 +116,8 @@ var dashboard = new ParseDashboard({
   "apps": [{
     "serverURL": 'https://celecare.herokuapp.com/parse', // Not localhost
    //"serverURL": 'http://localhost:5000/parse',
-    "appId": 'O9M9IE9aXxHHaKmA21FpQ1SR26EdP2rf4obYxzBF',
-    "masterKey": 'lykNp62jc700RfU3EOr0WRe8ZCZJ4kiD4ZI4FRaZ',
+    "appId": [app id],
+    "masterKey": [master key],
     "appName": "Sickcall",
     "production": true,
     "iconName": "1080-noback.png"
@@ -125,7 +125,7 @@ var dashboard = new ParseDashboard({
   "users": [
     {
       "user":"d_innovator",
-      "pass":"Letscre@tE1!"
+      "pass":[password]
     }
   ],
   "iconsFolder": "./public/images/",
