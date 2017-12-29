@@ -2,10 +2,10 @@ var express = require('express');
 var router = express.Router();
 var http = require('http');
 
-var stripe = require("stripe")("sk_test_XjgzLWe3uty249H9iZ6YtzId");
+var stripe = require("stripe")([]);
 
 const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey("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");
+sgMail.setApiKey([]);
 
 var event_json; 
 var subject; 
